@@ -33,12 +33,12 @@ public class AspectLogger {
         String args = Arrays.stream(joinPoint.getArgs())
                 .map(Object::toString)
                 .collect(Collectors.joining(","));
-        LOGGER.error("Входящие параметры: " + joinPoint.toString() + ", args=[" + args + "]");
+        LOGGER.debug("Входящие параметры: " + joinPoint.toString() + ", args=[" + args + "]");
     }
 
     @AfterReturning(pointcut = "allLogService() || allLogRest()", returning = "ret")
     private void afterLog(Object ret) {
-        LOGGER.error("Возвращаемое значение: " + ret);
+        LOGGER.debug("Возвращаемое значение: " + ret);
     }
 
 }

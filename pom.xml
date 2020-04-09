@@ -21,7 +21,6 @@
 
 	<dependencies>
 		<!-- Spring AOP + AspectJ -->
-
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>

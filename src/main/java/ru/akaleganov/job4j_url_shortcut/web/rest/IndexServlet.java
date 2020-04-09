@@ -15,9 +15,8 @@ import java.io.IOException;
 public class IndexServlet {
 
     @GetMapping(value = "/")
-    public void getIndex(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("нихуя");
-        req.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(req, resp);
+    public String getIndex(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+       return "index";
     }
 
 }
