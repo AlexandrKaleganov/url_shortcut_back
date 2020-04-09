@@ -3,8 +3,8 @@ package ru.akaleganov.job4j_url_shortcut.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ru.akaleganov.contractsystem.domain.Users;
-import ru.akaleganov.contractsystem.repository.UsersRepository;
+import ru.akaleganov.job4j_url_shortcut.domain.Users;
+import ru.akaleganov.job4j_url_shortcut.repository.UsersRepository;
 
 @Service
 public class UsersService {
