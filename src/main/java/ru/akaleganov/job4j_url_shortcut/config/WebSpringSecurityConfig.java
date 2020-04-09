@@ -15,21 +15,16 @@ public class WebSpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers().permitAll()
+                http
+            .authorizeRequests()
+                .antMatchers("/", "/home").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/", true)
-                .permitAll()
+                .loginPage("/login").permitAll()
                 .and()
-                .logout().logoutUrl("/logout")
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/login?logout")
-                .permitAll()
-                .and().csrf().disable();
+                .logout()
+                .permitAll();
     }
 
 //    /**

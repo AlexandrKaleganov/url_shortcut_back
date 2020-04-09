@@ -15,7 +15,7 @@
                 separator=";"
                 tableName="roles">
             <column name="id" type="numeric"/>
-            <column name="role" type="string"/>
+            <column name="name" type="string"/>
         </loadData>
     </changeSet>
     <!--    создаём пользователей-->
@@ -25,10 +25,21 @@
                 separator=";"
                 tableName="users">
             <column name="id" type="numeric"/>
-            <column name="name" type="string"/>
-            <column name="login" type="string"/>
-            <column name="password" type="string"/>
-            <column name="role_id" type="numeric"/>
+            <column name="login" type="STRING"/>
+            <column name="lastName" type="STRING"/>
+            <column name="firstName" type="STRING"/>
+            <column name="middleName" type="STRING"/>
+            <column name="pwd" type="STRING"/>
+        </loadData>
+    </changeSet>
+    <!--    заполняем роли стартовым пользователям-->
+    <changeSet id="2-2" author="admin">
+        <loadData
+                file="db/users_roles.csv"
+                separator=";"
+                tableName="users_roles">
+            <column name="users_id" type="numeric"/>
+            <column name="roles_id" type="numeric"/>
         </loadData>
     </changeSet>
 </databaseChangeLog>

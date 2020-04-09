@@ -12,7 +12,7 @@
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="role" type="VARCHAR(255)">
+            <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -20,23 +20,26 @@
             <dropTable tableName="roles"/>
         </rollback>
     </changeSet>
-
     <changeSet author="admin" id="1-1">
 <!--        создаём таблицу пльзователей-->
         <createTable tableName="users">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
+
             <column name="login" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="password" type="VARCHAR(255)">
+            <column name="lastName" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="role_id" type="bigint" >
+            <column name="firstName" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="middleName" type="VARCHAR(255)" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="pwd" type="VARCHAR(255)" >
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -44,5 +47,20 @@
             <dropTable tableName="users"/>
         </rollback>
     </changeSet>
-
+<!--    таблица связи пользователей и ролей-->
+    <changeSet author="admin" id="1-3">
+        <createTable tableName="users_roles">
+            <column name="users_id" type="bigint">
+            </column>
+            <column name="roles_id" type="bigint">
+            </column>
+        </createTable>
+        <addUniqueConstraint
+                columnNames="users_id, roles_id"
+                constraintName="users_roles"
+                tableName="users_roles"/>
+        <rollback>
+            <dropTable tableName="users_roles"/>
+        </rollback>
+    </changeSet>
 </databaseChangeLog>
