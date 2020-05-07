@@ -1,6 +1,7 @@
 package ru.akaleganov.job4j_url_shortcut.config;
 
 import liquibase.integration.spring.SpringLiquibase;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;

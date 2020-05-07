@@ -22,6 +22,7 @@ public class AspectLogger {
     @Pointcut("execution(* ru.akaleganov.job4j_url_shortcut.service.*.*(..))")
     private void allLogService() {
     }
+
     @Pointcut("execution(* ru.akaleganov.job4j_url_shortcut.web.rest.*.*(..))")
     private void allLogRest() {
     }

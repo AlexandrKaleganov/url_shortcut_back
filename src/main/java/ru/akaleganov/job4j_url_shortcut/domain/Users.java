@@ -1,11 +1,16 @@
 package ru.akaleganov.job4j_url_shortcut.domain;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Entity(name = "users")
-public class Users extends AllMappedClass {
+public class Users extends AllMappedClass implements UserDetails {
     @Column(name = "login")
     private String login;
     @Column(name = "lastName")
@@ -20,6 +25,7 @@ public class Users extends AllMappedClass {
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private List<Roles> roles = new ArrayList<>();
+
     public String getLogin() {
         return login;
     }
@@ -66,5 +72,71 @@ public class Users extends AllMappedClass {
 
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
+    }
+
+
+    @Override
+    public Collection<GrantedAuthority> getAuthorities() {
+        return new ArrayList<>(getRoles());
+    }
+
+    @Override
+    public String getPassword() {
+        return getPwd();
+    }
+
+    @Override
+    public String getUsername() {
+        return getLogin();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Users users = (Users) o;
+        return Objects.equals(login, users.login) &&
+                Objects.equals(lastName, users.lastName) &&
+                Objects.equals(firstName, users.firstName) &&
+                Objects.equals(middleName, users.middleName) &&
+                Objects.equals(pwd, users.pwd) &&
+                Objects.equals(roles, users.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(login, lastName, firstName, middleName, pwd, roles);
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "login='" + login + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }
