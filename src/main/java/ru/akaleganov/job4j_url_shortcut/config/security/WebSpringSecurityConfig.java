@@ -18,8 +18,6 @@ import ru.akaleganov.job4j_url_shortcut.config.security.jwt.JwtAuthenticationFil
 @Configuration
 @EnableWebSecurity
 public class WebSpringSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private UsersDetailServiceCustom usersDetailServiceCustom;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -30,7 +28,7 @@ public class WebSpringSecurityConfig extends WebSecurityConfigurerAdapter {
      * @return {@link UsersDetailServiceCustom}  вернёт реализацию  интерфейса {@link UserDetailsService}
      */
     @Bean
-    public UsersDetailServiceCustom getUserDetailService() {
+    public UsersDetailServiceCustom getUsersDetailServiceCustom() {
         return new UsersDetailServiceCustom();
     }
 
@@ -44,9 +42,13 @@ public class WebSpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Autowired
-    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(this.getUserDetailService()).passwordEncoder(bCryptPasswordEncoder());
+    /**
+     * @param auth аутентификацию пользователей
+     * @throws Exception возможное исключение (к примеру пользователь не найден)
+     */
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(this.getUsersDetailServiceCustom()).passwordEncoder(this.bCryptPasswordEncoder());
     }
 
     @Bean
@@ -59,7 +61,8 @@ public class WebSpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/authenticate").permitAll()
+                .antMatchers("/api/auth").permitAll()
+                .antMatchers("/api/auth/registry").permitAll()
 //                    .and().authorizeRequests().antMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
 //                    .and().authorizeRequests().antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

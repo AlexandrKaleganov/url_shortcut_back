@@ -30,14 +30,14 @@
             <column name="login" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="lastName" type="VARCHAR(255)">
-                <constraints nullable="false"/>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="true"/>
             </column>
-            <column name="firstName" type="VARCHAR(255)">
-                <constraints nullable="false"/>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="true"/>
             </column>
-            <column name="middleName" type="VARCHAR(255)" >
-                <constraints nullable="false"/>
+            <column name="middle_name" type="VARCHAR(255)" >
+                <constraints nullable="true"/>
             </column>
             <column name="pwd" type="VARCHAR(255)" >
                 <constraints nullable="false"/>

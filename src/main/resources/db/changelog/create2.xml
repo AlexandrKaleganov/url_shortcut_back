@@ -26,9 +26,9 @@
                 tableName="users">
             <column name="id" type="numeric"/>
             <column name="login" type="STRING"/>
-            <column name="lastName" type="STRING"/>
-            <column name="firstName" type="STRING"/>
-            <column name="middleName" type="STRING"/>
+            <column name="last_name" type="STRING"/>
+            <column name="first_name" type="STRING"/>
+            <column name="middle_name" type="STRING"/>
             <column name="pwd" type="STRING"/>
         </loadData>
     </changeSet>

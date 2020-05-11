@@ -13,11 +13,11 @@ import java.util.Objects;
 public class Users extends MappedSuperClass implements UserDetails {
     @Column(name = "login")
     private String login;
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "middleName")
+    @Column(name = "middle_name")
     private String middleName;
     @Column(name = "pwd")
     private String pwd;
@@ -32,10 +32,10 @@ public class Users extends MappedSuperClass implements UserDetails {
         this.url = url;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
-    private List<Roles> roles = new ArrayList<>();
+    private List<Roles> roles;
 
     public String getLogin() {
         return login;
@@ -147,6 +147,7 @@ public class Users extends MappedSuperClass implements UserDetails {
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", pwd='" + pwd + '\'' +
+                ", url='" + url + '\'' +
                 ", roles=" + roles +
                 '}';
     }

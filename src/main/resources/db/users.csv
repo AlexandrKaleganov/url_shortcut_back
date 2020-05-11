@@ -1,4 +1,4 @@
-id;login;lastName;firstName;middleName;pwd
+id;login;last_name;first_name;middle_name;pwd
 1;admin;admin;admin;admin;$2a$10$jQB2bhTlYyBIhjVL85nGcebR.btSaZvJ.o2YmTwTsF7ibX3GVh1aW
 2;root;root;root;root;$2a$10$SsQYs4uRaLcK8wQBGGMvN.iRpLiDSTF/XCABEKk.rtxJWMaxjVf7C
 3;user;user;user;user;$2a$10$D8yxNMRDXfqgfbnNYXarGOMUWHa7YKnY8WCW9qWd//1Wzu5n0jVbe

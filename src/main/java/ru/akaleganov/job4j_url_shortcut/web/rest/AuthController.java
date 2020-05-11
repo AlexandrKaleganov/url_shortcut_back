@@ -38,7 +38,7 @@ public class AuthController {
         this.usersService = usersService;
     }
 
-    @PostMapping("/authenticate")
+    @PostMapping("/auth")
     public ResponseEntity<AuthTokenResponseDTO> register(@RequestBody Users loginUser) {
         LOGGER.debug("SIGN IN REQUEST:");
         LOGGER.debug(loginUser.toString());
@@ -55,7 +55,7 @@ public class AuthController {
         return ResponseEntity.ok(this.authTokenResponseMapper.toDTO(token, user));
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/auth/registry")
     public ResponseEntity<UsersDTO> saveUser(@RequestBody String url) {
         return ResponseEntity.ok(this.usersService.create(url));
     }

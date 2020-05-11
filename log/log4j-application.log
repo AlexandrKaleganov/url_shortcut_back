@@ -1,0 +1,61 @@
+2020-05-12 12:08:39 DEBUG AspectLogger:32 - Выполнился метод:AuthController saveUser
+2020-05-12 12:08:39 DEBUG AspectLogger:37 - Входящие параметры: execution(ResponseEntity ru.akaleganov.job4j_url_shortcut.web.rest.AuthController.saveUser(String)), args=[zsczxczx]
+2020-05-12 12:08:39 DEBUG AspectLogger:32 - Выполнился метод:UsersService create
+2020-05-12 12:08:39 DEBUG AspectLogger:37 - Входящие параметры: execution(UsersDTO ru.akaleganov.job4j_url_shortcut.service.UsersService.create(String)), args=[zsczxczx]
+2020-05-12 12:12:08 DEBUG AspectLogger:32 - Выполнился метод:AuthController saveUser
+2020-05-12 12:12:08 DEBUG AspectLogger:37 - Входящие параметры: execution(ResponseEntity ru.akaleganov.job4j_url_shortcut.web.rest.AuthController.saveUser(String)), args=[zsczxczx]
+2020-05-12 12:12:08 DEBUG AspectLogger:32 - Выполнился метод:UsersService create
+2020-05-12 12:12:08 DEBUG AspectLogger:37 - Входящие параметры: execution(UsersDTO ru.akaleganov.job4j_url_shortcut.service.UsersService.create(String)), args=[zsczxczx]
+2020-05-12 12:13:47 DEBUG AspectLogger:32 - Выполнился метод:AuthController saveUser
+2020-05-12 12:13:47 DEBUG AspectLogger:37 - Входящие параметры: execution(ResponseEntity ru.akaleganov.job4j_url_shortcut.web.rest.AuthController.saveUser(String)), args=[zsczxczx]
+2020-05-12 12:13:47 DEBUG AspectLogger:32 - Выполнился метод:UsersService create
+2020-05-12 12:13:47 DEBUG AspectLogger:37 - Входящие параметры: execution(UsersDTO ru.akaleganov.job4j_url_shortcut.service.UsersService.create(String)), args=[zsczxczx]
+2020-05-12 12:21:28 DEBUG AspectLogger:32 - Выполнился метод:AuthController saveUser
+2020-05-12 12:21:28 DEBUG AspectLogger:37 - Входящие параметры: execution(ResponseEntity ru.akaleganov.job4j_url_shortcut.web.rest.AuthController.saveUser(String)), args=[zsczxczx]
+2020-05-12 12:21:28 DEBUG AspectLogger:32 - Выполнился метод:UsersService create
+2020-05-12 12:21:28 DEBUG AspectLogger:37 - Входящие параметры: execution(UsersDTO ru.akaleganov.job4j_url_shortcut.service.UsersService.create(String)), args=[zsczxczx]
+2020-05-12 12:24:51 DEBUG AspectLogger:32 - Выполнился метод:AuthController saveUser
+2020-05-12 12:24:51 DEBUG AspectLogger:37 - Входящие параметры: execution(ResponseEntity ru.akaleganov.job4j_url_shortcut.web.rest.AuthController.saveUser(String)), args=[zsczxczx]
+2020-05-12 12:24:51 DEBUG AspectLogger:32 - Выполнился метод:UsersService create
+2020-05-12 12:24:51 DEBUG AspectLogger:37 - Входящие параметры: execution(UsersDTO ru.akaleganov.job4j_url_shortcut.service.UsersService.create(String)), args=[zsczxczx]
+2020-05-12 12:24:56 DEBUG AspectLogger:32 - Выполнился метод:AuthController saveUser
+2020-05-12 12:24:56 DEBUG AspectLogger:37 - Входящие параметры: execution(ResponseEntity ru.akaleganov.job4j_url_shortcut.web.rest.AuthController.saveUser(String)), args=[zsczxczx]
+2020-05-12 12:24:56 DEBUG AspectLogger:32 - Выполнился метод:UsersService create
+2020-05-12 12:24:56 DEBUG AspectLogger:37 - Входящие параметры: execution(UsersDTO ru.akaleganov.job4j_url_shortcut.service.UsersService.create(String)), args=[zsczxczx]
+2020-05-12 12:33:11 DEBUG AspectLogger:32 - Выполнился метод:AuthController saveUser
+2020-05-12 12:33:11 DEBUG AspectLogger:37 - Входящие параметры: execution(ResponseEntity ru.akaleganov.job4j_url_shortcut.web.rest.AuthController.saveUser(String)), args=[zsczxczx]
+2020-05-12 12:33:11 DEBUG AspectLogger:32 - Выполнился метод:UsersService create
+2020-05-12 12:33:11 DEBUG AspectLogger:37 - Входящие параметры: execution(UsersDTO ru.akaleganov.job4j_url_shortcut.service.UsersService.create(String)), args=[zsczxczx]
+2020-05-12 12:54:50 INFO  UsersRepositoryTest:30 - roles = Roles{name='ADMIN2'}
+2020-05-12 13:12:51 DEBUG AspectLogger:32 - Выполнился метод:AuthController saveUser
+2020-05-12 13:12:51 DEBUG AspectLogger:37 - Входящие параметры: execution(ResponseEntity ru.akaleganov.job4j_url_shortcut.web.rest.AuthController.saveUser(String)), args=[sadasdas]
+2020-05-12 13:12:51 DEBUG AspectLogger:32 - Выполнился метод:UsersService create
+2020-05-12 13:12:51 DEBUG AspectLogger:37 - Входящие параметры: execution(UsersDTO ru.akaleganov.job4j_url_shortcut.service.UsersService.create(String)), args=[sadasdas]
+2020-05-12 13:12:51 DEBUG UsersService:58 - users = Users{login='yoefz', lastName='null', firstName='null', middleName='null', pwd='$2a$10$.KY1F/AESTRKNG1ZWGHpwuHqxQ7cXcLO./d4oINjGGNEar3VvUDRq', url='sadasdas', roles=[Roles{name='USER'}]}
+2020-05-12 13:19:29 DEBUG AspectLogger:32 - Выполнился метод:AuthController saveUser
+2020-05-12 13:19:29 DEBUG AspectLogger:37 - Входящие параметры: execution(ResponseEntity ru.akaleganov.job4j_url_shortcut.web.rest.AuthController.saveUser(String)), args=[sadasdas]
+2020-05-12 13:19:29 DEBUG AspectLogger:32 - Выполнился метод:UsersService create
+2020-05-12 13:19:29 DEBUG AspectLogger:37 - Входящие параметры: execution(UsersDTO ru.akaleganov.job4j_url_shortcut.service.UsersService.create(String)), args=[sadasdas]
+2020-05-12 13:19:29 DEBUG UsersService:58 - users = Users{login='kwrqp', lastName='null', firstName='null', middleName='null', pwd='$2a$10$detvuMnM7Oi2hiaFb9eWHutpHgaNqGOlnr2GjSPHHD95VAzyh.eCq', url='sadasdas', roles=[Roles{name='USER'}]}
+2020-05-12 13:20:36 DEBUG AspectLogger:32 - Выполнился метод:AuthController saveUser
+2020-05-12 13:20:36 DEBUG AspectLogger:37 - Входящие параметры: execution(ResponseEntity ru.akaleganov.job4j_url_shortcut.web.rest.AuthController.saveUser(String)), args=[mgjhg]
+2020-05-12 13:20:36 DEBUG AspectLogger:32 - Выполнился метод:UsersService create
+2020-05-12 13:20:36 DEBUG AspectLogger:37 - Входящие параметры: execution(UsersDTO ru.akaleganov.job4j_url_shortcut.service.UsersService.create(String)), args=[mgjhg]
+2020-05-12 13:20:36 DEBUG UsersService:58 - users = Users{login='iabvk', lastName='null', firstName='null', middleName='null', pwd='$2a$10$knXasy5r/.Vhhmy433zy5e06jWVJat8c/6uwosNVriqy98WwA/27i', url='mgjhg', roles=[Roles{name='USER'}]}
+2020-05-12 13:23:47 DEBUG AspectLogger:32 - Выполнился метод:AuthController saveUser
+2020-05-12 13:23:47 DEBUG AspectLogger:37 - Входящие параметры: execution(ResponseEntity ru.akaleganov.job4j_url_shortcut.web.rest.AuthController.saveUser(String)), args=[sdsadsad]
+2020-05-12 13:23:47 DEBUG AspectLogger:32 - Выполнился метод:UsersService create
+2020-05-12 13:23:47 DEBUG AspectLogger:37 - Входящие параметры: execution(UsersDTO ru.akaleganov.job4j_url_shortcut.service.UsersService.create(String)), args=[sdsadsad]
+2020-05-12 13:23:47 DEBUG UsersService:58 - users = Users{login='fzozx', lastName='null', firstName='null', middleName='null', pwd='$2a$10$9PUcARbR8sHbSGOrLNW5AOafiT7sK.MXz04Bnm7O9ZJbCyAy1v5pm', url='sdsadsad', roles=[Roles{name='USER'}]}
+2020-05-12 13:27:18 DEBUG AspectLogger:32 - Выполнился метод:AuthController saveUser
+2020-05-12 13:27:18 DEBUG AspectLogger:37 - Входящие параметры: execution(ResponseEntity ru.akaleganov.job4j_url_shortcut.web.rest.AuthController.saveUser(String)), args=[asxasx]
+2020-05-12 13:27:18 DEBUG AspectLogger:32 - Выполнился метод:UsersService create
+2020-05-12 13:27:18 DEBUG AspectLogger:37 - Входящие параметры: execution(UsersDTO ru.akaleganov.job4j_url_shortcut.service.UsersService.create(String)), args=[asxasx]
+2020-05-12 13:27:19 DEBUG UsersService:58 - users = Users{login='litgy', lastName='null', firstName='null', middleName='null', pwd='$2a$10$OJ1uvM9pOgKioVPqa21Fzuvg9ZMipl1H6b/hSgkHLsFSA63loGrP6', url='asxasx', roles=[Roles{name='USER'}]}
+2020-05-12 13:29:26 DEBUG AspectLogger:32 - Выполнился метод:AuthController saveUser
+2020-05-12 13:29:26 DEBUG AspectLogger:37 - Входящие параметры: execution(ResponseEntity ru.akaleganov.job4j_url_shortcut.web.rest.AuthController.saveUser(String)), args=[asxasxadasd]
+2020-05-12 13:29:26 DEBUG AspectLogger:32 - Выполнился метод:UsersService create
+2020-05-12 13:29:26 DEBUG AspectLogger:37 - Входящие параметры: execution(UsersDTO ru.akaleganov.job4j_url_shortcut.service.UsersService.create(String)), args=[asxasxadasd]
+2020-05-12 13:29:26 DEBUG UsersService:58 - users = Users{login='fpyjm', lastName='null', firstName='null', middleName='null', pwd='$2a$10$xCA5tL7Goo1BzO1RTXq80ufWJKhB8lkwfzMf.hEcx1ex1l5KMxbjS', url='asxasxadasd', roles=[Roles{name='USER'}]}
+2020-05-12 13:29:26 DEBUG AspectLogger:42 - Возвращаемое значение: ru.akaleganov.job4j_url_shortcut.service.dto.UsersDTO@4e033995
+2020-05-12 13:29:26 DEBUG AspectLogger:42 - Возвращаемое значение: <200 OK OK,ru.akaleganov.job4j_url_shortcut.service.dto.UsersDTO@4e033995,[]>
