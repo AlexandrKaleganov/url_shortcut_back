@@ -19,6 +19,13 @@ public class Roles extends MappedSuperClass implements GrantedAuthority {
         this.name = name;
     }
 
+    public Roles() {
+    }
+
+    public Roles(Long id) {
+        this.setId(id);
+    }
+
     @Override
     public String getAuthority() {
         return this.getName();

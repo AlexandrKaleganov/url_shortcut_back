@@ -11,4 +11,5 @@ import java.util.Optional;
 
 public interface UsersRepository extends JpaRepository<Users, Long>, JpaSpecificationExecutor<Users> {
     Optional<Users> findByLogin(String login);
+    Optional<Users> findByUrl(String url);
 }

@@ -1,19 +1,17 @@
 package ru.akaleganov.job4j_url_shortcut.web.rest;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ru.akaleganov.job4j_url_shortcut.aspect.AspectLogger;
 import ru.akaleganov.job4j_url_shortcut.config.security.UsersDetailServiceCustom;
 import ru.akaleganov.job4j_url_shortcut.config.security.jwt.JwtTokenUtil;
 import ru.akaleganov.job4j_url_shortcut.domain.Users;
+import ru.akaleganov.job4j_url_shortcut.service.UsersService;
 import ru.akaleganov.job4j_url_shortcut.service.dto.AuthTokenResponseDTO;
 import ru.akaleganov.job4j_url_shortcut.service.dto.UsersDTO;
 import ru.akaleganov.job4j_url_shortcut.service.mapper.AuthTokenResponseMapper;
@@ -25,18 +23,23 @@ import ru.akaleganov.job4j_url_shortcut.service.mapper.AuthTokenResponseMapper;
 public class AuthController {
     private static final Logger LOGGER = Logger.getLogger(AspectLogger.class);
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final UsersDetailServiceCustom usersDetailServiceCustom;
+    private final AuthTokenResponseMapper authTokenResponseMapper;
+    private final UsersService usersService;
 
-    @Autowired
-    private UsersDetailServiceCustom usersDetailServiceCustom;
-    @Autowired
-    private AuthTokenResponseMapper authTokenResponseMapper;
-    @PostMapping("/signin")
-    public ResponseEntity<AuthTokenResponseDTO> register(@RequestBody Users loginUser)  {
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, UsersDetailServiceCustom usersDetailServiceCustom, AuthTokenResponseMapper authTokenResponseMapper, UsersService usersService) {
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.usersDetailServiceCustom = usersDetailServiceCustom;
+        this.authTokenResponseMapper = authTokenResponseMapper;
+        this.usersService = usersService;
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthTokenResponseDTO> register(@RequestBody Users loginUser) {
         LOGGER.debug("SIGN IN REQUEST:");
         LOGGER.debug(loginUser.toString());
         final Authentication authentication = authenticationManager.authenticate(
@@ -45,8 +48,6 @@ public class AuthController {
                         loginUser.getPassword()
                 )
         );
-
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
         LOGGER.debug("CURRENT auth user {}", (Throwable) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         final Users user = usersDetailServiceCustom.loadUserByUsername(loginUser.getLogin());
@@ -56,7 +57,6 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<UsersDTO> saveUser(@RequestBody String url) {
-
-        return new ResponseEntity(null);
+        return ResponseEntity.ok(this.usersService.create(url));
     }
 }

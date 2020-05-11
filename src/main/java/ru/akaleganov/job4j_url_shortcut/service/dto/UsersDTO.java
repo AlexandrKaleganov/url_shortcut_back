@@ -5,7 +5,6 @@ import ru.akaleganov.job4j_url_shortcut.domain.Users;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * ДТО для ответа и для изменений данных пользователя
@@ -17,6 +16,8 @@ public class UsersDTO {
     private String firstName;
     private String middleName;
     private String pwd;
+    private String url;
+
     private List<Roles> roles = new ArrayList<>();
 
     public UsersDTO(Users users) {
@@ -24,7 +25,19 @@ public class UsersDTO {
         this.lastName = users.getLastName();
         this.firstName = users.getFirstName();
         this.middleName = users.getLastName();
+        this.url = users.getUrl();
         this.roles = users.getRoles();
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public UsersDTO() {
     }
 
     public Long getId() {

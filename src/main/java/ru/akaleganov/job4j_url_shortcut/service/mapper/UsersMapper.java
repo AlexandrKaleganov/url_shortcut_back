@@ -28,11 +28,11 @@ public class UsersMapper {
     public List<Users> UsersDTOsToUsers(List<UsersDTO> UsersDTOs) {
         return UsersDTOs.stream()
                 .filter(Objects::nonNull)
-                .map(this::UsersDTOToUser)
+                .map(this::usersDTOToUser)
                 .collect(Collectors.toList());
     }
 
-    public Users UsersDTOToUser(UsersDTO usersDTO) {
+    public Users usersDTOToUser(UsersDTO usersDTO) {
         if (usersDTO == null) {
             return null;
         } else {
@@ -43,6 +43,7 @@ public class UsersMapper {
             user.setMiddleName(usersDTO.getMiddleName());
             user.setLastName(usersDTO.getLastName());
             user.setRoles(usersDTO.getRoles());
+            user.setUrl(usersDTO.getUrl());
             return user;
         }
     }
