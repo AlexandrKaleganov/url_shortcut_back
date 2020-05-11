@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import java.util.Objects;
 
 @Entity(name = "roles")
-public class Roles extends AllMappedClass implements GrantedAuthority {
+public class Roles extends MappedSuperClass implements GrantedAuthority {
     @Column(name = "name")
     private String name;
 

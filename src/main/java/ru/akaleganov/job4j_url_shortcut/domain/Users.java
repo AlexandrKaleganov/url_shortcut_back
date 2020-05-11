@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "users")
-public class Users extends AllMappedClass implements UserDetails {
+public class Users extends MappedSuperClass implements UserDetails {
     @Column(name = "login")
     private String login;
     @Column(name = "lastName")
@@ -21,6 +21,17 @@ public class Users extends AllMappedClass implements UserDetails {
     private String middleName;
     @Column(name = "pwd")
     private String pwd;
+    @Column(name = "url")
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))

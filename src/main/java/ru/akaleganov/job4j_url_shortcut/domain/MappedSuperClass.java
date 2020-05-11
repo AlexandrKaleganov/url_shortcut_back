@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class AllMappedClass {
+public class MappedSuperClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
@@ -19,7 +19,7 @@ public class AllMappedClass {
         this.id = id;
     }
 
-    public AllMappedClass() {
+    public MappedSuperClass() {
     }
 }
 

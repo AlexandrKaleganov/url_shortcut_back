@@ -16,16 +16,6 @@ import javax.sql.DataSource;
 @EnableWebMvc
 @Configuration
 public class SpringWebConfig implements WebMvcConfigurer {
-    /* Liquibase */
-    @Bean
-    public SpringLiquibase liquibase(DataSource dataSource) {
-        SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setDataSource(dataSource);
-        liquibase.setChangeLog("classpath:db/changelog-master.xml");
-        liquibase.setContexts("dev, prod");
-        liquibase.setShouldRun(true);
-        return liquibase;
-    }
 
     /**
      * регистрируем путь к ресурсам
@@ -45,6 +35,15 @@ public class SpringWebConfig implements WebMvcConfigurer {
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
+    @Bean
+    public SpringLiquibase liquibase(DataSource dataSource) {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setDataSource(dataSource);
+        liquibase.setChangeLog("classpath:db/changelog-master.xml");
+        liquibase.setContexts("dev, prod");
+        liquibase.setShouldRun(true);
+        return liquibase;
+    }
 
     /**
      * @return указываем где находятся наши шаблоны
@@ -54,17 +53,17 @@ public class SpringWebConfig implements WebMvcConfigurer {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setViewClass(JstlView.class);
         viewResolver.setPrefix("/WEB-INF/views/");
-        viewResolver.setSuffix(".jsp");
+        viewResolver.setSuffix(".html");
         return viewResolver;
     }
 
-    /**
-     * регистрируем контроллер логина
-     *
-     * @param registry контроллер
-     */
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/").setViewName("home");
-    }
+//    /**
+//     * регистрируем контроллер логина
+//     *
+//     * @param registry контроллер
+//     */
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/login").setViewName("login");
+//        registry.addViewController("/").setViewName("home");
+//    }
 }
