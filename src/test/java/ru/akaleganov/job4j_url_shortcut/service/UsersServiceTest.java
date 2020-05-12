@@ -1,14 +1,34 @@
 package ru.akaleganov.job4j_url_shortcut.service;
 
+import org.hamcrest.core.Is;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
+import ru.akaleganov.job4j_url_shortcut.domain.Roles;
+import ru.akaleganov.job4j_url_shortcut.repository.RolesRepository;
+import ru.akaleganov.job4j_url_shortcut.repository.UsersRepository;
+import ru.akaleganov.job4j_url_shortcut.service.dto.UsersDTO;
 
-import java.nio.charset.Charset;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
+@DisplayName("тестирование: UsersService")
+@TestPropertySource(locations = "classpath:application-h2.properties")
+@SpringBootTest
 class UsersServiceTest {
+    @Autowired
+    UsersService usersService;
+    @Autowired
+    RolesRepository rolesRepository;
+    @Autowired
+    UsersRepository usersRepository;
+
+
     @Test
+    @DisplayName("тестирование: генерация логина")
     public void givenUsingJava8_whenGeneratingRandomAlphabeticString_thenCorrect() {
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
@@ -22,7 +42,9 @@ class UsersServiceTest {
 
         System.out.println(generatedString);
     }
+
     @Test
+    @DisplayName("тестирование: генерация паролей")
     public void givenUsingJava8_whenGeneratingRandomAlphanumericString_thenCorrect() {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
@@ -36,5 +58,15 @@ class UsersServiceTest {
                 .toString();
 
         System.out.println(generatedString);
+    }
+
+    @Test
+    @DisplayName("тестирование: добавление пользователей по  URL")
+    public void createUsersByUrl() {
+        Roles roles = new Roles(2L, "USER");
+        roles = this.rolesRepository.save(roles);
+        assertThat(roles.getId() == 2, Is.is(true));
+        UsersDTO res = this.usersService.createUsersByUrl("http://akaleganov.ru");
+        assertThat(this.rolesRepository.findById(roles.getId()).orElse(new Roles()).getName(), Is.is("USER"));
     }
 }

@@ -5,6 +5,7 @@ import ru.akaleganov.job4j_url_shortcut.domain.Users;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * ДТО для ответа и для изменений данных пользователя
@@ -94,5 +95,39 @@ public class UsersDTO {
 
     public void setRoles(List<Roles> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UsersDTO usersDTO = (UsersDTO) o;
+        return Objects.equals(id, usersDTO.id) &&
+                Objects.equals(login, usersDTO.login) &&
+                Objects.equals(lastName, usersDTO.lastName) &&
+                Objects.equals(firstName, usersDTO.firstName) &&
+                Objects.equals(middleName, usersDTO.middleName) &&
+                Objects.equals(pwd, usersDTO.pwd) &&
+                Objects.equals(url, usersDTO.url) &&
+                Objects.equals(roles, usersDTO.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, lastName, firstName, middleName, pwd, url, roles);
+    }
+
+    @Override
+    public String toString() {
+        return "UsersDTO{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", url='" + url + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

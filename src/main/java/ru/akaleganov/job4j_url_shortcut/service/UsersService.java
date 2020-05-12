@@ -13,6 +13,7 @@ import ru.akaleganov.job4j_url_shortcut.service.dto.UsersDTO;
 import ru.akaleganov.job4j_url_shortcut.service.mapper.UsersMapper;
 import ru.akaleganov.job4j_url_shortcut.service.util.RandomGeneratorLoginPass;
 
+import javax.management.relation.Role;
 import java.util.Collections;
 
 @Service
@@ -42,14 +43,19 @@ public class UsersService {
         return this.usersRepository.findAll(pageable).map(this.usersMapper::usersToUsersDTO);
     }
 
-    public UsersDTO create(String url) {
+    /**
+     * добавление пользователя по url
+     * @param url ссылка на домен, каждый пользователь может дбавить только один домен
+     * @return {@link UsersDTO}
+     */
+    public UsersDTO createUsersByUrl(String url) {
         if (this.usersRepository.findByUrl(url).isPresent()) {
             LOGGER.debug("пользователь с url " + url + " найден и  не будет добавлен в БД");
             return new UsersDTO();
         } else {
             Users users = new Users();
             users.setUrl(url);
-            users.setRoles(Collections.singletonList(this.rolesRepository.findById(2L).get()));
+            users.setRoles(Collections.singletonList(new Roles(2L)));
             users.setLogin(this.randomGeneratorLoginPass.generateLogin());
             users.setPwd(this.randomGeneratorLoginPass.generatePassword());
             UsersDTO result = this.usersMapper.usersToUsersDTO(users);

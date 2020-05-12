@@ -1,10 +1,13 @@
 package ru.akaleganov.job4j_url_shortcut.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import java.util.List;
 import java.util.Objects;
@@ -50,20 +53,10 @@ public class Roles extends MappedSuperClass implements GrantedAuthority {
         Roles roles = (Roles) o;
         return Objects.equals(name, roles.name);
     }
-    @JsonIgnore
-    @ManyToMany(mappedBy = "roles")
-    private List<Users> users;
+
     @Override
     public int hashCode() {
         return Objects.hash(name);
-    }
-
-    public List<Users> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<Users> users) {
-        this.users = users;
     }
 
     @Override
