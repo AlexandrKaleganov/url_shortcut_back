@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import ru.akaleganov.job4j_url_shortcut.aspect.AspectLogger;
 import ru.akaleganov.job4j_url_shortcut.domain.Roles;
 import ru.akaleganov.job4j_url_shortcut.domain.Users;
 

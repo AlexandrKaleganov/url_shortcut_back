@@ -66,7 +66,19 @@ class UsersServiceTest {
         Roles roles = new Roles(2L, "USER");
         roles = this.rolesRepository.save(roles);
         assertThat(roles.getId() == 2, Is.is(true));
-        UsersDTO res = this.usersService.createUsersByUrl("http://akaleganov.ru");
+        UsersDTO res = this.usersService.createUsersByUrl("akaleganov3.ru");
         assertThat(this.rolesRepository.findById(roles.getId()).orElse(new Roles()).getName(), Is.is("USER"));
+        assertThat(res.getId() != null, Is.is(true));
+        UsersDTO res2 = this.usersService.createUsersByUrl("бла бла бла");
+        assertThat(res2.getErrorMessage() , Is.is("url не прошёл валидацию"));
+    }
+    @Test
+    @DisplayName("тестирование: добавление пользователей по  URL errorMessage")
+    public void createUsersByUrlErrorOne() {
+        this.rolesRepository.save(new Roles(2L, "USER"));
+        UsersDTO res = this.usersService.createUsersByUrl("akaleganov.ru");
+        UsersDTO res2 = this.usersService.createUsersByUrl("akaleganov.ru");
+        assertThat(res2.getId() == null, Is.is(true));
+        assertThat(res2.getErrorMessage() , Is.is("url  " + "akaleganov.ru" + "уже занят"));
     }
 }

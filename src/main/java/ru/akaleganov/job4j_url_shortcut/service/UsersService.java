@@ -13,7 +13,6 @@ import ru.akaleganov.job4j_url_shortcut.service.dto.UsersDTO;
 import ru.akaleganov.job4j_url_shortcut.service.mapper.UsersMapper;
 import ru.akaleganov.job4j_url_shortcut.service.util.RandomGeneratorLoginPass;
 
-import javax.management.relation.Role;
 import java.util.Collections;
 
 @Service
@@ -49,22 +48,30 @@ public class UsersService {
      * @return {@link UsersDTO}
      */
     public UsersDTO createUsersByUrl(String url) {
-        if (this.usersRepository.findByUrl(url).isPresent()) {
-            LOGGER.debug("пользователь с url " + url + " найден и  не будет добавлен в БД");
-            return new UsersDTO();
+        if (isValidUrl(url)) {
+            if (this.usersRepository.findByUrl(url).isPresent()) {
+                LOGGER.debug("пользователь с url " + url + " найден и  не будет добавлен в БД");
+                return new UsersDTO().setErrorMessage("url  " + url + "уже занят");
+            } else {
+                Users users = new Users();
+                users.setUrl(url);
+                users.setRoles(Collections.singletonList(new Roles(2L)));
+                users.setLogin(this.randomGeneratorLoginPass.generateLogin());
+                users.setPwd(this.randomGeneratorLoginPass.generatePassword());
+                UsersDTO result = this.usersMapper.usersToUsersDTO(users);
+                result.setPwd(users.getPwd());
+                users.setPwd(this.bCryptPasswordEncoder.encode(users.getPwd()));
+                LOGGER.debug("users = " + users.toString());
+                this.usersRepository.save(users);
+                result.setId(users.getId());
+                return result;
+            }
         } else {
-            Users users = new Users();
-            users.setUrl(url);
-            users.setRoles(Collections.singletonList(new Roles(2L)));
-            users.setLogin(this.randomGeneratorLoginPass.generateLogin());
-            users.setPwd(this.randomGeneratorLoginPass.generatePassword());
-            UsersDTO result = this.usersMapper.usersToUsersDTO(users);
-            result.setPwd(users.getPwd());
-            users.setPwd(this.bCryptPasswordEncoder.encode(users.getPwd()));
-            LOGGER.debug("users = " + users.toString());
-            this.usersRepository.save(users);
-            result.setId(users.getId());
-            return result;
+            return new UsersDTO().setErrorMessage("url не прошёл валидацию");
         }
+    }
+    private boolean isValidUrl(String url) {
+        return  url.matches("^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}$");
+
     }
 }

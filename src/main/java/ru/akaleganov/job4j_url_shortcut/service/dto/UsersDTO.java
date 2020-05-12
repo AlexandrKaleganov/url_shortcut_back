@@ -18,6 +18,16 @@ public class UsersDTO {
     private String middleName;
     private String pwd;
     private String url;
+    private String errorMessage;
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public UsersDTO setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+        return this;
+    }
 
     private List<Roles> roles = new ArrayList<>();
 
