@@ -46,14 +46,12 @@ public class WebSpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private UsersDetailServiceCustom usersDetailServiceCustom;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
+        http.cors();
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/auth").permitAll()
                 .antMatchers("/api/auth/registry").permitAll()
-                                    .anyRequest().authenticated()
-
-//                    .and().authorizeRequests().antMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers("/api/users/**").hasAnyAuthority("ADMIN", "USER")
 //                    .and().authorizeRequests().antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import ru.akaleganov.job4j_url_shortcut.domain.Roles;
+import ru.akaleganov.job4j_url_shortcut.domain.Users;
 import ru.akaleganov.job4j_url_shortcut.repository.RolesRepository;
 import ru.akaleganov.job4j_url_shortcut.repository.UsersRepository;
 import ru.akaleganov.job4j_url_shortcut.service.dto.UsersDTO;
+import ru.akaleganov.job4j_url_shortcut.service.mapper.UsersMapper;
 
 import java.util.Random;
 
@@ -25,7 +27,8 @@ class UsersServiceTest {
     RolesRepository rolesRepository;
     @Autowired
     UsersRepository usersRepository;
-
+@Autowired
+    UsersMapper usersMapper;
 
     @Test
     @DisplayName("тестирование: генерация логина")
@@ -79,6 +82,7 @@ class UsersServiceTest {
         this.usersService.createUsersByUrl("akaleganov.ru");
         UsersDTO res2 = this.usersService.createUsersByUrl("akaleganov.ru");
         assertThat(res2.getId() == null, Is.is(true));
-        assertThat(res2.getErrorMessage() , Is.is("url  " + "akaleganov.ru" + "уже занят"));
+        assertThat(res2.getErrorMessage() , Is.is("url  " + "akaleganov.ru" + " уже занят"));
     }
+
 }

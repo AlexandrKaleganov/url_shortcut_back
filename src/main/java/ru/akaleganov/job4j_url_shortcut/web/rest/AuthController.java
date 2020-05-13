@@ -17,10 +17,9 @@ import ru.akaleganov.job4j_url_shortcut.service.dto.AuthTokenResponseDTO;
 import ru.akaleganov.job4j_url_shortcut.service.dto.UsersDTO;
 import ru.akaleganov.job4j_url_shortcut.service.mapper.AuthTokenResponseMapper;
 
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:4200")
 public class AuthController {
     private static final Logger LOGGER = Logger.getLogger(AspectLogger.class);
 
