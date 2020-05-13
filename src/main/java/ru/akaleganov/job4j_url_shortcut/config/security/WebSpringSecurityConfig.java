@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ru.akaleganov.job4j_url_shortcut.config.security.jwt.JwtAuthenticationEntryPoint;
@@ -20,42 +19,31 @@ import ru.akaleganov.job4j_url_shortcut.config.security.jwt.JwtAuthenticationFil
 public class WebSpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    public BCryptPasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
 
-    /**
-     * @return {@link UsersDetailServiceCustom}  вернёт реализацию  интерфейса {@link UserDetailsService}
-     */
     @Bean
-    public UsersDetailServiceCustom getUsersDetailServiceCustom() {
-        return new UsersDetailServiceCustom();
-    }
-
-    @Bean
-    public JwtAuthenticationFilter authenticationTokenFilterBean() {
+    public JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
         return new JwtAuthenticationFilter();
     }
 
+    @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
-    /**
-     * @param auth аутентификацию пользователей
-     * @throws Exception возможное исключение (к примеру пользователь не найден)
-     */
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(this.getUsersDetailServiceCustom()).passwordEncoder(this.bCryptPasswordEncoder());
+    @Autowired
+    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(usersDetailServiceCustom).passwordEncoder(encoder());
     }
 
-    @Bean
-    public JwtAuthenticationEntryPoint unauthorizedHandler() {
-        return new JwtAuthenticationEntryPoint();
-    }
+    @Autowired
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
 
+    @Autowired
+    private UsersDetailServiceCustom usersDetailServiceCustom;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -63,9 +51,13 @@ public class WebSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/auth").permitAll()
                 .antMatchers("/api/auth/registry").permitAll()
+                                    .anyRequest().authenticated()
+
 //                    .and().authorizeRequests().antMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
 //                    .and().authorizeRequests().antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .and()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
     }
 

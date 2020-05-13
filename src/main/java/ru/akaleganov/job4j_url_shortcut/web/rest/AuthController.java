@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ru.akaleganov.job4j_url_shortcut.aspect.AspectLogger;
 import ru.akaleganov.job4j_url_shortcut.config.security.UsersDetailServiceCustom;
@@ -48,11 +49,14 @@ public class AuthController {
                         loginUser.getPassword()
                 )
         );
+
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        LOGGER.debug("CURRENT auth user {}", (Throwable) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        final Users user = usersDetailServiceCustom.loadUserByUsername(loginUser.getLogin());
-        final String token = jwtTokenUtil.generateToken(user);
-        return ResponseEntity.ok(this.authTokenResponseMapper.toDTO(token, user));
+        LOGGER.debug("CURRENT auth user {}" + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        final UserDetails user = usersDetailServiceCustom.loadUserByUsername(loginUser.getLogin());
+        final String token = jwtTokenUtil.doGenerateToken(user);
+        return ResponseEntity.ok(this.authTokenResponseMapper.toDTO(token,
+                this.usersDetailServiceCustom.loadUserByUsername(loginUser.getLogin())));
     }
 
     @PostMapping("/auth/registry")

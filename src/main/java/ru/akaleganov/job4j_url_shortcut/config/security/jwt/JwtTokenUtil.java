@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
 /**
@@ -21,55 +19,50 @@ import java.util.function.Function;
 @Service
 public class JwtTokenUtil implements Serializable {
     private final Logger log = LoggerFactory.getLogger(JwtTokenUtil.class);
-
     @Value("${jwt.secret}")
     private String SECRET_KEY;
 
     @Value("${jwt.sessionTime}")
-    private long sessionTime;
+    private long SESSION_TIME;
 
 
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
-
-    public Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
-    }
-
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
-    }
-
-    private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+    public String getUsernameFromToken(String token) {
+        return getClaimFromToken(token, Claims::getSubject);
     }
 
     public Boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+        final Date expiration = getExpirationDateFromToken(token);
+        return expiration.before(new Date());
     }
 
-    public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername());
+    private Date getExpirationDateFromToken(String token) {
+        return getClaimFromToken(token, Claims::getExpiration);
     }
 
-    private String createToken(Map<String, Object> claims, String subject) {
+    private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+        log.debug("All claims will be");
+        final Claims claims = getAllClaimsFromToken(token);
+        log.debug("All claims {}:", claims);
+        return claimsResolver.apply(claims);
+    }
 
-        return Jwts.builder().setClaims(claims)
-                .setSubject(subject)
+    private Claims getAllClaimsFromToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(SECRET_KEY)
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    public String doGenerateToken(UserDetails user) {
+        Claims claims = Jwts.claims().setSubject(user.getUsername());
+        claims.put("authorities", user.getAuthorities());
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuer("akaleganov")
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(expireTimeFromNow())
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
+                .setExpiration(new Date(System.currentTimeMillis() + SESSION_TIME))
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .compact();
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
-    }
-
-    private Date expireTimeFromNow() {
-        return new Date(System.currentTimeMillis() + sessionTime);
-    }
 }

@@ -76,7 +76,7 @@ class UsersServiceTest {
     @DisplayName("тестирование: добавление пользователей по  URL errorMessage")
     public void createUsersByUrlErrorOne() {
         this.rolesRepository.save(new Roles(2L, "USER"));
-        UsersDTO res = this.usersService.createUsersByUrl("akaleganov.ru");
+        this.usersService.createUsersByUrl("akaleganov.ru");
         UsersDTO res2 = this.usersService.createUsersByUrl("akaleganov.ru");
         assertThat(res2.getId() == null, Is.is(true));
         assertThat(res2.getErrorMessage() , Is.is("url  " + "akaleganov.ru" + "уже занят"));

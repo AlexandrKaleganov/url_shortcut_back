@@ -1,12 +1,16 @@
 package ru.akaleganov.job4j_url_shortcut.config.security.jwt;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import ru.akaleganov.job4j_url_shortcut.config.security.UsersDetailServiceCustom;
 
@@ -22,6 +26,7 @@ import java.io.IOException;
  * in the context.Doing so will protect our APIs from those
  * requests which do not have any authorization token.
  */
+@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final Logger log = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
     @Autowired
@@ -30,24 +35,41 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private UsersDetailServiceCustom usersDetailServiceCustom;
 
 
+
+    @Value("${jwt.header}")
+    private String HEADER_STRING;
+
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        final String authorizationHeader = request.getHeader("Authorization");
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        String header = request.getHeader(HEADER_STRING);
         String username = null;
-        String jwt = null;
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            jwt = authorizationHeader.substring(7);
-            username = jwtTokenUtil.extractUsername(jwt);
+        String authToken = null;
+        if (header != null && header.startsWith("Bearer ")) {
+            authToken = header.replace("Bearer ", "");
+            try {
+                log.info("Auth token is {}", authToken);
+                username = jwtTokenUtil.getUsernameFromToken(authToken);
+                log.debug("UserName from tokken {}", username);
+            } catch (IllegalArgumentException e) {
+                log.error("произошла ошибка при получении имени пользователя из токена", e);
+            } catch (ExpiredJwtException e) {
+                log.warn("токен истек и больше не действителен", e);
+            } catch (SignatureException e) {
+                log.error("Ошибка аутентификации. Имя пользователя или пароль не действительны.");
+            }
+        } else {
+            log.info("в хедере отсутствует информация об авторизации");
         }
+
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.usersDetailServiceCustom.loadUserByUsername(username);
-            //если подпись неправильная, то SignatureException
-            if (this.jwtTokenUtil.validateToken(jwt, userDetails)) {
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                        new UsernamePasswordAuthenticationToken(
-                                userDetails, null, userDetails.getAuthorities());
-                usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            UserDetails userDetails = usersDetailServiceCustom.loadUserByUsername(username);
+            log.debug("Current userDetails {}", userDetails);
+
+            if (!jwtTokenUtil.isTokenExpired(authToken)) {
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                log.info("authenticated user " + username + ", setting security context");
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
         chain.doFilter(request, response);
