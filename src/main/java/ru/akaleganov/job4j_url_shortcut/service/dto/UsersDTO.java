@@ -3,6 +3,7 @@ package ru.akaleganov.job4j_url_shortcut.service.dto;
 import ru.akaleganov.job4j_url_shortcut.domain.Roles;
 import ru.akaleganov.job4j_url_shortcut.domain.Users;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,7 +11,7 @@ import java.util.Objects;
 /**
  * ДТО для ответа и для изменений данных пользователя
  */
-public class UsersDTO {
+public class UsersDTO implements Serializable {
     private Long id;
     private String login;
     private String lastName;
@@ -32,6 +33,7 @@ public class UsersDTO {
     private List<Roles> roles = new ArrayList<>();
 
     public UsersDTO(Users users) {
+        this.id = users.getId();
         this.login = users.getLogin();
         this.lastName = users.getLastName();
         this.firstName = users.getFirstName();

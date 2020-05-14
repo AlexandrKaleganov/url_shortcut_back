@@ -16,7 +16,7 @@ import ru.akaleganov.job4j_url_shortcut.config.security.jwt.JwtAuthenticationFil
 
 @Configuration
 @EnableWebSecurity
-public class WebSpringSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public BCryptPasswordEncoder encoder(){
@@ -51,6 +51,7 @@ public class WebSpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/auth").permitAll()
                 .antMatchers("/api/auth/registry").permitAll()
+                .antMatchers("/api/auth/roles/").authenticated()
                 .antMatchers("/api/users/**").hasAnyAuthority("ADMIN", "USER")
 //                    .and().authorizeRequests().antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 .and()

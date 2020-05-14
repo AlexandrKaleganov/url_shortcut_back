@@ -11,15 +11,19 @@ import org.springframework.web.bind.annotation.*;
 import ru.akaleganov.job4j_url_shortcut.aspect.AspectLogger;
 import ru.akaleganov.job4j_url_shortcut.config.security.UsersDetailServiceCustom;
 import ru.akaleganov.job4j_url_shortcut.config.security.jwt.JwtTokenUtil;
+import ru.akaleganov.job4j_url_shortcut.domain.Roles;
 import ru.akaleganov.job4j_url_shortcut.domain.Users;
 import ru.akaleganov.job4j_url_shortcut.service.UsersService;
 import ru.akaleganov.job4j_url_shortcut.service.dto.AuthTokenResponseDTO;
 import ru.akaleganov.job4j_url_shortcut.service.dto.UsersDTO;
 import ru.akaleganov.job4j_url_shortcut.service.mapper.AuthTokenResponseMapper;
 
-@CrossOrigin(origins = "http://localhost:4200")
+import java.security.Principal;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
     private static final Logger LOGGER = Logger.getLogger(AspectLogger.class);
 
@@ -56,6 +60,11 @@ public class AuthController {
         final String token = jwtTokenUtil.doGenerateToken(user);
         return ResponseEntity.ok(this.authTokenResponseMapper.toDTO(token,
                 this.usersDetailServiceCustom.loadUserByUsername(loginUser.getLogin())));
+    }
+
+    @GetMapping(value = "/auth/roles")
+    public ResponseEntity<List<Roles>> getRolesThisUser(Principal principal) {
+        return ResponseEntity.ok().body(this.usersService.getUsersByLogin(principal.getName()).getRoles());
     }
 
     @PostMapping("/auth/registry")

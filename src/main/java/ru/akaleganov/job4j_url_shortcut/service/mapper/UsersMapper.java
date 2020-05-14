@@ -44,8 +44,8 @@ public class UsersMapper {
             user.setLastName(usersDTO.getLastName());
             user.setRoles(usersDTO.getRoles());
             user.setUrl(usersDTO.getUrl());
+            user.setPwd(usersDTO.getPwd());
             return user;
         }
     }
-
 }
