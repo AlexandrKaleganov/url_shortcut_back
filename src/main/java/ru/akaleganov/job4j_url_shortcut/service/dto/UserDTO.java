@@ -1,7 +1,7 @@
 package ru.akaleganov.job4j_url_shortcut.service.dto;
 
-import ru.akaleganov.job4j_url_shortcut.domain.Roles;
-import ru.akaleganov.job4j_url_shortcut.domain.Users;
+import ru.akaleganov.job4j_url_shortcut.domain.Role;
+import ru.akaleganov.job4j_url_shortcut.domain.User;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.Objects;
 /**
  * ДТО для ответа и для изменений данных пользователя
  */
-public class UsersDTO implements Serializable {
+public class UserDTO implements Serializable {
     private Long id;
     private String login;
     private String lastName;
@@ -25,21 +25,21 @@ public class UsersDTO implements Serializable {
         return errorMessage;
     }
 
-    public UsersDTO setErrorMessage(String errorMessage) {
+    public UserDTO setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
         return this;
     }
 
-    private List<Roles> roles = new ArrayList<>();
+    private List<Role> roles = new ArrayList<>();
 
-    public UsersDTO(Users users) {
-        this.id = users.getId();
-        this.login = users.getLogin();
-        this.lastName = users.getLastName();
-        this.firstName = users.getFirstName();
-        this.middleName = users.getLastName();
-        this.url = users.getUrl();
-        this.roles = users.getRoles();
+    public UserDTO(User user) {
+        this.id = user.getId();
+        this.login = user.getLogin();
+        this.lastName = user.getLastName();
+        this.firstName = user.getFirstName();
+        this.middleName = user.getLastName();
+        this.url = user.getUrl();
+        this.roles = user.getRoles();
     }
 
     public String getUrl() {
@@ -50,7 +50,7 @@ public class UsersDTO implements Serializable {
         this.url = url;
     }
 
-    public UsersDTO() {
+    public UserDTO() {
     }
 
     public Long getId() {
@@ -101,11 +101,11 @@ public class UsersDTO implements Serializable {
         this.pwd = pwd;
     }
 
-    public List<Roles> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Roles> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
@@ -113,15 +113,15 @@ public class UsersDTO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UsersDTO usersDTO = (UsersDTO) o;
-        return Objects.equals(id, usersDTO.id) &&
-                Objects.equals(login, usersDTO.login) &&
-                Objects.equals(lastName, usersDTO.lastName) &&
-                Objects.equals(firstName, usersDTO.firstName) &&
-                Objects.equals(middleName, usersDTO.middleName) &&
-                Objects.equals(pwd, usersDTO.pwd) &&
-                Objects.equals(url, usersDTO.url) &&
-                Objects.equals(roles, usersDTO.roles);
+        UserDTO userDTO = (UserDTO) o;
+        return Objects.equals(id, userDTO.id) &&
+                Objects.equals(login, userDTO.login) &&
+                Objects.equals(lastName, userDTO.lastName) &&
+                Objects.equals(firstName, userDTO.firstName) &&
+                Objects.equals(middleName, userDTO.middleName) &&
+                Objects.equals(pwd, userDTO.pwd) &&
+                Objects.equals(url, userDTO.url) &&
+                Objects.equals(roles, userDTO.roles);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class UsersDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "UsersDTO{" +
+        return "UserDTO{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
                 ", lastName='" + lastName + '\'' +

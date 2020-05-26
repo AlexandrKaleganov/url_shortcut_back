@@ -1,20 +1,13 @@
 package ru.akaleganov.job4j_url_shortcut.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
-@Entity(name = "roles")
-public class Roles extends MappedSuperClass implements GrantedAuthority {
+@Entity(name = "role")
+public class Role extends MappedSuperClass implements GrantedAuthority {
     @Column(name = "name")
     private String name;
 
@@ -26,17 +19,19 @@ public class Roles extends MappedSuperClass implements GrantedAuthority {
         this.name = name;
     }
 
-    public Roles() {
+    public Role() {
     }
 
-    public Roles(Long id) {
+    public Role(Long id) {
         this.setId(id);
     }
-    public Roles(Long id, String name) {
+
+    public Role(Long id, String name) {
         this.setId(id);
         this.setName(name);
     }
-    public Roles(String name) {
+
+    public Role(String name) {
         this.setName(name);
     }
 
@@ -50,7 +45,7 @@ public class Roles extends MappedSuperClass implements GrantedAuthority {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Roles roles = (Roles) o;
+        Role roles = (Role) o;
         return Objects.equals(name, roles.name);
     }
 
@@ -61,7 +56,7 @@ public class Roles extends MappedSuperClass implements GrantedAuthority {
 
     @Override
     public String toString() {
-        return "Roles{" +
+        return "Role{" +
                 "name='" + name + '\'' +
                 '}';
     }

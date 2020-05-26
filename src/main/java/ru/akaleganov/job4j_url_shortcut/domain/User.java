@@ -4,13 +4,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-@Entity(name = "users")
-public class Users extends MappedSuperClass implements UserDetails {
+@Entity(name = "user")
+public class User extends MappedSuperClass implements UserDetails {
     @Column(name = "login")
     private String login;
     @Column(name = "last_name")
@@ -33,19 +34,19 @@ public class Users extends MappedSuperClass implements UserDetails {
     }
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id"),
-            inverseJoinColumns = @JoinColumn(name = "roles_id"))
-    private List<Roles> roles;
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
 
     public String getLogin() {
         return login;
     }
 
-    public List<Roles> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Roles> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
@@ -125,7 +126,7 @@ public class Users extends MappedSuperClass implements UserDetails {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Users users = (Users) o;
+        User users = (User) o;
         return Objects.equals(login, users.login) &&
                 Objects.equals(lastName, users.lastName) &&
                 Objects.equals(firstName, users.firstName) &&

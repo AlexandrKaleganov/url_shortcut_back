@@ -1,9 +1,6 @@
 package ru.akaleganov.job4j_url_shortcut.service.dto;
 
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
-import org.springframework.security.core.userdetails.User;
-import ru.akaleganov.job4j_url_shortcut.domain.Roles;
-import ru.akaleganov.job4j_url_shortcut.domain.Users;
+import ru.akaleganov.job4j_url_shortcut.domain.User;
 
 import java.util.List;
 
@@ -40,7 +37,7 @@ public class AuthTokenResponseDTO {
         this.roles = roles;
     }
 
-    public AuthTokenResponseDTO(String jwtToken, Users users) {
+    public AuthTokenResponseDTO(String jwtToken, User users) {
         this.jwtToken = jwtToken;
     }
 

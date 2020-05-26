@@ -1,10 +1,8 @@
 package ru.akaleganov.job4j_url_shortcut.config;
 
 import liquibase.integration.spring.SpringLiquibase;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -33,9 +31,18 @@ public class SpringWebConfig implements WebMvcConfigurer {
     }
 
     @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**")
+                .allowedOrigins("http://localhost:4200")
+                .allowedMethods("GET", "POST", "OPTIONS", "PUT", "DELETE")
+                .allowedHeaders("*");
+    }
+
+    @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
+
     @Bean
     public SpringLiquibase liquibase(DataSource dataSource) {
         SpringLiquibase liquibase = new SpringLiquibase();
@@ -58,13 +65,4 @@ public class SpringWebConfig implements WebMvcConfigurer {
         return viewResolver;
     }
 
-//    /**
-//     * регистрируем контроллер логина
-//     *
-//     * @param registry контроллер
-//     */
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/login").setViewName("login");
-//        registry.addViewController("/").setViewName("home");
-//    }
 }

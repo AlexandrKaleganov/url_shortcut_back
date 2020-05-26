@@ -11,19 +11,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ru.akaleganov.job4j_url_shortcut.config.security.UsersDetailServiceCustom;
+import ru.akaleganov.job4j_url_shortcut.config.security.UserDetailServiceCustom;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 /**
  * This class checks for the authorization header
@@ -37,7 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
-    private UsersDetailServiceCustom usersDetailServiceCustom;
+    private UserDetailServiceCustom userDetailServiceCustom;
 
 
 
@@ -70,7 +65,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = usersDetailServiceCustom.loadUserByUsername(username);
+            UserDetails userDetails = userDetailServiceCustom.loadUserByUsername(username);
             log.debug("Current userDetails {}", userDetails);
 
             if (!jwtTokenUtil.isTokenExpired(authToken)) {

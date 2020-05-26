@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import ru.akaleganov.job4j_url_shortcut.domain.Roles;
-import ru.akaleganov.job4j_url_shortcut.domain.Users;
-import ru.akaleganov.job4j_url_shortcut.repository.RolesRepository;
-import ru.akaleganov.job4j_url_shortcut.repository.UsersRepository;
-import ru.akaleganov.job4j_url_shortcut.service.dto.UsersDTO;
-import ru.akaleganov.job4j_url_shortcut.service.mapper.UsersMapper;
+import ru.akaleganov.job4j_url_shortcut.domain.Role;
+import ru.akaleganov.job4j_url_shortcut.domain.User;
+import ru.akaleganov.job4j_url_shortcut.repository.RoleRepository;
+import ru.akaleganov.job4j_url_shortcut.repository.UserRepository;
+import ru.akaleganov.job4j_url_shortcut.service.dto.UserDTO;
+import ru.akaleganov.job4j_url_shortcut.service.mapper.UserMapper;
 import ru.akaleganov.job4j_url_shortcut.service.util.RandomGeneratorLoginPass;
 
 import java.util.Collections;
@@ -22,17 +22,17 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @DisplayName("тестирование: UsersService")
 @TestPropertySource(locations = "classpath:application-h2.properties")
 @SpringBootTest
-class UsersServiceTest {
+class UserServiceTest {
     @Autowired
     RandomGeneratorLoginPass randomGeneratorLoginPass;
     @Autowired
-    UsersService usersService;
+    UserService userService;
     @Autowired
-    RolesRepository rolesRepository;
+    RoleRepository roleRepository;
     @Autowired
-    UsersRepository usersRepository;
+    UserRepository userRepository;
     @Autowired
-    UsersMapper usersMapper;
+    UserMapper userMapper;
 
     @Test
     @DisplayName("тестирование: генерация логина")
@@ -70,22 +70,22 @@ class UsersServiceTest {
     @Test
     @DisplayName("тестирование: добавление пользователей по  URL")
     public void createUsersByUrl() {
-        Roles roles = new Roles(2L, "USER");
-        roles = this.rolesRepository.save(roles);
-        assertThat(roles.getId() == 2, Is.is(true));
-        UsersDTO res = usersService.createUsersByUrl("akaleganov3.ru");
-        assertThat(this.rolesRepository.findById(roles.getId()).orElse(new Roles()).getName(), Is.is("USER"));
+        Role role = new Role(2L, "USER");
+        role = this.roleRepository.save(role);
+        assertThat(role.getId() == 2, Is.is(true));
+        UserDTO res = userService.createUsersByUrl("akaleganov3.ru");
+        assertThat(this.roleRepository.findById(role.getId()).orElse(new Role()).getName(), Is.is("USER"));
         assertThat(res.getId() != null, Is.is(true));
-        UsersDTO res2 = usersService.createUsersByUrl("бла бла бла");
+        UserDTO res2 = userService.createUsersByUrl("бла бла бла");
         assertThat(res2.getErrorMessage(), Is.is("url не прошёл валидацию"));
     }
 
     @Test
     @DisplayName("тестирование: добавление пользователей по  URL errorMessage")
     public void createUsersByUrlErrorOne() {
-        this.rolesRepository.save(new Roles(2L, "USER"));
-        usersService.createUsersByUrl("akaleganov.ru");
-        UsersDTO res2 = usersService.createUsersByUrl("akaleganov.ru");
+        this.roleRepository.save(new Role(2L, "USER"));
+        userService.createUsersByUrl("akaleganov.ru");
+        UserDTO res2 = userService.createUsersByUrl("akaleganov.ru");
         assertThat(res2.getId() == null, Is.is(true));
         assertThat(res2.getErrorMessage(), Is.is("url  " + "akaleganov.ru" + " уже занят"));
     }
@@ -93,31 +93,46 @@ class UsersServiceTest {
     @Test
     @DisplayName("тестирование: добавление пользователя админом")
     public void createNeUserAdmin() {
-        Roles roles = new Roles(2L, "USER");
-        roles = this.rolesRepository.save(roles);
-        UsersDTO usersDTO = new UsersDTO();
-        usersDTO.setLogin("ADADASDSAD");
-        usersDTO.setPwd("kjsfksdfkjdshf");
-        usersDTO.setUrl("asdasdasdas.com");
-        usersDTO.setRoles(Collections.singletonList(roles));
-        assertThat(usersService.create(usersDTO).getId() != null,
+        Role role = new Role(2L, "USER");
+        role = this.roleRepository.save(role);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setLogin("ADADASDSAD");
+        userDTO.setPwd("kjsfksdfkjdshf");
+        userDTO.setUrl("asdasdasdas.com");
+        userDTO.setRoles(Collections.singletonList(role));
+        assertThat(userService.create(userDTO).getId() != null,
                 Is.is(true));
     }
 
     @Test
     @DisplayName("тестирование: обновление пользователя")
     public void testUpdateUser() {
-        Roles roles = new Roles(2L, "USER");
-        roles = this.rolesRepository.save(roles);
-        UsersDTO usersDTO = new UsersDTO();
-        usersDTO.setLogin("qwedwqdqw");
-        usersDTO.setPwd("qdwqdwq");
-        usersDTO.setUrl("asdasdadwqqdqsdas.com");
-        usersDTO.setRoles(Collections.singletonList(roles));
-        UsersDTO res = this.usersService.create(usersDTO);
+        Role role = new Role(2L, "USER");
+        role = this.roleRepository.save(role);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setLogin("qwedwq545dqw");
+        userDTO.setPwd("qdwqdwq");
+        userDTO.setUrl("asdassdasxdadwqqdqsdas.com");
+        userDTO.setRoles(Collections.singletonList(role));
+        UserDTO res = this.userService.create(userDTO);
         res.setPwd(null);
         res.setLastName("Вася");
-        assertThat(this.usersService.updateUsers(res).getLastName(), Is.is("Вася"));
-        assertThat(this.usersRepository.findById(res.getId()).orElse(new Users()).getLastName(), Is.is("Вася"));
+        assertThat(this.userService.updateUser(res).getLastName(), Is.is("Вася"));
+        assertThat(this.userRepository.findById(res.getId()).orElse(new User()).getLastName(), Is.is("Вася"));
+    }
+
+    @Test
+    @DisplayName("тестирование: транзакций")
+    public void khskjd() {
+        Role role = new Role(2L, "USER");
+        role = this.roleRepository.save(role);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setLogin("qwedwqdqw");
+        userDTO.setPwd("qdwqdwq");
+        userDTO.setUrl("asdasdadwqqdqsdas.com");
+        userDTO.setRoles(Collections.singletonList(role));
+        UserDTO res = this.userService.create(userDTO);
+        this.userService.setLastName("Вася", res.getId());
+        assertThat(this.userRepository.findById(res.getId()).orElse(new User()).getLastName(), Is.is("Вася"));
     }
 }

@@ -36,14 +36,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(usersDetailServiceCustom).passwordEncoder(encoder());
+        auth.userDetailsService(userDetailServiceCustom).passwordEncoder(encoder());
     }
 
     @Autowired
     private JwtAuthenticationEntryPoint unauthorizedHandler;
 
     @Autowired
-    private UsersDetailServiceCustom usersDetailServiceCustom;
+    private UserDetailServiceCustom userDetailServiceCustom;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors();
@@ -52,6 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/auth").permitAll()
                 .antMatchers("/api/auth/registry").permitAll()
                 .antMatchers("/api/auth/roles/").authenticated()
+                .antMatchers("/api/roles").authenticated()
                 .antMatchers("/api/users/**").hasAnyAuthority("ADMIN", "USER")
 //                    .and().authorizeRequests().antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 .and()

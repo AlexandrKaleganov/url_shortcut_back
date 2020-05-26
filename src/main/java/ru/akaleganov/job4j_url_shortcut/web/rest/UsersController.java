@@ -5,27 +5,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.akaleganov.job4j_url_shortcut.repository.RolesRepository;
-import ru.akaleganov.job4j_url_shortcut.service.UsersService;
-import ru.akaleganov.job4j_url_shortcut.service.dto.UsersDTO;
+import ru.akaleganov.job4j_url_shortcut.service.UserService;
+import ru.akaleganov.job4j_url_shortcut.service.dto.UserDTO;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200")
 public class UsersController {
-    private final UsersService usersService;
-    private final RolesRepository rolesRepository;
+    private final UserService userService;
 
-    public UsersController(UsersService usersService, RolesRepository rolesRepository) {
-        this.usersService = usersService;
-        this.rolesRepository = rolesRepository;
+    public UsersController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping(value = "/users")
-    public ResponseEntity<List<UsersDTO>> getAllUsers(Pageable pageable) {
-        Page<UsersDTO> page = this.usersService.findAll(pageable);
+    public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
+        Page<UserDTO> page = this.userService.findAll(pageable);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Access-Control-Expose-Headers", "totalSize");
         headers.set("totalSize", Long.toString(page.getTotalElements()));
@@ -33,7 +29,11 @@ public class UsersController {
     }
 
     @PostMapping(value = "/users")
-    public ResponseEntity<UsersDTO> createUser(@RequestBody UsersDTO users) {
-        return ResponseEntity.ok().body(this.usersService.create(users));
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO user) {
+        return ResponseEntity.ok().body(this.userService.create(user));
+    }
+    @PutMapping(value = "/users")
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO user) {
+        return ResponseEntity.ok().body(this.userService.updateUser(user));
     }
 }
