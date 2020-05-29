@@ -31,21 +31,27 @@ public class PrepareUserService {
     /**
      * сохранение  пользователя в бд
      *
-     * @param url  url
+     * @param userDTO  url
      * @param save функция сохранения которую надо реализовать
      * @return {@link UserDTO}
      */
-    protected UserDTO saveUser(String url, Supplier<UserDTO> save) {
-        if (this.urlService.isValidUrl(url)) {
-            if (this.userRepository.findByUrl(url).isPresent()) {
-                return new UserDTO().setErrorMessage("url  " + url + " уже занят");
+    protected UserDTO prepareUserToSave(UserDTO userDTO, Supplier<UserDTO> save) {
+        if (!userDTO.getLogin().equals(this.findUserByLogin(userDTO.getLogin()).getLogin())) {
+            if (this.urlService.isValidUrl(userDTO.getUrl())) {
+                if (this.userRepository.findByUrl(userDTO.getUrl()).isPresent()) {
+                    return new UserDTO().setErrorMessage("url  " + userDTO.getUrl() + " уже занят");
+                } else {
+                    return save.get();
+                }
             } else {
-                return save.get();
+                return new UserDTO().setErrorMessage("url не прошёл валидацию");
             }
         } else {
-            return new UserDTO().setErrorMessage("url не прошёл валидацию");
+            return new UserDTO().setErrorMessage("пользователь с логином " + userDTO.getLogin() + " в базе уже существует");
         }
+
     }
+
     /**
      * подготовка пользователя к обновлению (проверка паролей)
      *
@@ -73,6 +79,7 @@ public class PrepareUserService {
         LOGGER.info(userDTO.toString());
         return this.userMapper.userDTOToUser(userDTO);
     }
+
     /**
      * получить пользователя по логину
      *

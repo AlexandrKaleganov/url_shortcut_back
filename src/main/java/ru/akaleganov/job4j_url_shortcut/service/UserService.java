@@ -1,7 +1,5 @@
 package ru.akaleganov.job4j_url_shortcut.service;
 
-import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,7 +22,6 @@ public class UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserMapper userMapper;
     private final RandomGeneratorLoginPass randomGeneratorLoginPass;
-    private static final Logger LOGGER = Logger.getLogger(UserService.class);
     private final PrepareUserService prepareUserService;
 
     UserService(UserRepository userRepository,
@@ -43,16 +40,6 @@ public class UserService {
      * @param pageable пагинация
      * @return {@link UserDTO}
      */
-    public Page<UserDTO> findAll(Pageable pageable) {
-        return this.userRepository.findAll(pageable).map(this.userMapper::userToUserDTO);
-    }
-
-    /**
-     * получить всех пользаков c пагинацией  (гадо пдумать как реализовать)
-     *
-     * @param pageable пагинация
-     * @return {@link UserDTO}
-     */
     public Page<UserDTO> findAll(UserFilter criteria, Pageable pageable) {
         return this.userRepository.findAll(criteria.buildCriteria(), pageable).map(this.userMapper::userToUserDTO);
     }
@@ -63,18 +50,16 @@ public class UserService {
      * @return {@link UserDTO}
      */
     public UserDTO createUsersByUrl(String url) {
-        return this.prepareUserService.saveUser(url, () -> {
-            User users = new User();
-            users.setUrl(url);
-            users.setRoles(Collections.singletonList(new Role(2L)));
-            users.setLogin(this.randomGeneratorLoginPass.generateLogin());
-            users.setPwd(this.randomGeneratorLoginPass.generatePassword());
-            UserDTO result = this.userMapper.userToUserDTO(users);
-            result.setPwd(users.getPwd());
-            users.setPwd(this.bCryptPasswordEncoder.encode(users.getPwd()));
-            this.userRepository.save(users);
-            result.setId(users.getId());
-            return result;
+        UserDTO userDTO = new UserDTO().setUrl(url);
+        userDTO.setLogin(this.randomGeneratorLoginPass.generateLogin());
+        userDTO.setPwd(this.randomGeneratorLoginPass.generatePassword());
+        userDTO.setRoles(Collections.singletonList(new Role(2L)));
+        return this.prepareUserService.prepareUserToSave(userDTO, () -> {
+            User user = this.userMapper.userDTOToUser(userDTO);
+            user.setPwd(this.bCryptPasswordEncoder.encode(user.getPwd()));
+            this.userRepository.save(user);
+            userDTO.setId(user.getId());
+            return userDTO;
         });
     }
 
@@ -85,11 +70,9 @@ public class UserService {
      * @return {@link UserDTO}
      */
     public UserDTO create(UserDTO userDTO) {
-        return this.prepareUserService.saveUser(userDTO.getUrl(), () ->{
+        return this.prepareUserService.prepareUserToSave(userDTO, () ->{
             User us = this.prepareUserService.encode(userDTO);
-            LOGGER.info("us = " + us.toString());
             User res  = this.userRepository.save(us);
-            LOGGER.info("res = " + res.toString());
             return this.userMapper.userToUserDTO(res);
                 }
 
@@ -115,9 +98,7 @@ public class UserService {
     public UserDTO updateUser(UserDTO userDTO) {
         User oldUSer = this.userRepository.findByLogin(userDTO.getLogin()).orElse(new User());
         if (!oldUSer.getUrl().equals(userDTO.getUrl())) {
-            LOGGER.info("oldUSer обнова " + oldUSer);
-            LOGGER.info("userDTO обнова " + userDTO);
-            return this.prepareUserService.saveUser(userDTO.getUrl(), () -> this.userMapper.userToUserDTO(this.userRepository.save(
+            return this.prepareUserService.prepareUserToSave(userDTO, () -> this.userMapper.userToUserDTO(this.userRepository.save(
                     this.prepareUserService.prepareUser(userDTO))));
         } else {
             return this.userMapper.userToUserDTO(this.userRepository.save(

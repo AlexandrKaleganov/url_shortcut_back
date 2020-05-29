@@ -46,8 +46,9 @@ public class UserDTO implements Serializable {
         return url;
     }
 
-    public void setUrl(String url) {
+    public UserDTO setUrl(String url) {
         this.url = url;
+        return this;
     }
 
     public UserDTO() {
