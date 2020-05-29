@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.akaleganov.job4j_url_shortcut.service.UserService;
 import ru.akaleganov.job4j_url_shortcut.service.dto.UserDTO;
+import ru.akaleganov.job4j_url_shortcut.service.dto.UserFilter;
 
 import java.util.List;
 
@@ -20,8 +21,8 @@ public class UsersController {
     }
 
     @GetMapping(value = "/users")
-    public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
-        Page<UserDTO> page = this.userService.findAll(pageable);
+    public ResponseEntity<List<UserDTO>> getAllUsers(UserFilter criteria, Pageable pageable) {
+        Page<UserDTO> page = this.userService.findAll(criteria, pageable);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Access-Control-Expose-Headers", "totalSize");
         headers.set("totalSize", Long.toString(page.getTotalElements()));
@@ -32,6 +33,7 @@ public class UsersController {
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO user) {
         return ResponseEntity.ok().body(this.userService.create(user));
     }
+
     @PutMapping(value = "/users")
     public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO user) {
         return ResponseEntity.ok().body(this.userService.updateUser(user));

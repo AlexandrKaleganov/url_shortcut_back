@@ -1,6 +1,7 @@
 package ru.akaleganov.job4j_url_shortcut.service;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,6 +11,7 @@ import ru.akaleganov.job4j_url_shortcut.domain.Role;
 import ru.akaleganov.job4j_url_shortcut.domain.User;
 import ru.akaleganov.job4j_url_shortcut.repository.UserRepository;
 import ru.akaleganov.job4j_url_shortcut.service.dto.UserDTO;
+import ru.akaleganov.job4j_url_shortcut.service.dto.UserFilter;
 import ru.akaleganov.job4j_url_shortcut.service.mapper.UserMapper;
 import ru.akaleganov.job4j_url_shortcut.service.util.RandomGeneratorLoginPass;
 
@@ -45,6 +47,15 @@ public class UserService {
         return this.userRepository.findAll(pageable).map(this.userMapper::userToUserDTO);
     }
 
+    /**
+     * получить всех пользаков c пагинацией  (гадо пдумать как реализовать)
+     *
+     * @param pageable пагинация
+     * @return {@link UserDTO}
+     */
+    public Page<UserDTO> findAll(UserFilter criteria, Pageable pageable) {
+        return this.userRepository.findAll(criteria.buildCriteria(), pageable).map(this.userMapper::userToUserDTO);
+    }
     /**
      * добавление пользователя по url
      *

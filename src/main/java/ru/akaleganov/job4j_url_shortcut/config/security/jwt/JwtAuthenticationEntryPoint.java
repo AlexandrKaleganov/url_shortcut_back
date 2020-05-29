@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- *   точка входа
+ *  точка входа
  */
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Serializable {
