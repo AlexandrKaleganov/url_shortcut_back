@@ -11,7 +11,7 @@ import ru.akaleganov.job4j_url_shortcut.repository.UserRepository;
 import ru.akaleganov.job4j_url_shortcut.service.dto.UserDTO;
 import ru.akaleganov.job4j_url_shortcut.service.dto.UserFilter;
 import ru.akaleganov.job4j_url_shortcut.service.mapper.UserMapper;
-import ru.akaleganov.job4j_url_shortcut.service.util.RandomGeneratorLoginPass;
+import ru.akaleganov.job4j_url_shortcut.service.util.RandomGenerator;
 
 import java.util.Collections;
 
@@ -21,16 +21,16 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserMapper userMapper;
-    private final RandomGeneratorLoginPass randomGeneratorLoginPass;
+    private final RandomGenerator randomGenerator;
     private final PrepareUserService prepareUserService;
 
     UserService(UserRepository userRepository,
-                BCryptPasswordEncoder encoder, UserMapper userMapper, RandomGeneratorLoginPass randomGeneratorLoginPass,
+                BCryptPasswordEncoder encoder, UserMapper userMapper, RandomGenerator randomGenerator,
                 PrepareUserService prepareUserService) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = encoder;
         this.userMapper = userMapper;
-        this.randomGeneratorLoginPass = randomGeneratorLoginPass;
+        this.randomGenerator = randomGenerator;
         this.prepareUserService = prepareUserService;
     }
 
@@ -50,9 +50,9 @@ public class UserService {
      * @return {@link UserDTO}
      */
     public UserDTO createUsersByUrl(String url) {
-        UserDTO userDTO = new UserDTO().setUrl(url);
-        userDTO.setLogin(this.randomGeneratorLoginPass.generateLogin());
-        userDTO.setPwd(this.randomGeneratorLoginPass.generatePassword());
+        UserDTO userDTO = new UserDTO().setDomain(url);
+        userDTO.setLogin(this.randomGenerator.generateLogin());
+        userDTO.setPwd(this.randomGenerator.generatePassword());
         userDTO.setRoles(Collections.singletonList(new Role(2L)));
         return this.prepareUserService.prepareUserToSave(userDTO, () -> {
             User user = this.userMapper.userDTOToUser(userDTO);
@@ -97,7 +97,7 @@ public class UserService {
      */
     public UserDTO updateUser(UserDTO userDTO) {
         User oldUSer = this.userRepository.findByLogin(userDTO.getLogin()).orElse(new User());
-        if (!oldUSer.getUrl().equals(userDTO.getUrl())) {
+        if (!oldUSer.getDomain().equals(userDTO.getDomain())) {
             return this.prepareUserService.prepareUserToSave(userDTO, () -> this.userMapper.userToUserDTO(this.userRepository.save(
                     this.prepareUserService.prepareUser(userDTO))));
         } else {

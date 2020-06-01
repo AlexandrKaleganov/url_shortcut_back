@@ -9,7 +9,7 @@ import java.util.Objects;
 public class UserFilter implements Serializable {
     private String login;
     private String firstName;
-    private String url;
+    private String domain;
 
     public Specification<User> buildCriteria() {
         Specification<User> criteria = null;
@@ -23,11 +23,11 @@ public class UserFilter implements Serializable {
                 criteria = criteria.and((user, cq, cb) -> cb.equal(user.get("firstName"), this.firstName));
             }
         }
-        if (this.url != null) {
+        if (this.domain != null) {
             if (criteria == null) {
-                criteria = (user, cq, cb) -> cb.equal(user.get("url"), this.url);
+                criteria = (user, cq, cb) -> cb.equal(user.get("url"), this.domain);
             } else {
-                criteria = criteria.and((user, cq, cb) -> cb.equal(user.get("url"), this.url));
+                criteria = criteria.and((user, cq, cb) -> cb.equal(user.get("url"), this.domain));
             }
         }
         return criteria;
@@ -49,12 +49,12 @@ public class UserFilter implements Serializable {
         this.firstName = firstName;
     }
 
-    public String getUrl() {
-        return url;
+    public String getDomain() {
+        return domain;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
     @Override
@@ -64,12 +64,12 @@ public class UserFilter implements Serializable {
         UserFilter that = (UserFilter) o;
         return Objects.equals(login, that.login) &&
                 Objects.equals(firstName, that.firstName) &&
-                Objects.equals(url, that.url);
+                Objects.equals(domain, that.domain);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, firstName, url);
+        return Objects.hash(login, firstName, domain);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class UserFilter implements Serializable {
         return "UserFilter{" +
                 "login='" + login + '\'' +
                 ", firstName='" + firstName + '\'' +
-                ", url='" + url + '\'' +
+                ", url='" + domain + '\'' +
                 '}';
     }
 }

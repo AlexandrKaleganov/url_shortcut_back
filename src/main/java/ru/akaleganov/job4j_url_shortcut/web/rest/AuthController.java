@@ -65,7 +65,7 @@ public class AuthController {
     }
 
     @PostMapping("/auth/registry")
-    public ResponseEntity<UserDTO> saveUser(@RequestBody String url) {
-        return ResponseEntity.ok(this.userService.createUsersByUrl(url));
+    public ResponseEntity<UserDTO> saveUser(@RequestBody String domain) {
+        return ResponseEntity.ok(this.userService.createUsersByUrl(domain));
     }
 }

@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
     Optional<User> findByLogin(String login);
-    Optional<User> findByUrl(String url);
+    Optional<User> findByDomain(String domain);
 }

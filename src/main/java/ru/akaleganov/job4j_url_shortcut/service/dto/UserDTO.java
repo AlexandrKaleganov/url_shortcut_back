@@ -18,7 +18,7 @@ public class UserDTO implements Serializable {
     private String firstName;
     private String middleName;
     private String pwd;
-    private String url;
+    private String domain;
     private String errorMessage;
 
     public String getErrorMessage() {
@@ -38,16 +38,16 @@ public class UserDTO implements Serializable {
         this.lastName = user.getLastName();
         this.firstName = user.getFirstName();
         this.middleName = user.getLastName();
-        this.url = user.getUrl();
+        this.domain = user.getDomain();
         this.roles = user.getRoles();
     }
 
-    public String getUrl() {
-        return url;
+    public String getDomain() {
+        return domain;
     }
 
-    public UserDTO setUrl(String url) {
-        this.url = url;
+    public UserDTO setDomain(String domain) {
+        this.domain = domain;
         return this;
     }
 
@@ -121,13 +121,13 @@ public class UserDTO implements Serializable {
                 Objects.equals(firstName, userDTO.firstName) &&
                 Objects.equals(middleName, userDTO.middleName) &&
                 Objects.equals(pwd, userDTO.pwd) &&
-                Objects.equals(url, userDTO.url) &&
+                Objects.equals(domain, userDTO.domain) &&
                 Objects.equals(roles, userDTO.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, lastName, firstName, middleName, pwd, url, roles);
+        return Objects.hash(id, login, lastName, firstName, middleName, pwd, domain, roles);
     }
 
     @Override
@@ -139,7 +139,7 @@ public class UserDTO implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", pwd='" + pwd + '\'' +
-                ", url='" + url + '\'' +
+                ", url='" + domain + '\'' +
                 ", roles=" + roles +
                 '}';
     }

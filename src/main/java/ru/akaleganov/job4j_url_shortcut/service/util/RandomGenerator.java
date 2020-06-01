@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 import java.util.Random;
 
 /**
- *  класс для рандомной генерации логина и пароля
+ * класс для рандомной генерации логина и пароля
  */
 @Service
-public class RandomGeneratorLoginPass {
+public class RandomGenerator {
 
     public String generateLogin() {
         int leftLimit = 97; // letter 'a'
@@ -21,6 +21,7 @@ public class RandomGeneratorLoginPass {
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
     }
+
     public String generatePassword() {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
@@ -30,6 +31,14 @@ public class RandomGeneratorLoginPass {
         return random.ints(leftLimit, rightLimit + 1)
                 .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
                 .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+    }
+
+    public String generateNewOrigin() {
+        return new Random().ints(48, 122).filter(i ->
+            (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(4)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
     }

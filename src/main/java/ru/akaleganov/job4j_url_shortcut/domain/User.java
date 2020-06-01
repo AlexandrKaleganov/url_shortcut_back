@@ -4,7 +4,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -22,15 +21,15 @@ public class User extends MappedSuperClass implements UserDetails {
     private String middleName;
     @Column(name = "pwd")
     private String pwd;
-    @Column(name = "url")
-    private String url;
+    @Column(name = "domain")
+    private String domain;
 
-    public String getUrl() {
-        return url;
+    public String getDomain() {
+        return domain;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setDomain(String url) {
+        this.domain = url;
     }
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
@@ -148,7 +147,7 @@ public class User extends MappedSuperClass implements UserDetails {
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", pwd='" + pwd + '\'' +
-                ", url='" + url + '\'' +
+                ", url='" + domain + '\'' +
                 ", roles=" + roles +
                 '}';
     }

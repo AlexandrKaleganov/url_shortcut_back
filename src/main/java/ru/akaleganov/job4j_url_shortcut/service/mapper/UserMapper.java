@@ -43,7 +43,7 @@ public class UserMapper {
             user.setMiddleName(userDTO.getMiddleName());
             user.setLastName(userDTO.getLastName());
             user.setRoles(userDTO.getRoles());
-            user.setUrl(userDTO.getUrl());
+            user.setDomain(userDTO.getDomain());
             user.setPwd(userDTO.getPwd());
             return user;
         }

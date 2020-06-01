@@ -12,7 +12,7 @@ import ru.akaleganov.job4j_url_shortcut.repository.RoleRepository;
 import ru.akaleganov.job4j_url_shortcut.repository.UserRepository;
 import ru.akaleganov.job4j_url_shortcut.service.dto.UserDTO;
 import ru.akaleganov.job4j_url_shortcut.service.mapper.UserMapper;
-import ru.akaleganov.job4j_url_shortcut.service.util.RandomGeneratorLoginPass;
+import ru.akaleganov.job4j_url_shortcut.service.util.RandomGenerator;
 
 import java.util.Collections;
 import java.util.Random;
@@ -24,7 +24,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @SpringBootTest
 class UserServiceTest {
     @Autowired
-    RandomGeneratorLoginPass randomGeneratorLoginPass;
+    RandomGenerator randomGenerator;
     @Autowired
     UserService userService;
     @Autowired
@@ -98,7 +98,7 @@ class UserServiceTest {
         UserDTO userDTO = new UserDTO();
         userDTO.setLogin("ADADASDSAD");
         userDTO.setPwd("kjsfksdfkjdshf");
-        userDTO.setUrl("asdasdasdas.com");
+        userDTO.setDomain("asdasdasdas.com");
         userDTO.setRoles(Collections.singletonList(role));
         assertThat(userService.create(userDTO).getId() != null,
                 Is.is(true));
@@ -112,7 +112,7 @@ class UserServiceTest {
         UserDTO userDTO = new UserDTO();
         userDTO.setLogin("qwedwq545dqw");
         userDTO.setPwd("qdwqdwq");
-        userDTO.setUrl("asdassdasxdadwqqdqsdas.com");
+        userDTO.setDomain("asdassdasxdadwqqdqsdas.com");
         userDTO.setRoles(Collections.singletonList(role));
         UserDTO res = this.userService.create(userDTO);
         res.setPwd(null);
@@ -129,7 +129,7 @@ class UserServiceTest {
         UserDTO userDTO = new UserDTO();
         userDTO.setLogin("qwedwqdqw");
         userDTO.setPwd("qdwqdwq");
-        userDTO.setUrl("asdasdadwqqdqsdas.com");
+        userDTO.setDomain("asdasdadwqqdqsdas.com");
         userDTO.setRoles(Collections.singletonList(role));
         UserDTO res = this.userService.create(userDTO);
         this.userService.setLastName("Вася", res.getId());

@@ -42,7 +42,7 @@
             <column name="pwd" type="VARCHAR(255)" >
                 <constraints nullable="false"/>
             </column>
-            <column name="url" type="VARCHAR(255)" >
+            <column name="domain" type="VARCHAR(255)" >
                 <constraints nullable="true"/>
             </column>
         </createTable>

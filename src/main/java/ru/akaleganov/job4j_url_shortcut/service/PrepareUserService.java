@@ -15,14 +15,14 @@ import java.util.function.Supplier;
  */
 @Service
 public class PrepareUserService {
-    private final UrlService urlService;
+    private final UrlValidService urlValidService;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserMapper userMapper;
     private static final Logger LOGGER = Logger.getLogger(PrepareUserService.class);
 
-    public PrepareUserService(UrlService urlService, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, UserMapper userMapper) {
-        this.urlService = urlService;
+    public PrepareUserService(UrlValidService urlValidService, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, UserMapper userMapper) {
+        this.urlValidService = urlValidService;
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userMapper = userMapper;
@@ -37,9 +37,9 @@ public class PrepareUserService {
      */
     protected UserDTO prepareUserToSave(UserDTO userDTO, Supplier<UserDTO> save) {
         if (!userDTO.getLogin().equals(this.findUserByLogin(userDTO.getLogin()).getLogin())) {
-            if (this.urlService.isValidUrl(userDTO.getUrl())) {
-                if (this.userRepository.findByUrl(userDTO.getUrl()).isPresent()) {
-                    return new UserDTO().setErrorMessage("url  " + userDTO.getUrl() + " уже занят");
+            if (this.urlValidService.isValidDomain(userDTO.getDomain())) {
+                if (this.userRepository.findByDomain(userDTO.getDomain()).isPresent()) {
+                    return new UserDTO().setErrorMessage("url  " + userDTO.getDomain() + " уже занят");
                 } else {
                     return save.get();
                 }
