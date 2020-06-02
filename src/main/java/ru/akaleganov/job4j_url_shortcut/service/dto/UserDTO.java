@@ -33,13 +33,15 @@ public class UserDTO implements Serializable {
     private List<Role> roles = new ArrayList<>();
 
     public UserDTO(User user) {
-        this.id = user.getId();
-        this.login = user.getLogin();
-        this.lastName = user.getLastName();
-        this.firstName = user.getFirstName();
-        this.middleName = user.getLastName();
-        this.domain = user.getDomain();
-        this.roles = user.getRoles();
+        if (user != null) {
+            this.id = user.getId();
+            this.login = user.getLogin();
+            this.lastName = user.getLastName();
+            this.firstName = user.getFirstName();
+            this.middleName = user.getLastName();
+            this.domain = user.getDomain();
+            this.roles = user.getRoles();
+        }
     }
 
     public String getDomain() {
