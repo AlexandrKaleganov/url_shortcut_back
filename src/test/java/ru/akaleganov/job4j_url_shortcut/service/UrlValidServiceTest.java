@@ -53,20 +53,20 @@ class UrlValidServiceTest {
     @Test
     @DisplayName("проверка содержит ли теущий урл домен пользователя")
     public void isContainsNewOriginal() {
-        assertThat(this.urlValidService.isContainsNewOriginal("https://sdsdsd.ru"),
+        assertThat(this.urlValidService.isContainsSortCutToDb("https://sdsdsd.ru"),
                 Is.is(false));
         Url url = new Url();
         url.setOrigin("https://sdsdsd.ru");
-        url.setNewOrigin("sdfs");
+        url.setShortCut("sdfs");
         this.urlRepository.save(url);
 
         assertThat(this.urlValidService.isContainsUrlToDataBase("https://sdsdsd.ru"),
                 Is.is(true));
-        assertThat(this.urlValidService.isContainsNewOriginal("sdfs"),
+        assertThat(this.urlValidService.isContainsSortCutToDb("sdfs"),
                 Is.is(true));
         assertThat(this.urlValidService.isContainsUrlToDataBase("https://sddsd.ru"),
                 Is.is(false));
-        assertThat(this.urlValidService.isContainsNewOriginal("dfs"),
+        assertThat(this.urlValidService.isContainsSortCutToDb("dfs"),
                 Is.is(false));
     }
 }

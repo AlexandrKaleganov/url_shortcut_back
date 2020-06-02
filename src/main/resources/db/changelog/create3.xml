@@ -15,7 +15,7 @@
             <column name="origin" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="new_origin" type="VARCHAR(255)">
+            <column name="short_cut" type="VARCHAR(255)">
                 <constraints nullable="true" />
             </column>
             <column name="user_id" type="bigint">

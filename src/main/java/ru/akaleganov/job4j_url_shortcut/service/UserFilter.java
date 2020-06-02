@@ -1,4 +1,4 @@
-package ru.akaleganov.job4j_url_shortcut.service.dto;
+package ru.akaleganov.job4j_url_shortcut.service;
 
 import org.springframework.data.jpa.domain.Specification;
 import ru.akaleganov.job4j_url_shortcut.domain.User;

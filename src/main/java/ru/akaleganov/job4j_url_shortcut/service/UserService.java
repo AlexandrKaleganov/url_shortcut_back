@@ -9,7 +9,6 @@ import ru.akaleganov.job4j_url_shortcut.domain.Role;
 import ru.akaleganov.job4j_url_shortcut.domain.User;
 import ru.akaleganov.job4j_url_shortcut.repository.UserRepository;
 import ru.akaleganov.job4j_url_shortcut.service.dto.UserDTO;
-import ru.akaleganov.job4j_url_shortcut.service.dto.UserFilter;
 import ru.akaleganov.job4j_url_shortcut.service.mapper.UserMapper;
 import ru.akaleganov.job4j_url_shortcut.service.util.RandomGenerator;
 

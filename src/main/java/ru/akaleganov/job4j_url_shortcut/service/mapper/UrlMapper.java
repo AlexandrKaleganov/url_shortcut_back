@@ -19,8 +19,15 @@ public class UrlMapper implements Mapper<UrlDTO, Url>{
         UrlDTO urlDTO = new UrlDTO();
         urlDTO.setId(url.getId());
         urlDTO.setOrigin(url.getOrigin());
-        urlDTO.setNewOrigin(url.getNewOrigin());
+        urlDTO.setShortCut(url.getShortCut());
         urlDTO.setUser(this.userMapper.userToUserDTO(url.getUser()));
+        return urlDTO;
+    }
+    public UrlDTO toDtoNonUser(Url url) {
+        UrlDTO urlDTO = new UrlDTO();
+        urlDTO.setId(url.getId());
+        urlDTO.setOrigin(url.getOrigin());
+        urlDTO.setShortCut(url.getShortCut());
         return urlDTO;
     }
 
@@ -33,7 +40,7 @@ public class UrlMapper implements Mapper<UrlDTO, Url>{
     public Url toEntity(UrlDTO urlDTO) {
         Url url = new Url();
         url.setOrigin(urlDTO.getOrigin());
-        url.setNewOrigin(urlDTO.getNewOrigin());
+        url.setShortCut(urlDTO.getShortCut());
         url.setUser(this.userMapper.userDTOToUser(urlDTO.getUser()));
         return url;
     }

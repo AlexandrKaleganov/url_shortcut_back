@@ -35,7 +35,7 @@ public class RandomGenerator {
                 .toString();
     }
 
-    public String generateNewOrigin() {
+    public String generateShortCut() {
         return new Random().ints(48, 122).filter(i ->
             (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
                 .limit(4)

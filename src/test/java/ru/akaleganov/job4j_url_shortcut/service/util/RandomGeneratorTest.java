@@ -31,7 +31,7 @@ class RandomGeneratorTest {
     void generateNewOrigin() {
         HashSet<String> hashSet = new HashSet<>(101, 1);
         for (int i = 0; i < 100; i++) {
-           hashSet.add(this.randomGenerator.generateNewOrigin());
+           hashSet.add(this.randomGenerator.generateShortCut());
         }
         assertThat(hashSet.size(),
                 Is.is(100));

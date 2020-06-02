@@ -55,11 +55,11 @@ public class UrlValidService {
     /**
      * проверка присутствует ли новый сгенерированный урл в бд
      *
-     * @param newUrl новый сгенерированный урл
+     * @param shortCut новый сгенерированный урл
      * @return если урл присутствует в бд то добавлять не будем
      */
-    public boolean isContainsNewOriginal(String newUrl) {
-        return this.urlRepository.findAllByNewOrigin(newUrl).size() > 0;
+    public boolean isContainsSortCutToDb(String shortCut) {
+        return this.urlRepository.findFirstByShortCut(shortCut).isPresent();
     }
 
 }

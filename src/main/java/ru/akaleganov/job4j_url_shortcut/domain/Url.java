@@ -7,38 +7,44 @@ import java.util.Objects;
 public class Url extends MappedSuperClass {
     @Column(name = "origin")
     private String origin;
-    @Column(name =  "new_origin")
-    private String newOrigin;
+    @Column(name = "short_cut")
+    private String shortCut;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    public Url() {
+    }
+
+    public Url(String origin, String shortCut, User user) {
+        this.origin = origin;
+        this.shortCut = shortCut;
+        this.user = user;
+    }
+
     public String getOrigin() {
         return origin;
     }
 
-    public Url setOrigin(String origin) {
+    public void setOrigin(String origin) {
         this.origin = origin;
-        return this;
     }
 
-    public String getNewOrigin() {
-        return newOrigin;
+    public String getShortCut() {
+        return shortCut;
     }
 
-    public Url setNewOrigin(String newOrigin) {
-        this.newOrigin = newOrigin;
-        return this;
+    public void setShortCut(String shortCut) {
+        this.shortCut = shortCut;
     }
 
     public User getUser() {
         return user;
     }
 
-    public Url setUser(User user) {
+    public void setUser(User user) {
         this.user = user;
-        return this;
     }
 
     @Override
@@ -47,20 +53,20 @@ public class Url extends MappedSuperClass {
         if (o == null || getClass() != o.getClass()) return false;
         Url url = (Url) o;
         return Objects.equals(origin, url.origin) &&
-                Objects.equals(newOrigin, url.newOrigin) &&
+                Objects.equals(shortCut, url.shortCut) &&
                 Objects.equals(user, url.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(origin, newOrigin, user);
+        return Objects.hash(origin, shortCut, user);
     }
 
     @Override
     public String toString() {
         return "Url{" +
                 "origin='" + origin + '\'' +
-                ", newOrigin='" + newOrigin + '\'' +
+                ", newOrigin='" + shortCut + '\'' +
                 ", user=" + user +
                 '}';
     }

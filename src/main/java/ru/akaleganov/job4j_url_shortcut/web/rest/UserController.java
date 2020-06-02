@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.akaleganov.job4j_url_shortcut.service.UserService;
 import ru.akaleganov.job4j_url_shortcut.service.dto.UserDTO;
-import ru.akaleganov.job4j_url_shortcut.service.dto.UserFilter;
+import ru.akaleganov.job4j_url_shortcut.service.UserFilter;
 
 import java.util.List;
 

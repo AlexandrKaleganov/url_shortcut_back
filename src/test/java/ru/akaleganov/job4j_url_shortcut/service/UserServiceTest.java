@@ -68,7 +68,7 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("тестирование: добавление пользователей по  URL")
+    @DisplayName("тестирование: добавление пользователей по  Domain")
     public void createUsersByUrl() {
         Role role = new Role(2L, "USER");
         role = this.roleRepository.save(role);
@@ -81,7 +81,7 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("тестирование: добавление пользователей по  URL errorMessage")
+    @DisplayName("тестирование: добавление пользователей по  Domain errorMessage")
     public void createUsersByUrlErrorOne() {
         this.roleRepository.save(new Role(2L, "USER"));
         userService.createUsersByUrl("akaleganov.ru");

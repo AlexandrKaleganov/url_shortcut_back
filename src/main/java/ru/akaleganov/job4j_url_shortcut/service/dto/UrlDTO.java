@@ -17,7 +17,7 @@ public class UrlDTO {
     /**
      * урл сокращённый
      */
-    private String newOrigin;
+    private String shortCut;
     /**
      * сообщение об ошибке
      */
@@ -43,12 +43,12 @@ public class UrlDTO {
         this.origin = origin;
     }
 
-    public String getNewOrigin() {
-        return newOrigin;
+    public String getShortCut() {
+        return shortCut;
     }
 
-    public void setNewOrigin(String newOrigin) {
-        this.newOrigin = newOrigin;
+    public void setShortCut(String shortCut) {
+        this.shortCut = shortCut;
     }
 
     public String getErrorMessage() {
@@ -75,14 +75,14 @@ public class UrlDTO {
         UrlDTO urlDTO = (UrlDTO) o;
         return Objects.equals(id, urlDTO.id) &&
                 Objects.equals(origin, urlDTO.origin) &&
-                Objects.equals(newOrigin, urlDTO.newOrigin) &&
+                Objects.equals(shortCut, urlDTO.shortCut) &&
                 Objects.equals(errorMessage, urlDTO.errorMessage) &&
                 Objects.equals(user, urlDTO.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, origin, newOrigin, errorMessage, user);
+        return Objects.hash(id, origin, shortCut, errorMessage, user);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class UrlDTO {
         return "UrlDTO{" +
                 "id=" + id +
                 ", origin='" + origin + '\'' +
-                ", newOrigin='" + newOrigin + '\'' +
+                ", newOrigin='" + shortCut + '\'' +
                 ", errorMessage='" + errorMessage + '\'' +
                 ", user=" + user +
                 '}';

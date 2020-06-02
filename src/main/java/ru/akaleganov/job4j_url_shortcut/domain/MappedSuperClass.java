@@ -7,6 +7,9 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class MappedSuperClass {
+    /**
+     * идентификатор объекта в бд
+     */
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;

@@ -25,35 +25,35 @@ class UrlMapperTest {
     @DisplayName("тестирование: urlToDto")
     void toDto() {
         Url url = new Url();
-        url.setNewOrigin("origin");
+        url.setShortCut("origin");
         UrlDTO urlDTO = this.urlMapper.toDto(url);
-        assertThat(urlDTO.getNewOrigin(), Is.is(url.getNewOrigin()));
+        assertThat(urlDTO.getShortCut(), Is.is(url.getShortCut()));
     }
 
     @Test
     @DisplayName("тестирование: urlToDtoList")
     void testToDto() {
         Url url = new Url();
-        url.setNewOrigin("origin");
+        url.setShortCut("origin");
         List<UrlDTO> urlDTOs = this.urlMapper.toDto(Collections.singletonList(url));
-        assertThat(urlDTOs.get(0).getNewOrigin(), Is.is(url.getNewOrigin()));
+        assertThat(urlDTOs.get(0).getShortCut(), Is.is(url.getShortCut()));
     }
 
     @Test
     @DisplayName("тестирование: urlToEntityList")
     void toEntity() {
         UrlDTO urlDTO = new UrlDTO();
-        urlDTO.setNewOrigin("origin");
+        urlDTO.setShortCut("origin");
         List<Url> urls = this.urlMapper.toEntity(Collections.singletonList(urlDTO));
-        assertThat(urls.get(0).getNewOrigin(), Is.is(urlDTO.getNewOrigin()));
+        assertThat(urls.get(0).getShortCut(), Is.is(urlDTO.getShortCut()));
     }
 
     @Test
     @DisplayName("тестирование: urlToEntity")
     void testToEntity() {
         UrlDTO urlDTO = new UrlDTO();
-        urlDTO.setNewOrigin("origin");
+        urlDTO.setShortCut("origin");
         Url url = this.urlMapper.toEntity(urlDTO);
-        assertThat(url.getNewOrigin(), Is.is(urlDTO.getNewOrigin()));
+        assertThat(url.getShortCut(), Is.is(urlDTO.getShortCut()));
     }
 }
