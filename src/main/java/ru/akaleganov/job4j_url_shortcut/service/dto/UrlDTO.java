@@ -1,17 +1,31 @@
 package ru.akaleganov.job4j_url_shortcut.service.dto;
 
-import ru.akaleganov.job4j_url_shortcut.domain.Url;
-import ru.akaleganov.job4j_url_shortcut.service.mapper.UserMapper;
-
 import java.util.Objects;
 
+/**
+ * дто для получения урла
+ */
 public class UrlDTO {
+    /**
+     * id
+     */
     private Long id;
+    /**
+     * урл оригинальный
+     */
     private String origin;
+    /**
+     * урл сокращённый
+     */
     private String newOrigin;
+    /**
+     * сообщение об ошибке
+     */
     private String errorMessage;
+    /**
+     * пользователь , которому принадлежит урл
+     */
     private UserDTO user;
-
 
     public Long getId() {
         return id;
@@ -41,8 +55,9 @@ public class UrlDTO {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
+    public UrlDTO setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+        return this;
     }
 
     public UserDTO getUser() {

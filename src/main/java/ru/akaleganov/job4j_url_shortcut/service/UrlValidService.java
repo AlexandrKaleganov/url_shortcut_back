@@ -7,13 +7,12 @@ import ru.akaleganov.job4j_url_shortcut.repository.UrlRepository;
 @Service
 public class UrlValidService {
     private final UrlRepository urlRepository;
-
     public UrlValidService(UrlRepository urlRepository) {
         this.urlRepository = urlRepository;
     }
 
     /**
-     * проверка url на валидность
+     * проверка домен на валидность
      *
      * @param domain домен пользователя
      * @return true если валидный, false   если нет

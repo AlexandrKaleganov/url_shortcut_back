@@ -18,24 +18,27 @@ public class Url extends MappedSuperClass {
         return origin;
     }
 
-    public void setOrigin(String origin) {
+    public Url setOrigin(String origin) {
         this.origin = origin;
+        return this;
     }
 
     public String getNewOrigin() {
         return newOrigin;
     }
 
-    public void setNewOrigin(String newOrigin) {
+    public Url setNewOrigin(String newOrigin) {
         this.newOrigin = newOrigin;
+        return this;
     }
 
     public User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public Url setUser(User user) {
         this.user = user;
+        return this;
     }
 
     @Override
