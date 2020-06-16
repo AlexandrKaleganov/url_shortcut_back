@@ -15,6 +15,7 @@ public class AuthTokenResponseMapper {
         authTokenResponseDTO.setJwtToken(jwtToken);
         authTokenResponseDTO.setRoles(users.getRoles().stream().map(Role::getName).collect(Collectors.toList()));
         authTokenResponseDTO.setUsername(users.getLogin());
+        authTokenResponseDTO.setDomain(users.getDomain());
         return authTokenResponseDTO;
     }
 }

@@ -3,6 +3,7 @@ package ru.akaleganov.job4j_url_shortcut.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.akaleganov.job4j_url_shortcut.domain.Url;
 import ru.akaleganov.job4j_url_shortcut.repository.UrlRepository;
 import ru.akaleganov.job4j_url_shortcut.service.dto.UrlDTO;
@@ -62,6 +63,7 @@ public class UrlService {
     /**
      * получить список урл c пагинацией и фильтрами
      */
+    @Transactional
     public Page<UrlDTO> findAllURl(Pageable pageable, UrlFilter urlFilter) {
         return  this.urlRepository.findAll(urlFilter.buildCriteria(), pageable).map(this.urlMapper::toDto);
     }

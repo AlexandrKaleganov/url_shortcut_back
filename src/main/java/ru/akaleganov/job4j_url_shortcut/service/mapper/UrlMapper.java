@@ -30,10 +30,12 @@ public class UrlMapper implements Mapper<UrlDTO, Url>{
         urlDTO.setShortCut(url.getShortCut());
         return urlDTO;
     }
-
+    public List<UrlDTO> toDtNonUsero(List<Url> urls) {
+        return urls.stream().map(this::toDto).collect(Collectors.toList());
+    }
     @Override
     public List<UrlDTO> toDto(List<Url> urls) {
-        return urls.stream().map(this::toDto).collect(Collectors.toList());
+        return urls.stream().map(this::toDtoNonUser).collect(Collectors.toList());
     }
 
     @Override
