@@ -121,18 +121,4 @@ class UserServiceTest {
         assertThat(this.userRepository.findById(res.getId()).orElse(new User()).getLastName(), Is.is("Вася"));
     }
 
-    @Test
-    @DisplayName("тестирование: транзакций")
-    public void khskjd() {
-        Role role = new Role(2L, "USER");
-        role = this.roleRepository.save(role);
-        UserDTO userDTO = new UserDTO();
-        userDTO.setLogin("qwedwqdqw");
-        userDTO.setPwd("qdwqdwq");
-        userDTO.setDomain("asdasdadwqqdqsdas.com");
-        userDTO.setRoles(Collections.singletonList(role));
-        UserDTO res = this.userService.create(userDTO);
-        this.userService.setLastName("Вася", res.getId());
-        assertThat(this.userRepository.findById(res.getId()).orElse(new User()).getLastName(), Is.is("Вася"));
-    }
 }

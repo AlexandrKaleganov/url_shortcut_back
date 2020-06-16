@@ -96,8 +96,8 @@ public class UserService {
      */
     public UserDTO updateUser(UserDTO userDTO) {
         User oldUSer = this.userRepository.findByLogin(userDTO.getLogin()).orElse(new User());
-        if (!oldUSer.getDomain().equals(userDTO.getDomain())) {
-            return this.prepareUserService.prepareUserToSave(userDTO, () -> this.userMapper.userToUserDTO(this.userRepository.save(
+        if (oldUSer.getDomain() == null || !oldUSer.getDomain().equals(userDTO.getDomain())) {
+            return this.prepareUserService.prepareToUpdate(userDTO, () -> this.userMapper.userToUserDTO(this.userRepository.save(
                     this.prepareUserService.prepareUser(userDTO))));
         } else {
             return this.userMapper.userToUserDTO(this.userRepository.save(
@@ -105,14 +105,4 @@ public class UserService {
         }
     }
 
-    /**
-     * тестирование транзакций
-     * @param lastName новое отчество
-     * @param id пользователя, которому надо изменить отчество
-     */
-    @Transactional
-    public void setLastName(String lastName, Long id) {
-        User user = this.userRepository.findById(id).get();
-        user.setLastName(lastName);
-    }
 }

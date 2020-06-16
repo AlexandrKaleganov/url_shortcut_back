@@ -37,21 +37,24 @@ public class PrepareUserService {
      */
     protected UserDTO prepareUserToSave(UserDTO userDTO, Supplier<UserDTO> save) {
         if (!userDTO.getLogin().equals(this.findUserByLogin(userDTO.getLogin()).getLogin())) {
-            if (this.urlValidService.isValidDomain(userDTO.getDomain())) {
-                if (this.userRepository.findByDomain(userDTO.getDomain()).isPresent()) {
-                    return new UserDTO().setErrorMessage("url  " + userDTO.getDomain() + " уже занят");
-                } else {
-                    return save.get();
-                }
-            } else {
-                return new UserDTO().setErrorMessage("url не прошёл валидацию");
-            }
+            return this.prepareToUpdate(userDTO, save);
         } else {
             return new UserDTO().setErrorMessage("пользователь с логином " + userDTO.getLogin() + " в базе уже существует");
         }
 
     }
 
+    public UserDTO prepareToUpdate(UserDTO userDTO, Supplier<UserDTO> save) {
+        if (this.urlValidService.isValidDomain(userDTO.getDomain())) {
+            if (this.userRepository.findByDomain(userDTO.getDomain()).isPresent()) {
+                return new UserDTO().setErrorMessage("url  " + userDTO.getDomain() + " уже занят");
+            } else {
+                return save.get();
+            }
+        } else {
+            return new UserDTO().setErrorMessage("url не прошёл валидацию");
+        }
+    }
     /**
      * подготовка пользователя к обновлению (проверка паролей)
      *

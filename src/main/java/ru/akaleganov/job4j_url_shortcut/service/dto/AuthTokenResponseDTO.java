@@ -17,8 +17,17 @@ public class AuthTokenResponseDTO {
      * имя пользователя
      */
     private String username;
+    private String domain;
     private List<String> roles;
     public AuthTokenResponseDTO() {
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
     public String getUsername() {
@@ -37,8 +46,9 @@ public class AuthTokenResponseDTO {
         this.roles = roles;
     }
 
-    public AuthTokenResponseDTO(String jwtToken, User users) {
+    public AuthTokenResponseDTO(String jwtToken, User user) {
         this.jwtToken = jwtToken;
+        this.domain = user.getDomain();
     }
 
     public String getJwtToken() {

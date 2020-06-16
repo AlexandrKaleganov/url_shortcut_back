@@ -57,6 +57,9 @@ public class PrepareUrlService {
         if (this.urlValidService.isValidUrl(url)) {
             if (!this.urlValidService.isContainsUrlToDataBase(url)) {
                 User user = this.userRepository.findByLogin(userLogin).orElse(new User());
+                if (user.getDomain() == null) {
+                    return valid.apply("у данного пользователя отсутствует домен, отредактируйте пользователя в меню - Пользователи - редактировать", new Url());
+                }
                 if (this.urlValidService.isDomainContainTheCurrentURL(url, user.getDomain())) {
                     String shortCut;
                     int k = 0;

@@ -28,7 +28,10 @@ public class UserController {
         headers.set("totalSize", Long.toString(page.getTotalElements()));
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
-
+    @GetMapping(value = "/users/{login}")
+    public ResponseEntity<UserDTO> findUserByLogin(@PathVariable String login) {
+        return ResponseEntity.ok().body(this.userService.getUserByLogin(login));
+    }
     @PostMapping(value = "/users")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO user) {
         return ResponseEntity.ok().body(this.userService.create(user));
