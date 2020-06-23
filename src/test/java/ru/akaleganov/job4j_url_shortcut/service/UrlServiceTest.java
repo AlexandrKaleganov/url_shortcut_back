@@ -1,8 +1,5 @@
 package ru.akaleganov.job4j_url_shortcut.service;
 
-import org.junit.jupiter.api.DisplayName;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,20 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import ru.akaleganov.job4j_url_shortcut.domain.Role;
-import ru.akaleganov.job4j_url_shortcut.domain.Url;
-import ru.akaleganov.job4j_url_shortcut.domain.User;
 import ru.akaleganov.job4j_url_shortcut.repository.RoleRepository;
-import ru.akaleganov.job4j_url_shortcut.repository.UserRepository;
 import ru.akaleganov.job4j_url_shortcut.service.dto.UrlDTO;
 import ru.akaleganov.job4j_url_shortcut.service.dto.UserDTO;
-import ru.akaleganov.job4j_url_shortcut.service.mapper.UserMapper;
-import ru.akaleganov.job4j_url_shortcut.service.util.RandomGenerator;
-
-import java.util.Collections;
-import java.util.Random;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("тестирование: URLService")
 @TestPropertySource(locations = "classpath:application-h2.properties")

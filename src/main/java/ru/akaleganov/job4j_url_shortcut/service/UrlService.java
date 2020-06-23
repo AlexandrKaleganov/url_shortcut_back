@@ -3,6 +3,8 @@ package ru.akaleganov.job4j_url_shortcut.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.akaleganov.job4j_url_shortcut.domain.Url;
 import ru.akaleganov.job4j_url_shortcut.repository.UrlRepository;
@@ -15,11 +17,13 @@ public class UrlService {
     private final PrepareUrlService prepareUrlService;
     private final UrlRepository urlRepository;
     private final UrlMapper urlMapper;
+    private final StatisticService statisticService;
 
-    public UrlService(PrepareUrlService prepareUrlService, UrlRepository urlRepository, UrlMapper urlMapper) {
+    public UrlService(PrepareUrlService prepareUrlService, UrlRepository urlRepository, UrlMapper urlMapper, StatisticService statisticService) {
         this.prepareUrlService = prepareUrlService;
         this.urlRepository = urlRepository;
         this.urlMapper = urlMapper;
+        this.statisticService = statisticService;
     }
 
     /**
@@ -40,9 +44,14 @@ public class UrlService {
      * @param shortCut короткая ссылка
      * @return получить урл
      */
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
     public UrlDTO findUrlByShortCut(String shortCut) {
-        UrlDTO urlDTO = this.urlMapper.toDtoNonUser(this.urlRepository.findFirstByShortCut(shortCut).orElse(new Url()));
-        return urlDTO.getId() != null ? urlDTO : urlDTO.setErrorMessage(String.format("Короткая ссылка %s не зарегистрирована", shortCut));
+        Url url =this.urlRepository.findFirstByShortCut(shortCut).orElse(new Url());
+        if(url.getId() != null) {
+            this.statisticService.setStatisticByIdUrl(url);
+            return this.urlMapper.toDto(url);
+        }
+        return this.urlMapper.toDto(url).setErrorMessage(String.format("Короткая ссылка %s не зарегистрирована", shortCut));
     }
 
     /**
