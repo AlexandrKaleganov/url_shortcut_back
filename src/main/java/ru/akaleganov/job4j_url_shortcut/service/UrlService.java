@@ -32,7 +32,7 @@ public class UrlService {
     public UrlDTO addUrl(String url, String userLogin) {
         return this.prepareUrlService.prepareToSave(url, userLogin,
                 (rsl) -> {
-            return urlMapper.toDto(this.urlRepository.save(rsl));
+                    return urlMapper.toDto(this.urlRepository.save(rsl));
                 });
     }
 
@@ -41,11 +41,13 @@ public class UrlService {
      * @return получить урл
      */
     public UrlDTO findUrlByShortCut(String shortCut) {
-        return this.urlMapper.toDtoNonUser(this.urlRepository.findFirstByShortCut(shortCut).orElse(new Url()));
+        UrlDTO urlDTO = this.urlMapper.toDtoNonUser(this.urlRepository.findFirstByShortCut(shortCut).orElse(new Url()));
+        return urlDTO.getId() != null ? urlDTO : urlDTO.setErrorMessage(String.format("Короткая ссылка %s не зарегистрирована", shortCut));
     }
 
     /**
      * поиск урла по id
+     *
      * @param id {@link Url#getId()}
      */
     public UrlDTO findUrlById(Long id) {
@@ -54,6 +56,7 @@ public class UrlService {
 
     /**
      * удаление урла по id
+     *
      * @param id {@link Url#getId()}
      */
     public void deleteUrlById(Long id) {
@@ -65,6 +68,6 @@ public class UrlService {
      */
     @Transactional
     public Page<UrlDTO> findAllURl(Pageable pageable, UrlFilter urlFilter) {
-        return  this.urlRepository.findAll(urlFilter.buildCriteria(), pageable).map(this.urlMapper::toDto);
+        return this.urlRepository.findAll(urlFilter.buildCriteria(), pageable).map(this.urlMapper::toDto);
     }
 }

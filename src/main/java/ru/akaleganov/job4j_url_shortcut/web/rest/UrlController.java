@@ -10,7 +10,6 @@ import ru.akaleganov.job4j_url_shortcut.service.UrlService;
 import ru.akaleganov.job4j_url_shortcut.service.dto.UrlDTO;
 
 import java.security.Principal;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
