@@ -1,19 +1,33 @@
 package ru.akaleganov.job4j_url_shortcut.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.akaleganov.job4j_url_shortcut.domain.Statistic;
 import ru.akaleganov.job4j_url_shortcut.domain.Url;
 import ru.akaleganov.job4j_url_shortcut.repository.StatisticRepository;
 import ru.akaleganov.job4j_url_shortcut.repository.UrlRepository;
+import ru.akaleganov.job4j_url_shortcut.service.dto.StatisticDTO;
+import ru.akaleganov.job4j_url_shortcut.service.mapper.StatisticMapper;
 
 @Service
 public class StatisticService {
 
     private final StatisticRepository statisticRepository;
+    private final StatisticMapper statisticMapper;
 
-    public StatisticService(StatisticRepository statisticRepository, UrlRepository urlRepository) {
+    public StatisticService(StatisticRepository statisticRepository, UrlRepository urlRepository, StatisticMapper statisticMapper) {
         this.statisticRepository = statisticRepository;
+        this.statisticMapper = statisticMapper;
+    }
+
+    /**
+     * получить список урл c пагинацией и фильтрами
+     */
+    @Transactional
+    public Page<StatisticDTO> findAllStatistic(Pageable pageable) {
+        return this.statisticRepository.findAll(pageable).map(this.statisticMapper::toDto);
     }
 
     /**
@@ -26,7 +40,7 @@ public class StatisticService {
             statistic.setCount(statistic.getCount() + 1);
             return statistic;
         } else {
-           return this.addNewStatisticByUrl(url);
+            return this.addNewStatisticByUrl(url);
         }
     }
 
@@ -40,9 +54,10 @@ public class StatisticService {
     }
 
     /**
-     * добавить данные в статистику по url
+     * получить объект статистики по id
      *
      * @param id {@link Statistic#getId()}
+     * @return {@link Statistic}
      */
     public Statistic findById(Long id) {
         return this.statisticRepository.findById(id).orElse(new Statistic());
