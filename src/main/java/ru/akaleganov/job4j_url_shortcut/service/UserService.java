@@ -97,7 +97,8 @@ public class UserService {
     public UserDTO updateUser(UserDTO userDTO) {
         User oldUSer = this.userRepository.findByLogin(userDTO.getLogin()).orElse(new User());
         if (oldUSer.getDomain() == null || !oldUSer.getDomain().equals(userDTO.getDomain())) {
-            return this.prepareUserService.prepareToUpdate(userDTO, () -> this.userMapper.userToUserDTO(this.userRepository.save(
+            return this.prepareUserService.prepareToUpdate(userDTO, () ->
+                    this.userMapper.userToUserDTO(this.userRepository.save(
                     this.prepareUserService.prepareUser(userDTO))));
         } else {
             return this.userMapper.userToUserDTO(this.userRepository.save(
