@@ -21,12 +21,8 @@ public class UserController {
     }
 
     @GetMapping(value = "/users")
-    public ResponseEntity<List<UserDTO>> getAllUsers(UserFilter criteria, Pageable pageable) {
-        Page<UserDTO> page = this.userService.findAll(criteria, pageable);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Access-Control-Expose-Headers", "totalSize");
-        headers.set("totalSize", Long.toString(page.getTotalElements()));
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    public ResponseEntity<Page<UserDTO>> getAllUsers(UserFilter criteria, Pageable pageable) {
+        return ResponseEntity.ok().body(this.userService.findAll(criteria, pageable));
     }
     @GetMapping(value = "/users/{login}")
     public ResponseEntity<UserDTO> findUserByLogin(@PathVariable String login) {
