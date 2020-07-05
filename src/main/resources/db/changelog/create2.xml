@@ -30,6 +30,7 @@
             <column name="first_name" type="STRING"/>
             <column name="middle_name" type="STRING"/>
             <column name="pwd" type="STRING"/>
+            <column name="domain" type="STRING"/>
         </loadData>
     </changeSet>
     <!--    заполняем роли стартовым пользователям-->
