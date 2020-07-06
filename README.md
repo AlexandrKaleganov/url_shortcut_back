@@ -1,12 +1,18 @@
 # url_shortcut
 Стек технологий:
-java 8
-SpringBoot,
-Авторизация через  jwt,
+java 8,
+SpringBoot
+
+Авторизация через  jwt
+
 СУБД MySQL
+
 liquibase(для входа в приложение можно использовать admin/admin || user/user)
+
 Добавлено логирование с ипользованием Aspect
+
 Написаны junit  тесты на сервисы
+
 Angular
 
 #deploy: 
