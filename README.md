@@ -1,4 +1,4 @@
-# urk_shortcut
+# url_shortcut
 Стек технологий:
 java 8
 SpringBoot,
