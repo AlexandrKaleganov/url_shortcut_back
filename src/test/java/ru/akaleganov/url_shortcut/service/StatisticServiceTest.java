@@ -11,6 +11,9 @@ import ru.akaleganov.url_shortcut.domain.Statistic;
 import ru.akaleganov.url_shortcut.domain.Url;
 import ru.akaleganov.url_shortcut.repository.UrlRepository;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @DisplayName("тестирование: StatisticServiceTest")
 @TestPropertySource(locations = "classpath:application-h2.properties")
 @SpringBootTest
@@ -34,5 +37,40 @@ class StatisticServiceTest {
         MatcherAssert.assertThat(statistic2.getCount(), Is.is(2L));
         MatcherAssert.assertThat(this.statisticService.findById(statistic.getId()).getCount(), Is.is(2L));
     }
+
+    @Test
+    @DisplayName("тестирование: Обновление статистики в многопоточке")
+    void testSetStatisticByIdUrlMultiThread() {
+        Url url = new Url();
+        url.setOrigin("https://sdsdksajdkjasdksdsssss.ru");
+        url.setShortCut("sdfsdfdssdsffdsfdfss");
+        url = this.urlRepository.save(url);
+        Url finalUrl = url;
+        this.statisticService.setStatisticByIdUrl(finalUrl);
+        ExecutorService service = Executors.newFixedThreadPool(100);
+        for (int i = 0; i < 10_000; i++) {
+            service.execute(() -> this.statisticService.setStatisticByIdUrl(finalUrl));
+        }
+        Statistic statistic = this.statisticService.setStatisticByIdUrl(url);
+        MatcherAssert.assertThat(statistic.getCount(), Is.is(10002L));
+    }
+
+
+    @Test
+    @DisplayName("тестирование: Обновление статистики последовательно")
+    void testSetStatisticByIdUrlSingleThread() {
+        Url url = new Url();
+        url.setOrigin("https://sdsdksajdkjassfsfdksdsssss.ru");
+        url.setShortCut("sdfsdfdssdsffdssadafdfss");
+        url = this.urlRepository.save(url);
+        Url finalUrl = url;
+        this.statisticService.setStatisticByIdUrl(finalUrl);
+        for (int i = 0; i < 10_000; i++) {
+          this.statisticService.setStatisticByIdUrl(finalUrl);
+        }
+        Statistic statistic = this.statisticService.setStatisticByIdUrl(url);
+        MatcherAssert.assertThat(statistic.getCount(), Is.is(10002L));
+    }
+
 
 }

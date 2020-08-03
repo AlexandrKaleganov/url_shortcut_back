@@ -3,6 +3,8 @@ package ru.akaleganov.url_shortcut.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.akaleganov.url_shortcut.domain.Statistic;
 import ru.akaleganov.url_shortcut.domain.Url;
@@ -33,8 +35,8 @@ public class StatisticService {
     /**
      * @param url {@link Url()}
      */
-    @Transactional
-    public Statistic setStatisticByIdUrl(Url url) {
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    public  Statistic setStatisticByIdUrl(Url url) {
         Statistic statistic = this.statisticRepository.findFirstByUrlId(url.getId()).orElse(new Statistic());
         if (statistic.getId() != null) {
             statistic.setCount(statistic.getCount() + 1);
