@@ -11,7 +11,9 @@ spring:
     open-in-view: false
     show-sql: true
     database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate.ddl-auto: none
+    generate-ddl: false
   main:
     allow-bean-definition-overriding: true
   servlet:

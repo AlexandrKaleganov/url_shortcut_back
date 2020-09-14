@@ -16,7 +16,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="url_id" type="bigint">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
         <rollback>
