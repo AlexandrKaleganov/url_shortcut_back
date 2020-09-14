@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.akaleganov.url_shortcut.domain.Role;
 import ru.akaleganov.url_shortcut.domain.User;
 import ru.akaleganov.url_shortcut.repository.UserRepository;
@@ -47,6 +48,7 @@ public class UserService {
      * @param url ссылка на домен, каждый пользователь может дбавить только один домен
      * @return {@link UserDTO}
      */
+    @Transactional
     public UserDTO createUsersByUrl(String url) {
         UserDTO userDTO = new UserDTO().setDomain(url);
         userDTO.setLogin(this.randomGenerator.generateLogin());
@@ -67,6 +69,7 @@ public class UserService {
      * @param userDTO {@link UserDTO}
      * @return {@link UserDTO}
      */
+    @Transactional
     public UserDTO create(UserDTO userDTO) {
         return this.prepareUserService.prepareUserToSave(userDTO, () ->{
             User us = this.prepareUserService.encode(userDTO);

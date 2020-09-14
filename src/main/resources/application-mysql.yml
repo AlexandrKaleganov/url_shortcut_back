@@ -1,0 +1,21 @@
+server:
+  port: 9000
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: ${SPRING_DATASOURCE_PASSWORD:admin}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/url_shortcut?AllowPublicKeyRetrieval=True&useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Europe/Moscow}
+    username: ${SPRING_DATASOURCE_USERNAME:admin}
+  jpa:
+    open-in-view: false
+    show-sql: true
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      max-file-size: 10000000
+      max-request-size: 10000000
+jwt:
+    header: Authorization
+    secret: alexander1234rudnmabdmasbmdDjabcjhabajsnadka
+    sessionTime: 1200000000

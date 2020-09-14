@@ -1,0 +1,24 @@
+server:
+  port: 9000
+spring:
+  datasource:
+    platform: postgres
+    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/url_shortcut}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+  jpa:
+    open-in-view: false
+    show-sql: true
+    database: POSTGRESQL
+    hibernate.ddl-auto: none
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      max-file-size: 10000000
+      max-request-size: 10000000
+jwt:
+    header: Authorization
+    secret: alexander1234rudnmabdmasbmdDjabcjhabajsnadka
+    sessionTime: 1200000000

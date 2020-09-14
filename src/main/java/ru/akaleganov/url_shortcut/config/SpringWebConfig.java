@@ -63,7 +63,7 @@ public class SpringWebConfig implements WebMvcConfigurer {
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setDataSource(dataSource);
         liquibase.setChangeLog("classpath:db/changelog-master.xml");
-        liquibase.setContexts("dev, prod");
+        liquibase.setContexts("mysql, postgres");
         liquibase.setShouldRun(true);
         return liquibase;
     }
