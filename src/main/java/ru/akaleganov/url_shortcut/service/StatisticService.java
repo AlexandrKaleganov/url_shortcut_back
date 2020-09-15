@@ -51,6 +51,7 @@ public class StatisticService {
      *
      * @param url {@link Url}
      */
+    @Transactional
     public Statistic addNewStatisticByUrl(Url url) {
         return this.statisticRepository.save(new Statistic(url, 1L));
     }

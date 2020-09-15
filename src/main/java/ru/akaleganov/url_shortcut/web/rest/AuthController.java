@@ -44,7 +44,6 @@ public class AuthController {
     @PostMapping("/auth")
     public ResponseEntity<AuthTokenResponseDTO> register(@RequestBody User loginUser) {
         LOGGER.debug("SIGN IN REQUEST:");
-        LOGGER.debug(loginUser.toString());
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginUser.getLogin(),
@@ -52,7 +51,6 @@ public class AuthController {
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        LOGGER.debug("CURRENT auth user {}" + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         final UserDetails user = userDetailServiceCustom.loadUserByUsername(loginUser.getLogin());
         final String token = jwtTokenUtil.doGenerateToken(user);
         return ResponseEntity.ok(this.authTokenResponseMapper.toDTO(token,

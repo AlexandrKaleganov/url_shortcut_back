@@ -17,6 +17,16 @@ public class Url extends MappedSuperClass {
     public Url() {
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Url url = new Url();
+        url.setUser(this.user);
+        url.setOrigin(new String(this.origin));
+        url.setShortCut(new String(this.shortCut));
+        url.setId(this.getId());
+        return url;
+    }
+
     public Url(String origin, String shortCut, User user) {
         this.origin = origin;
         this.shortCut = shortCut;

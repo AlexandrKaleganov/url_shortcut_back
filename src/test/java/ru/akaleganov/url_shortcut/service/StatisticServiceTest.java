@@ -41,24 +41,24 @@ class StatisticServiceTest {
         MatcherAssert.assertThat(this.statisticService.findById(statistic.getId()).getCount(), Is.is(2L));
     }
 
-//    @Test
-//    @DisplayName("тестирование: Обновление статистики в многопоточке")
-//    void testSetStatisticByIdUrlMultiThread() throws CloneNotSupportedException {
-//        Url url = new Url();
-//        url.setOrigin("https://sdsdksajdkjasdksdsssss.ru");
-//        url.setShortCut("sdfsdfdssdsffdsfdfss");
-//        url = this.urlRepository.save(url);
-//        Url finalUrl = url;
-//        this.statisticService.setStatisticByIdUrl(finalUrl);
-//        ExecutorService service = Executors.newFixedThreadPool(100);
-//        for (int i = 0; i < 10_000; i++) {
-//            Url erll = (Url) finalUrl.clone();
-//            log.info(erll.toString());
-//            service.execute(() -> this.statisticService.setStatisticByIdUrl(erll));
-//        }
-//        Statistic statistic = this.statisticService.setStatisticByIdUrl(url);
-//        MatcherAssert.assertThat(statistic.getCount(), Is.is(10002L));
-//    }
+    @Test
+    @DisplayName("тестирование: Обновление статистики в многопоточке")
+    void testSetStatisticByIdUrlMultiThread() throws CloneNotSupportedException {
+        Url url = new Url();
+        url.setOrigin("https://sdsdksajdkjasdksdsssss.ru");
+        url.setShortCut("sdfsdfdssdsffdsfdfss");
+        url = this.urlRepository.save(url);
+        Url finalUrl = url;
+        this.statisticService.setStatisticByIdUrl(finalUrl);
+        ExecutorService service = Executors.newFixedThreadPool(100);
+        for (int i = 0; i < 10_000; i++) {
+            Url erll = (Url) finalUrl.clone();
+            log.info(erll.toString());
+            service.execute(() -> this.statisticService.setStatisticByIdUrl(erll));
+        }
+        Statistic statistic = this.statisticService.setStatisticByIdUrl(url);
+        MatcherAssert.assertThat(statistic.getCount(), Is.is(10002L));
+    }
 
 
     @Test
