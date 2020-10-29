@@ -1,5 +1,6 @@
 package ru.akaleganov.url_shortcut.config.security;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -8,10 +9,10 @@ import ru.akaleganov.url_shortcut.domain.User;
 import ru.akaleganov.url_shortcut.repository.UserRepository;
 
 @Service
+@AllArgsConstructor
 public class UserDetailServiceCustom implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public User loadUserByUsername(String login) throws UsernameNotFoundException {

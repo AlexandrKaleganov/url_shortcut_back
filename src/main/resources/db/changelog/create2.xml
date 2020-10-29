@@ -11,9 +11,9 @@
 <!--    создаём список ролей-->
     <changeSet id="2" author="admin">
         <loadData
-                file="db/role.csv"
+                file="db/data/role.csv"
                 separator=";"
-                tableName="role">
+                tableName="lex_roles">
             <column name="id" type="numeric"/>
             <column name="name" type="string"/>
         </loadData>
@@ -21,9 +21,9 @@
     <!--    создаём пользователей-->
     <changeSet id="2-1" author="admin">
         <loadData
-                file="db/user.csv"
+                file="db/data/user.csv"
                 separator=";"
-                tableName="user">
+                tableName="lex_users">
             <column name="id" type="numeric"/>
             <column name="login" type="STRING"/>
             <column name="last_name" type="STRING"/>
@@ -36,11 +36,11 @@
     <!--    заполняем роли стартовым пользователям-->
     <changeSet id="2-2" author="admin">
         <loadData
-                file="db/user_role.csv"
+                file="db/data/user_role.csv"
                 separator=";"
-                tableName="user_role">
-            <column name="user_id" type="numeric"/>
-            <column name="role_id" type="numeric"/>
+                tableName="lex_users_lex_roles">
+            <column name="lex_users_id" type="numeric"/>
+            <column name="lex_roles_id" type="numeric"/>
         </loadData>
     </changeSet>
 </databaseChangeLog>

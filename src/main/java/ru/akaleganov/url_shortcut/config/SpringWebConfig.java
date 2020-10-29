@@ -58,15 +58,6 @@ public class SpringWebConfig implements WebMvcConfigurer {
         configurer.enable();
     }
 
-    @Bean
-    public SpringLiquibase liquibase(DataSource dataSource) {
-        SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setDataSource(dataSource);
-        liquibase.setChangeLog("classpath:db/changelog-master.xml");
-        liquibase.setContexts("mysql, postgres");
-        liquibase.setShouldRun(true);
-        return liquibase;
-    }
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
      registry.addRedirectViewController("/", "/index.html");

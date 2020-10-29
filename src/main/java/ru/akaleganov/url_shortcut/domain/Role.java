@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.util.Objects;
 
-@Entity(name = "role")
+@Entity(name = "lex_roles")
 public class Role extends MappedSuperClass implements GrantedAuthority {
     @Column(name = "name")
     private String name;

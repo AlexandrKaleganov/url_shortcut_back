@@ -1,5 +1,6 @@
 package ru.akaleganov.url_shortcut.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.akaleganov.url_shortcut.domain.Url;
@@ -13,18 +14,14 @@ import java.util.function.Function;
 
 /**
  * сервис для подготовки урл для сохранения
+ * todo: мне стыдно за этот код
  */
 @Service
+@AllArgsConstructor
 public class PrepareUrlService {
     private final UrlValidService urlValidService;
     private final UserRepository userRepository;
     private final RandomGenerator randomGenerator;
-
-    public PrepareUrlService(UrlValidService urlValidService, UserRepository userRepository, RandomGenerator randomGenerator) {
-        this.urlValidService = urlValidService;
-        this.userRepository = userRepository;
-        this.randomGenerator = randomGenerator;
-    }
 
     /**
      * рефакторинг валидации

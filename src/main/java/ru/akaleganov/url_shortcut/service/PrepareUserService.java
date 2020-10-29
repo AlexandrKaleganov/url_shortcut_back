@@ -1,5 +1,6 @@
 package ru.akaleganov.url_shortcut.service;
 
+import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,19 +15,13 @@ import java.util.function.Supplier;
  * сервис для рефакторинга и подготовки пользователя для сохранения
  */
 @Service
+@AllArgsConstructor
 public class PrepareUserService {
     private final UrlValidService urlValidService;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserMapper userMapper;
     private static final Logger LOGGER = Logger.getLogger(PrepareUserService.class);
-
-    public PrepareUserService(UrlValidService urlValidService, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, UserMapper userMapper) {
-        this.urlValidService = urlValidService;
-        this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.userMapper = userMapper;
-    }
 
     /**
      * сохранение  пользователя в бд

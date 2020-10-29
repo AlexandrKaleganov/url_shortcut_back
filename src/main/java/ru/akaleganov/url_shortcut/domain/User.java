@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-@Entity(name = "user")
+@Entity(name = "lex_user")
 public class User extends MappedSuperClass implements UserDetails {
     @Column(name = "login")
     private String login;
@@ -32,9 +32,9 @@ public class User extends MappedSuperClass implements UserDetails {
         this.domain = url;
     }
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinTable(name = "lex_users_lex_roles", joinColumns = @JoinColumn(name = "lex_users_id"),
+            inverseJoinColumns = @JoinColumn(name = "lex_roles_id"))
     private List<Role> roles;
 
     public String getLogin() {

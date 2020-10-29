@@ -8,7 +8,7 @@
     <property name="autoIncrement" value="true"/>
     <!--созаём таблицу ролей-->
     <changeSet author="admin" id="1">
-        <createTable tableName="role">
+        <createTable tableName="lex_roles">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
@@ -17,12 +17,12 @@
             </column>
         </createTable>
         <rollback>
-            <dropTable tableName="role"/>
+            <dropTable tableName="lex_roles"/>
         </rollback>
     </changeSet>
     <changeSet author="admin" id="1-1">
-<!--        создаём таблицу пльзователей-->
-        <createTable tableName="user">
+        <!--        создаём таблицу пльзователей-->
+        <createTable tableName="lex_users">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
@@ -47,23 +47,24 @@
             </column>
         </createTable>
         <rollback>
-            <dropTable tableName="user"/>
+            <dropTable tableName="lex_users"/>
         </rollback>
     </changeSet>
-<!--    таблица связи пользователей и ролей-->
+    <!--    таблица связи пользователей и ролей-->
     <changeSet author="admin" id="1-3">
-        <createTable tableName="user_role">
-            <column name="user_id" type="bigint">
+
+        <createTable tableName="lex_users_lex_roles">
+            <column name="lex_users_id" type="bigint">
             </column>
-            <column name="role_id" type="bigint">
+            <column name="lex_roles_id" type="bigint">
             </column>
         </createTable>
-<!--        <addUniqueConstraint-->
-<!--                columnNames="user_id, role_id"-->
-<!--                constraintName="user_role"-->
-<!--                tableName="user_role"/>-->
+                <addUniqueConstraint
+                        columnNames="lex_users_id, lex_roles_id"
+                        constraintName="constraintName_lex_users_lex_roles"
+                        tableName="lex_users_lex_roles"/>
         <rollback>
-            <dropTable tableName="user_role"/>
+            <dropTable tableName="lex_users_lex_roles"/>
         </rollback>
     </changeSet>
 </databaseChangeLog>

@@ -39,7 +39,7 @@
     </root>
 
     <!-- LOG "ru.callinsight*" at TRACE level -->
-    <logger name="ru.callinsight" level="trace" additivity="false">
+    <logger name="ru.callinsight" level="debug" additivity="false">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
     </logger>

@@ -35,7 +35,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private UserDetailServiceCustom userDetailServiceCustom;
 
 
-
     @Value("${jwt.header}")
     private String HEADER_STRING;
 
