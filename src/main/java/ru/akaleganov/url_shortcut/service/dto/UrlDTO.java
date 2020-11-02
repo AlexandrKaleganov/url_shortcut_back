@@ -4,10 +4,16 @@ import java.util.Objects;
 
 /**
  * дто для получения урла
+ *
+ * @see UrlDTO#id
+ * @see UrlDTO#origin
+ * @see UrlDTO#shortCut
+ * @see UrlDTO#errorMessage
+ * @see UrlDTO#user
  */
 public class UrlDTO {
     /**
-     * id
+     * идентификатор
      */
     private Long id;
     /**
@@ -27,45 +33,99 @@ public class UrlDTO {
      */
     private UserDTO user;
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Gets origin.
+     *
+     * @return the origin
+     */
     public String getOrigin() {
         return origin;
     }
 
-    public void setOrigin(String origin) {
+    /**
+     * Sets origin.
+     *
+     * @param origin the origin
+     */
+    public UrlDTO setOrigin(String origin) {
         this.origin = origin;
+        return this;
     }
 
+    /**
+     * Gets short cut.
+     *
+     * @return the short cut
+     */
     public String getShortCut() {
         return shortCut;
     }
 
-    public void setShortCut(String shortCut) {
+    /**
+     * Sets short cut.
+     *
+     * @param shortCut the short cut
+     */
+    public UrlDTO setShortCut(String shortCut) {
         this.shortCut = shortCut;
+        return this;
     }
 
+    /**
+     * Gets error message.
+     *
+     * @return the error message
+     */
     public String getErrorMessage() {
         return errorMessage;
     }
 
+    /**
+     * Sets error message.
+     *
+     * @param errorMessage the error message
+     * @return the error message
+     */
     public UrlDTO setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
         return this;
     }
 
+    /**
+     * Gets user.
+     *
+     * @return the user
+     */
     public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(UserDTO user) {
+    /**
+     * Sets user.
+     *
+     * @param user the user
+     */
+    public UrlDTO setUser(UserDTO user) {
         this.user = user;
+        return this;
     }
 
     @Override

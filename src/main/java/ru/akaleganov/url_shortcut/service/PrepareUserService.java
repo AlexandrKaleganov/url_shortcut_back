@@ -8,6 +8,7 @@ import ru.akaleganov.url_shortcut.domain.User;
 import ru.akaleganov.url_shortcut.repository.UserRepository;
 import ru.akaleganov.url_shortcut.service.dto.UserDTO;
 import ru.akaleganov.url_shortcut.service.mapper.UserMapper;
+import ru.akaleganov.url_shortcut.service.url.ValidDomainSevice;
 
 import java.util.function.Supplier;
 
@@ -17,7 +18,7 @@ import java.util.function.Supplier;
 @Service
 @AllArgsConstructor
 public class PrepareUserService {
-    private final UrlValidService urlValidService;
+    private final ValidDomainSevice urlValidService;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserMapper userMapper;
@@ -26,8 +27,8 @@ public class PrepareUserService {
     /**
      * сохранение  пользователя в бд
      *
-     * @param userDTO  url
-     * @param save функция сохранения которую надо реализовать
+     * @param userDTO url
+     * @param save    функция сохранения которую надо реализовать
      * @return {@link UserDTO}
      */
     protected UserDTO prepareUserToSave(UserDTO userDTO, Supplier<UserDTO> save) {
@@ -39,10 +40,17 @@ public class PrepareUserService {
 
     }
 
+    /**
+     * Prepare to update user dto.
+     *
+     * @param userDTO the user dto
+     * @param save    the save
+     * @return the user dto
+     */
     public UserDTO prepareToUpdate(UserDTO userDTO, Supplier<UserDTO> save) {
         if (this.urlValidService.isValidDomain(userDTO.getDomain())) {
             if (this.userRepository.findByDomain(userDTO.getDomain()).isPresent()) {
-                return new UserDTO().setErrorMessage("url  " + userDTO.getDomain() + " уже занят");
+                return new UserDTO().setErrorMessage("Домен  " + userDTO.getDomain() + " уже занят");
             } else {
                 return save.get();
             }
@@ -50,6 +58,7 @@ public class PrepareUserService {
             return new UserDTO().setErrorMessage("url не прошёл валидацию");
         }
     }
+
     /**
      * подготовка пользователя к обновлению (проверка паролей)
      *
@@ -67,6 +76,8 @@ public class PrepareUserService {
     }
 
     /**
+     * Encode user.
+     *
      * @param userDTO {@link UserDTO}
      * @return {@link User}
      */

@@ -6,10 +6,19 @@ import ru.akaleganov.url_shortcut.service.dto.UrlDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+/**
+ * The type Url mapper.
+ */
 @Service
 public class UrlMapper implements Mapper<UrlDTO, Url>{
     private final UserMapper userMapper;
 
+    /**
+     * Instantiates a new Url mapper.
+     *
+     * @param userMapper the user mapper
+     */
     public UrlMapper(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
@@ -23,6 +32,13 @@ public class UrlMapper implements Mapper<UrlDTO, Url>{
         urlDTO.setUser(this.userMapper.userToUserDTO(url.getUser()));
         return urlDTO;
     }
+
+    /**
+     * To dto non user url dto.
+     *
+     * @param url the url
+     * @return the url dto
+     */
     public UrlDTO toDtoNonUser(Url url) {
         UrlDTO urlDTO = new UrlDTO();
         urlDTO.setId(url.getId());
@@ -30,6 +46,13 @@ public class UrlMapper implements Mapper<UrlDTO, Url>{
         urlDTO.setShortCut(url.getShortCut());
         return urlDTO;
     }
+
+    /**
+     * To dt non usero list.
+     *
+     * @param urls the urls
+     * @return the list
+     */
     public List<UrlDTO> toDtNonUsero(List<Url> urls) {
         return urls.stream().map(this::toDto).collect(Collectors.toList());
     }

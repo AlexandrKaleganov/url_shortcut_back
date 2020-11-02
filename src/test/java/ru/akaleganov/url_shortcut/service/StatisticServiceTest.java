@@ -16,6 +16,9 @@ import ru.akaleganov.url_shortcut.repository.UrlRepository;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * The type Statistic service test.
+ */
 @DisplayName("тестирование: StatisticServiceTest")
 @TestPropertySource(locations = "classpath:application-h2.properties")
 @SpringBootTest
@@ -26,6 +29,9 @@ class StatisticServiceTest {
     private UrlRepository urlRepository;
     private final static Logger log = LoggerFactory.getLogger(StatisticServiceTest.class);
 
+    /**
+     * Sets statistic by id url.
+     */
     @Test
     @DisplayName("тестирование: Обновление статистики")
     void setStatisticByIdUrl() {
@@ -41,6 +47,11 @@ class StatisticServiceTest {
         MatcherAssert.assertThat(this.statisticService.findById(statistic.getId()).getCount(), Is.is(2L));
     }
 
+    /**
+     * Test set statistic by id url multi thread.
+     *
+     * @throws CloneNotSupportedException the clone not supported exception
+     */
     @Test
     @DisplayName("тестирование: Обновление статистики в многопоточке")
     void testSetStatisticByIdUrlMultiThread() throws CloneNotSupportedException {
@@ -56,11 +67,21 @@ class StatisticServiceTest {
             log.info(erll.toString());
             service.execute(() -> this.statisticService.setStatisticByIdUrl(erll));
         }
+        try {
+            Thread.currentThread().join();
+        } catch (InterruptedException e) {
+            log.error(e.getMessage(), e);
+        }
         Statistic statistic = this.statisticService.setStatisticByIdUrl(url);
         MatcherAssert.assertThat(statistic.getCount(), Is.is(10002L));
     }
 
 
+    /**
+     * Test set statistic by id url single thread.
+     *
+     * @throws CloneNotSupportedException the clone not supported exception
+     */
     @Test
     @DisplayName("тестирование: Обновление статистики последовательно")
     void testSetStatisticByIdUrlSingleThread() throws CloneNotSupportedException {
@@ -71,12 +92,9 @@ class StatisticServiceTest {
         Url finalUrl = url;
         this.statisticService.setStatisticByIdUrl(finalUrl);
         for (int i = 0; i < 10_000; i++) {
-
           this.statisticService.setStatisticByIdUrl(finalUrl);
         }
         Statistic statistic = this.statisticService.setStatisticByIdUrl(url);
         MatcherAssert.assertThat(statistic.getCount(), Is.is(10002L));
     }
-
-
 }

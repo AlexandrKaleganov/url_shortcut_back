@@ -21,10 +21,21 @@ public class UserDTO implements Serializable {
     private String domain;
     private String errorMessage;
 
+    /**
+     * Gets error message.
+     *
+     * @return the error message
+     */
     public String getErrorMessage() {
         return errorMessage;
     }
 
+    /**
+     * Sets error message.
+     *
+     * @param errorMessage the error message
+     * @return the error message
+     */
     public UserDTO setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
         return this;
@@ -32,6 +43,11 @@ public class UserDTO implements Serializable {
 
     private List<Role> roles = new ArrayList<>();
 
+    /**
+     * Instantiates a new User dto.
+     *
+     * @param user the user
+     */
     public UserDTO(User user) {
         if (user != null) {
             this.id = user.getId();
@@ -44,70 +60,154 @@ public class UserDTO implements Serializable {
         }
     }
 
+    /**
+     * Gets domain.
+     *
+     * @return the domain
+     */
     public String getDomain() {
         return domain;
     }
 
+    /**
+     * Sets domain.
+     *
+     * @param domain the domain
+     * @return the domain
+     */
     public UserDTO setDomain(String domain) {
         this.domain = domain;
         return this;
     }
 
+    /**
+     * Instantiates a new User dto.
+     */
     public UserDTO() {
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Gets login.
+     *
+     * @return the login
+     */
     public String getLogin() {
         return login;
     }
 
+    /**
+     * Sets login.
+     *
+     * @param login the login
+     */
     public void setLogin(String login) {
         this.login = login;
     }
 
+    /**
+     * Gets last name.
+     *
+     * @return the last name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Sets last name.
+     *
+     * @param lastName the last name
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * Gets first name.
+     *
+     * @return the first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Sets first name.
+     *
+     * @param firstName the first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Gets middle name.
+     *
+     * @return the middle name
+     */
     public String getMiddleName() {
         return middleName;
     }
 
+    /**
+     * Sets middle name.
+     *
+     * @param middleName the middle name
+     */
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
     }
 
+    /**
+     * Gets pwd.
+     *
+     * @return the pwd
+     */
     public String getPwd() {
         return pwd;
     }
 
+    /**
+     * Sets pwd.
+     *
+     * @param pwd the pwd
+     */
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
 
+    /**
+     * Gets roles.
+     *
+     * @return the roles
+     */
     public List<Role> getRoles() {
         return roles;
     }
 
+    /**
+     * Sets roles.
+     *
+     * @param roles the roles
+     */
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }

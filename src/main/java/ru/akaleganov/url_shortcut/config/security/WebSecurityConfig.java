@@ -15,15 +15,29 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import ru.akaleganov.url_shortcut.config.security.jwt.JwtAuthenticationEntryPoint;
 import ru.akaleganov.url_shortcut.config.security.jwt.JwtAuthenticationFilter;
 
+/**
+ * The type Web security config.
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    /**
+     * Encoder b crypt password encoder.
+     *
+     * @return the b crypt password encoder
+     */
     @Bean
     public BCryptPasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Authentication token filter bean jwt authentication filter.
+     *
+     * @return the jwt authentication filter
+     * @throws Exception the exception
+     */
     @Bean
     public JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
         return new JwtAuthenticationFilter();
@@ -35,6 +49,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    /**
+     * Configure global.
+     *
+     * @param auth the auth
+     * @throws Exception the exception
+     */
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailServiceCustom).passwordEncoder(encoder());

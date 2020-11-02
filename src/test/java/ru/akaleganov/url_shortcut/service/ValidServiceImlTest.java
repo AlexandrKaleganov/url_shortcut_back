@@ -3,25 +3,30 @@ package ru.akaleganov.url_shortcut.service;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import ru.akaleganov.url_shortcut.domain.Url;
 import ru.akaleganov.url_shortcut.repository.UrlRepository;
+import ru.akaleganov.url_shortcut.service.url.ValidDomainSevice;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
+/**
+ * The type Url valid service test.
+ */
 @DisplayName("тестирование: UrlValidService")
 @TestPropertySource(locations = "classpath:application-h2.properties")
 @SpringBootTest
-class UrlValidServiceTest {
+class ValidServiceImlTest {
     @Autowired
-    private UrlValidService urlValidService;
+    private ValidDomainSevice urlValidService;
     @Autowired
     private UrlRepository urlRepository;
 
+    /**
+     * Is valid domain test.
+     */
     @Test
     @DisplayName("тестиование метода проверки формата домена из URL")
     public void isValidDomainTest() {
@@ -30,6 +35,9 @@ class UrlValidServiceTest {
     }
 
 
+    /**
+     * Is valid url test.
+     */
     @Test
     @DisplayName("тестиование метода проверки формата URL")
     public void isValidUrlTest() {
@@ -41,6 +49,9 @@ class UrlValidServiceTest {
                 Is.is(true));
     }
 
+    /**
+     * Is domain contain the current url.
+     */
     @Test
     @DisplayName("проверка содержит ли теущий урл домен пользователя")
     public void isDomainContainTheCurrentURL() {
@@ -52,6 +63,9 @@ class UrlValidServiceTest {
                 Is.is(false));
     }
 
+    /**
+     * Is contains new original.
+     */
     @Test
     @DisplayName("проверка содержит ли теущий урл домен пользователя")
     public void isContainsNewOriginal() {

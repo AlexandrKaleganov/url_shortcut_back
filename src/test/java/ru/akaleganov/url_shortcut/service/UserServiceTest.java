@@ -19,21 +19,42 @@ import java.util.Random;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
+/**
+ * The type User service test.
+ */
 @DisplayName("тестирование: UsersService")
 @TestPropertySource(locations = "classpath:application-h2.properties")
 @SpringBootTest
 class UserServiceTest {
+    /**
+     * The Random generator.
+     */
     @Autowired
     RandomGenerator randomGenerator;
+    /**
+     * The User service.
+     */
     @Autowired
     UserService userService;
+    /**
+     * The Role repository.
+     */
     @Autowired
     RoleRepository roleRepository;
+    /**
+     * The User repository.
+     */
     @Autowired
     UserRepository userRepository;
+    /**
+     * The User mapper.
+     */
     @Autowired
     UserMapper userMapper;
 
+    /**
+     * Given using java 8 when generating random alphabetic string then correct.
+     */
     @Test
     @DisplayName("тестирование: генерация логина")
     public void givenUsingJava8_whenGeneratingRandomAlphabeticString_thenCorrect() {
@@ -50,6 +71,9 @@ class UserServiceTest {
         System.out.println(generatedString);
     }
 
+    /**
+     * Given using java 8 when generating random alphanumeric string then correct.
+     */
     @Test
     @DisplayName("тестирование: генерация паролей")
     public void givenUsingJava8_whenGeneratingRandomAlphanumericString_thenCorrect() {
@@ -67,6 +91,9 @@ class UserServiceTest {
         System.out.println(generatedString);
     }
 
+    /**
+     * Create users by url.
+     */
     @Test
     @DisplayName("тестирование: добавление пользователей по  Domain")
     public void createUsersByUrl() {
@@ -80,6 +107,9 @@ class UserServiceTest {
         assertThat(res2.getErrorMessage(), Is.is("url не прошёл валидацию"));
     }
 
+    /**
+     * Create users by url error one.
+     */
     @Test
     @DisplayName("тестирование: добавление пользователей по  Domain errorMessage")
     public void createUsersByUrlErrorOne() {
@@ -90,6 +120,9 @@ class UserServiceTest {
         assertThat(res2.getErrorMessage(), Is.is("url  " + "akaleganov.ru" + " уже занят"));
     }
 
+    /**
+     * Create ne user admin.
+     */
     @Test
     @DisplayName("тестирование: добавление пользователя админом")
     public void createNeUserAdmin() {
@@ -104,6 +137,9 @@ class UserServiceTest {
                 Is.is(true));
     }
 
+    /**
+     * Test update user.
+     */
     @Test
     @DisplayName("тестирование: обновление пользователя")
     public void testUpdateUser() {

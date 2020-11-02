@@ -9,7 +9,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-@Entity(name = "lex_user")
+/**
+ * The type User.
+ */
+@Entity(name = "lex_users")
 public class User extends MappedSuperClass implements UserDetails {
     @Column(name = "login")
     private String login;
@@ -24,63 +27,133 @@ public class User extends MappedSuperClass implements UserDetails {
     @Column(name = "domain")
     private String domain;
 
+    /**
+     * Gets domain.
+     *
+     * @return the domain
+     */
     public String getDomain() {
         return domain;
     }
 
+    /**
+     * Sets domain.
+     *
+     * @param url the url
+     */
     public void setDomain(String url) {
         this.domain = url;
     }
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "lex_users_lex_roles", joinColumns = @JoinColumn(name = "lex_users_id"),
             inverseJoinColumns = @JoinColumn(name = "lex_roles_id"))
     private List<Role> roles;
 
+    /**
+     * Gets login.
+     *
+     * @return the login
+     */
     public String getLogin() {
         return login;
     }
 
+    /**
+     * Gets roles.
+     *
+     * @return the roles
+     */
     public List<Role> getRoles() {
         return roles;
     }
 
+    /**
+     * Sets roles.
+     *
+     * @param roles the roles
+     */
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
+    /**
+     * Sets login.
+     *
+     * @param login the login
+     */
     public void setLogin(String login) {
         this.login = login;
     }
 
+    /**
+     * Gets pwd.
+     *
+     * @return the pwd
+     */
     public String getPwd() {
         return pwd;
     }
 
+    /**
+     * Sets pwd.
+     *
+     * @param pwd the pwd
+     */
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
 
+    /**
+     * Gets last name.
+     *
+     * @return the last name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Sets last name.
+     *
+     * @param lastName the last name
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * Gets first name.
+     *
+     * @return the first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Sets first name.
+     *
+     * @param firstName the first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Gets middle name.
+     *
+     * @return the middle name
+     */
     public String getMiddleName() {
         return middleName;
     }
 
+    /**
+     * Sets middle name.
+     *
+     * @param middleName the middle name
+     */
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
     }
@@ -148,7 +221,6 @@ public class User extends MappedSuperClass implements UserDetails {
                 ", middleName='" + middleName + '\'' +
                 ", pwd='" + pwd + '\'' +
                 ", url='" + domain + '\'' +
-                ", roles=" + roles +
                 '}';
     }
 }

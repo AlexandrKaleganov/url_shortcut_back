@@ -15,16 +15,28 @@ import java.util.Collections;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
+/**
+ * The type User repository test.
+ */
 @DisplayName("тестирование: модель пользователи")
 @TestPropertySource(locations = "classpath:application-h2.properties")
 @SpringBootTest
 class UserRepositoryTest {
     private static final Logger LOGGER = Logger.getLogger(UserRepositoryTest.class);
+    /**
+     * The Role repository.
+     */
     @Autowired
     RoleRepository roleRepository;
+    /**
+     * The User repository.
+     */
     @Autowired
     UserRepository userRepository;
 
+    /**
+     * Add user.
+     */
     @Test
     @DisplayName("тестирование: добавление пользователия в  бд")
     public void addUser() {

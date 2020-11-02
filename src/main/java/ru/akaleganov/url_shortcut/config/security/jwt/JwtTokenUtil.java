@@ -26,10 +26,22 @@ public class JwtTokenUtil implements Serializable {
     private long SESSION_TIME;
 
 
+    /**
+     * Gets username from token.
+     *
+     * @param token the token
+     * @return the username from token
+     */
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
+    /**
+     * Is token expired boolean.
+     *
+     * @param token the token
+     * @return the boolean
+     */
     public Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
@@ -53,6 +65,12 @@ public class JwtTokenUtil implements Serializable {
                 .getBody();
     }
 
+    /**
+     * Do generate token string.
+     *
+     * @param user the user
+     * @return the string
+     */
     public String doGenerateToken(UserDetails user) {
         Claims claims = Jwts.claims().setSubject(user.getUsername());
         claims.put("authorities", user.getAuthorities());

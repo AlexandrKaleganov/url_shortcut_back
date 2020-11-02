@@ -14,6 +14,9 @@ import ru.akaleganov.url_shortcut.service.util.RandomGenerator;
 
 import java.util.Collections;
 
+/**
+ * The type User service.
+ */
 @Service
 public class UserService {
 
@@ -23,6 +26,15 @@ public class UserService {
     private final RandomGenerator randomGenerator;
     private final PrepareUserService prepareUserService;
 
+    /**
+     * Instantiates a new User service.
+     *
+     * @param userRepository     the user repository
+     * @param encoder            the encoder
+     * @param userMapper         the user mapper
+     * @param randomGenerator    the random generator
+     * @param prepareUserService the prepare user service
+     */
     UserService(UserRepository userRepository,
                 BCryptPasswordEncoder encoder, UserMapper userMapper, RandomGenerator randomGenerator,
                 PrepareUserService prepareUserService) {
@@ -36,12 +48,14 @@ public class UserService {
     /**
      * получить всех пользаков c пагинацией
      *
+     * @param criteria the criteria
      * @param pageable пагинация
      * @return {@link UserDTO}
      */
     public Page<UserDTO> findAll(UserFilter criteria, Pageable pageable) {
         return this.userRepository.findAll(criteria.buildCriteria(), pageable).map(this.userMapper::userToUserDTO);
     }
+
     /**
      * добавление пользователя по url
      *

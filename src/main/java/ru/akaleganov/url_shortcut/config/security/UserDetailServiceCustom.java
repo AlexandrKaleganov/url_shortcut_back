@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import ru.akaleganov.url_shortcut.domain.User;
 import ru.akaleganov.url_shortcut.repository.UserRepository;
 
+/**
+ * The type User detail service custom.
+ */
 @Service
 @AllArgsConstructor
 public class UserDetailServiceCustom implements UserDetailsService {

@@ -6,11 +6,19 @@ import ru.akaleganov.url_shortcut.domain.User;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * The type User filter.
+ */
 public class UserFilter implements Serializable {
     private String login;
     private String firstName;
     private String domain;
 
+    /**
+     * Build criteria specification.
+     *
+     * @return the specification
+     */
     public Specification<User> buildCriteria() {
         Specification<User> criteria = null;
         if (this.login != null) {
@@ -33,26 +41,56 @@ public class UserFilter implements Serializable {
         return criteria;
     }
 
+    /**
+     * Gets login.
+     *
+     * @return the login
+     */
     public String getLogin() {
         return login;
     }
 
+    /**
+     * Sets login.
+     *
+     * @param login the login
+     */
     public void setLogin(String login) {
         this.login = login;
     }
 
+    /**
+     * Gets first name.
+     *
+     * @return the first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Sets first name.
+     *
+     * @param firstName the first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Gets domain.
+     *
+     * @return the domain
+     */
     public String getDomain() {
         return domain;
     }
 
+    /**
+     * Sets domain.
+     *
+     * @param domain the domain
+     */
     public void setDomain(String domain) {
         this.domain = domain;
     }

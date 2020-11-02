@@ -11,21 +11,36 @@ import java.util.HashSet;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
+/**
+ * The type Random generator test.
+ */
 @DisplayName("тестирование: RandomGenerator")
 @TestPropertySource(locations = "classpath:application-h2.properties")
 @SpringBootTest
 class RandomGeneratorTest {
+    /**
+     * The Random generator.
+     */
     @Autowired
     RandomGenerator randomGenerator;
 
+    /**
+     * Generate login.
+     */
     @Test
     void generateLogin() {
     }
 
+    /**
+     * Generate password.
+     */
     @Test
     void generatePassword() {
     }
 
+    /**
+     * Generate new origin.
+     */
     @Test
     @DisplayName("тестирование генерации урл")
     void generateNewOrigin() {

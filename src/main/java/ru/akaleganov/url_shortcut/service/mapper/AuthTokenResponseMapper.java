@@ -7,9 +7,19 @@ import ru.akaleganov.url_shortcut.service.dto.AuthTokenResponseDTO;
 
 import java.util.stream.Collectors;
 
+/**
+ * The type Auth token response mapper.
+ */
 @Service
 public class AuthTokenResponseMapper {
 
+    /**
+     * To dto auth token response dto.
+     *
+     * @param jwtToken the jwt token
+     * @param users    the users
+     * @return the auth token response dto
+     */
     public AuthTokenResponseDTO toDTO(String jwtToken, User users) {
         AuthTokenResponseDTO authTokenResponseDTO = new AuthTokenResponseDTO();
         authTokenResponseDTO.setJwtToken(jwtToken);

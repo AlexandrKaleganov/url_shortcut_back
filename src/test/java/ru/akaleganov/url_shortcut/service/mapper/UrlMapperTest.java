@@ -14,6 +14,9 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
+/**
+ * The type Url mapper test.
+ */
 @DisplayName("тестирование: UrlMapperTest")
 @TestPropertySource(locations = "classpath:application-h2.properties")
 @SpringBootTest
@@ -21,6 +24,9 @@ class UrlMapperTest {
     @Autowired
     private UrlMapper urlMapper;
 
+    /**
+     * To dto.
+     */
     @Test
     @DisplayName("тестирование: urlToDto")
     void toDto() {
@@ -30,6 +36,9 @@ class UrlMapperTest {
         assertThat(urlDTO.getShortCut(), Is.is(url.getShortCut()));
     }
 
+    /**
+     * Test to dto.
+     */
     @Test
     @DisplayName("тестирование: urlToDtoList")
     void testToDto() {
@@ -39,6 +48,9 @@ class UrlMapperTest {
         assertThat(urlDTOs.get(0).getShortCut(), Is.is(url.getShortCut()));
     }
 
+    /**
+     * To entity.
+     */
     @Test
     @DisplayName("тестирование: urlToEntityList")
     void toEntity() {
@@ -48,6 +60,9 @@ class UrlMapperTest {
         assertThat(urls.get(0).getShortCut(), Is.is(urlDTO.getShortCut()));
     }
 
+    /**
+     * Test to entity.
+     */
     @Test
     @DisplayName("тестирование: urlToEntity")
     void testToEntity() {

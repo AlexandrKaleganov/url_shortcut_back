@@ -14,6 +14,12 @@ import java.util.stream.Collectors;
 @Service
 public class UserMapper {
 
+    /**
+     * Users to users dt os list.
+     *
+     * @param users the users
+     * @return the list
+     */
     public List<UserDTO> usersToUsersDTOs(List<User> users) {
         return users.stream()
                 .filter(Objects::nonNull)
@@ -21,10 +27,22 @@ public class UserMapper {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * User to user dto user dto.
+     *
+     * @param user the user
+     * @return the user dto
+     */
     public UserDTO userToUserDTO(User user) {
         return new UserDTO(user);
     }
 
+    /**
+     * Users dt os to users list.
+     *
+     * @param UsersDTOs the users dt os
+     * @return the list
+     */
     public List<User> UsersDTOsToUsers(List<UserDTO> UsersDTOs) {
         return UsersDTOs.stream()
                 .filter(Objects::nonNull)
@@ -32,6 +50,12 @@ public class UserMapper {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * User dto to user user.
+     *
+     * @param userDTO the user dto
+     * @return the user
+     */
     public User userDTOToUser(UserDTO userDTO) {
         if (userDTO == null) {
             return null;

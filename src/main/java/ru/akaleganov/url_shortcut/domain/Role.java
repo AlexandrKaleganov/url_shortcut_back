@@ -6,31 +6,63 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.util.Objects;
 
+/**
+ * The type Role.
+ */
 @Entity(name = "lex_roles")
 public class Role extends MappedSuperClass implements GrantedAuthority {
     @Column(name = "name")
     private String name;
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Instantiates a new Role.
+     */
     public Role() {
     }
 
+    /**
+     * Instantiates a new Role.
+     *
+     * @param id the id
+     */
     public Role(Long id) {
         this.setId(id);
     }
 
+    /**
+     * Instantiates a new Role.
+     *
+     * @param id   the id
+     * @param name the name
+     */
     public Role(Long id, String name) {
         this.setId(id);
         this.setName(name);
     }
 
+    /**
+     * Instantiates a new Role.
+     *
+     * @param name the name
+     */
     public Role(String name) {
         this.setName(name);
     }

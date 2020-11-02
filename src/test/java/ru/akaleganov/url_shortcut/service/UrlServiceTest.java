@@ -13,6 +13,9 @@ import ru.akaleganov.url_shortcut.service.dto.UserDTO;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
+/**
+ * The type Url service test.
+ */
 @DisplayName("тестирование: URLService")
 @TestPropertySource(locations = "classpath:application-h2.properties")
 @SpringBootTest
@@ -24,6 +27,9 @@ class UrlServiceTest {
     @Autowired
     private RoleRepository roleRepository;
 
+    /**
+     * Add test.
+     */
     @Test
     @DisplayName("тестирование: добавление   URL в бд")
     public void addTest() {
@@ -33,6 +39,9 @@ class UrlServiceTest {
         assertThat(urlDTO.getId() != null, Is.is(true));
     }
 
+    /**
+     * Add error test.
+     */
     @Test
     @DisplayName("тестирование: добавление  URL в бд ErrorMEssage")
     public void addErrorTest() {
@@ -44,6 +53,9 @@ class UrlServiceTest {
         assertThat(urlDTO2.getErrorMessage(), Is.is("данный url  уже содержится в бд"));
     }
 
+    /**
+     * Remove test.
+     */
     @Test
     @DisplayName("тестирование: удаление URL из бд")
     public void removeTest() {
@@ -54,6 +66,9 @@ class UrlServiceTest {
         assertThat(this.urlService.findUrlById(urlDTO.getId()).getId() == null, Is.is(true));
     }
 
+    /**
+     * Find url by short cut test.
+     */
     @Test
     @DisplayName("тестирование: поиск URL по shortCut")
     public void findUrlByShortCutTest() {

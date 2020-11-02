@@ -9,16 +9,25 @@ import ru.akaleganov.url_shortcut.repository.RoleRepository;
 
 import java.util.List;
 
+/**
+ * The type Role controller.
+ */
 @RestController
 @RequestMapping("/api")
 public class RoleController {
     private final RoleRepository roleRepository;
 
+    /**
+     * Instantiates a new Role controller.
+     *
+     * @param roleRepository the role repository
+     */
     public RoleController(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
 
     /**
+     * Find all roles response entity.
      *
      * @return получить список всех ролей
      */

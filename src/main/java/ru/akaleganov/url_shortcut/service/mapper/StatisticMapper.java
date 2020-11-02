@@ -7,10 +7,18 @@ import ru.akaleganov.url_shortcut.service.dto.StatisticDTO;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The type Statistic mapper.
+ */
 @Service
 public class StatisticMapper implements Mapper<StatisticDTO, Statistic> {
     private final UrlMapper urlMapper;
 
+    /**
+     * Instantiates a new Statistic mapper.
+     *
+     * @param userMapper the user mapper
+     */
     public StatisticMapper(UrlMapper userMapper) {
         this.urlMapper = userMapper;
     }

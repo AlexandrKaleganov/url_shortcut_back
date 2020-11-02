@@ -1,5 +1,7 @@
 package ru.akaleganov.url_shortcut.service;
 
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -8,23 +10,23 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.akaleganov.url_shortcut.domain.Url;
 import ru.akaleganov.url_shortcut.repository.UrlRepository;
+import ru.akaleganov.url_shortcut.repository.UserRepository;
 import ru.akaleganov.url_shortcut.service.dto.UrlDTO;
 import ru.akaleganov.url_shortcut.service.mapper.UrlMapper;
+import ru.akaleganov.url_shortcut.service.url.PrepareUrlService;
+import ru.akaleganov.url_shortcut.service.url.UrlFilter;
 
 
+/**
+ * The type Url service.
+ */
 @Service
+@AllArgsConstructor
 public class UrlService {
-    private final PrepareUrlService prepareUrlService;
+    private final PrepareUrlService prepareUrlServiceImpl;
     private final UrlRepository urlRepository;
     private final UrlMapper urlMapper;
     private final StatisticService statisticService;
-
-    public UrlService(PrepareUrlService prepareUrlService, UrlRepository urlRepository, UrlMapper urlMapper, StatisticService statisticService) {
-        this.prepareUrlService = prepareUrlService;
-        this.urlRepository = urlRepository;
-        this.urlMapper = urlMapper;
-        this.statisticService = statisticService;
-    }
 
     /**
      * добалвение урл в бд
@@ -33,21 +35,25 @@ public class UrlService {
      * @param userLogin логин пользователя
      * @return {@link UrlDTO}
      */
+    @Transactional
     public UrlDTO addUrl(String url, String userLogin) {
-        return this.prepareUrlService.prepareToSave(url, userLogin,
-                (rsl) -> {
-                    return urlMapper.toDto(this.urlRepository.save(rsl));
-                });
+        UrlDTO urlDTO = this.prepareUrlServiceImpl.prepareToSave(url, userLogin);
+        if (urlDTO.getErrorMessage() == null) {
+            return this.urlMapper.toDto(this.urlRepository.save(this.urlMapper.toEntity(urlDTO)));
+        }
+        return urlDTO;
     }
 
     /**
+     * Find url by short cut url dto.
+     *
      * @param shortCut короткая ссылка
      * @return получить урл
      */
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
     public UrlDTO findUrlByShortCut(String shortCut) {
-        Url url =this.urlRepository.findFirstByShortCut(shortCut).orElse(new Url());
-        if(url.getId() != null) {
+        Url url = this.urlRepository.findFirstByShortCut(shortCut).orElse(new Url());
+        if (url.getId() != null) {
             this.statisticService.setStatisticByIdUrl(url);
             return this.urlMapper.toDto(url);
         }
@@ -58,6 +64,7 @@ public class UrlService {
      * поиск урла по id
      *
      * @param id {@link Url#getId()}
+     * @return the url dto
      */
     public UrlDTO findUrlById(Long id) {
         return this.urlMapper.toDto(this.urlRepository.findById(id).orElse(new Url()));
@@ -74,6 +81,10 @@ public class UrlService {
 
     /**
      * получить список урл c пагинацией и фильтрами
+     *
+     * @param pageable  the pageable
+     * @param urlFilter the url filter
+     * @return the page
      */
     @Transactional
     public Page<UrlDTO> findAllURl(Pageable pageable, UrlFilter urlFilter) {

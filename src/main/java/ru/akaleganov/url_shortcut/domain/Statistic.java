@@ -15,26 +15,55 @@ public class Statistic extends MappedSuperClass {
     @JoinColumn(name = "url_id", referencedColumnName = "id")
     private Url url;
 
+    /**
+     * Instantiates a new Statistic.
+     */
     public Statistic() {
     }
 
+    /**
+     * Instantiates a new Statistic.
+     *
+     * @param url   the url
+     * @param count the count
+     */
     public Statistic(Url url, Long count) {
         this.url = url;
         this.count = count;
     }
 
+    /**
+     * Gets count.
+     *
+     * @return the count
+     */
     public Long getCount() {
         return count;
     }
 
+    /**
+     * Sets count.
+     *
+     * @param origin the origin
+     */
     public void setCount(Long origin) {
         this.count = origin;
     }
 
+    /**
+     * Gets url.
+     *
+     * @return the url
+     */
     public Url getUrl() {
         return url;
     }
 
+    /**
+     * Sets url.
+     *
+     * @param user the user
+     */
     public void setUrl(Url user) {
         this.url = user;
     }

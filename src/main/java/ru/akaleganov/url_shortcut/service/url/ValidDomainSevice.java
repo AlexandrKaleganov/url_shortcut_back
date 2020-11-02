@@ -1,13 +1,22 @@
-package ru.akaleganov.url_shortcut.service;
+package ru.akaleganov.url_shortcut.service.url;
 
 import org.apache.commons.validator.UrlValidator;
 import org.springframework.stereotype.Service;
 import ru.akaleganov.url_shortcut.repository.UrlRepository;
 
+/**
+ * The type Url valid service.
+ */
 @Service
-public class UrlValidService {
+public class ValidDomainSevice {
     private final UrlRepository urlRepository;
-    public UrlValidService(UrlRepository urlRepository) {
+
+    /**
+     * Instantiates a new Url valid service.
+     *
+     * @param urlRepository the url repository
+     */
+    public ValidDomainSevice(UrlRepository urlRepository) {
         this.urlRepository = urlRepository;
     }
 
@@ -35,7 +44,8 @@ public class UrlValidService {
     /**
      * проверка содержит ли теущий урл домен пользователя
      *
-     * @param url урл
+     * @param url    урл
+     * @param domain the domain
      * @return тру если валидна
      */
     public boolean isDomainContainTheCurrentURL(String url, String domain) {

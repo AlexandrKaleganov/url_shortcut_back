@@ -9,15 +9,29 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.akaleganov.url_shortcut.service.StatisticService;
 import ru.akaleganov.url_shortcut.service.dto.StatisticDTO;
 
+/**
+ * The type Statistic controller.
+ */
 @RestController
 @RequestMapping("/api")
 public class StatisticController {
     private final StatisticService statisticService;
 
+    /**
+     * Instantiates a new Statistic controller.
+     *
+     * @param statisticService the statistic service
+     */
     public StatisticController(StatisticService statisticService) {
         this.statisticService = statisticService;
     }
 
+    /**
+     * Find all url response entity.
+     *
+     * @param pageable the pageable
+     * @return the response entity
+     */
     @GetMapping("/statistic")
     public ResponseEntity<Page<StatisticDTO>> findAllUrl(Pageable pageable) {
         return ResponseEntity.ok().body(this.statisticService.findAllStatistic(pageable));

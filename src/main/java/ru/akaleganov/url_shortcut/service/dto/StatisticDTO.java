@@ -19,26 +19,56 @@ public class StatisticDTO {
      */
     private Long count;
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Gets url dto.
+     *
+     * @return the url dto
+     */
     public UrlDTO getUrlDTO() {
         return urlDTO;
     }
 
+    /**
+     * Sets url dto.
+     *
+     * @param urlDTO the url dto
+     */
     public void setUrlDTO(UrlDTO urlDTO) {
         this.urlDTO = urlDTO;
     }
 
+    /**
+     * Gets count.
+     *
+     * @return the count
+     */
     public Long getCount() {
         return count;
     }
 
+    /**
+     * Sets count.
+     *
+     * @param count the count
+     */
     public void setCount(Long count) {
         this.count = count;
     }

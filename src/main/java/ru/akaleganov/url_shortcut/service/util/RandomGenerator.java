@@ -10,6 +10,11 @@ import java.util.Random;
 @Service
 public class RandomGenerator {
 
+    /**
+     * Generate login string.
+     *
+     * @return the string
+     */
     public String generateLogin() {
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
@@ -22,6 +27,11 @@ public class RandomGenerator {
                 .toString();
     }
 
+    /**
+     * Generate password string.
+     *
+     * @return the string
+     */
     public String generatePassword() {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
@@ -35,6 +45,11 @@ public class RandomGenerator {
                 .toString();
     }
 
+    /**
+     * Generate short cut string.
+     *
+     * @return the string
+     */
     public String generateShortCut() {
         return new Random().ints(48, 122).filter(i ->
             (i <= 57 || i >= 65) && (i <= 90 || i >= 97))

@@ -3,10 +3,18 @@ package ru.akaleganov.url_shortcut;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * The type Job 4 j url shortcut application.
+ */
 @SpringBootApplication
 public class Job4jUrlShortcutApplication {
 
-	public static void main(String[] args) {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
+    public static void main(String[] args) {
 		SpringApplication.run(Job4jUrlShortcutApplication.class, args);
 	}
 

@@ -21,6 +21,9 @@ import ru.akaleganov.url_shortcut.service.mapper.AuthTokenResponseMapper;
 import java.security.Principal;
 import java.util.List;
 
+/**
+ * The type Auth controller.
+ */
 @RestController
 @RequestMapping("/api")
 public class AuthController {
@@ -33,6 +36,15 @@ public class AuthController {
     private final AuthTokenResponseMapper authTokenResponseMapper;
     private final UserService userService;
 
+    /**
+     * Instantiates a new Auth controller.
+     *
+     * @param authenticationManager   the authentication manager
+     * @param jwtTokenUtil            the jwt token util
+     * @param userDetailServiceCustom the user detail service custom
+     * @param authTokenResponseMapper the auth token response mapper
+     * @param userService             the user service
+     */
     public AuthController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, UserDetailServiceCustom userDetailServiceCustom, AuthTokenResponseMapper authTokenResponseMapper, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
@@ -41,6 +53,12 @@ public class AuthController {
         this.userService = userService;
     }
 
+    /**
+     * Register response entity.
+     *
+     * @param loginUser the login user
+     * @return the response entity
+     */
     @PostMapping("/auth")
     public ResponseEntity<AuthTokenResponseDTO> register(@RequestBody User loginUser) {
         LOGGER.debug("SIGN IN REQUEST:");
@@ -57,11 +75,23 @@ public class AuthController {
                 this.userDetailServiceCustom.loadUserByUsername(loginUser.getLogin())));
     }
 
+    /**
+     * Gets roles this user.
+     *
+     * @param principal the principal
+     * @return the roles this user
+     */
     @GetMapping(value = "/auth/roles")
     public ResponseEntity<List<Role>> getRolesThisUser(Principal principal) {
         return ResponseEntity.ok().body(this.userService.getUserByLogin(principal.getName()).getRoles());
     }
 
+    /**
+     * Save user response entity.
+     *
+     * @param domain the domain
+     * @return the response entity
+     */
     @PostMapping("/auth/registry")
     public ResponseEntity<UserDTO> saveUser(@RequestBody String domain) {
         return ResponseEntity.ok(this.userService.createUsersByUrl(domain));

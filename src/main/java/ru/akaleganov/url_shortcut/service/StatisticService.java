@@ -13,12 +13,22 @@ import ru.akaleganov.url_shortcut.repository.UrlRepository;
 import ru.akaleganov.url_shortcut.service.dto.StatisticDTO;
 import ru.akaleganov.url_shortcut.service.mapper.StatisticMapper;
 
+/**
+ * The type Statistic service.
+ */
 @Service
 public class StatisticService {
 
     private final StatisticRepository statisticRepository;
     private final StatisticMapper statisticMapper;
 
+    /**
+     * Instantiates a new Statistic service.
+     *
+     * @param statisticRepository the statistic repository
+     * @param urlRepository       the url repository
+     * @param statisticMapper     the statistic mapper
+     */
     public StatisticService(StatisticRepository statisticRepository, UrlRepository urlRepository, StatisticMapper statisticMapper) {
         this.statisticRepository = statisticRepository;
         this.statisticMapper = statisticMapper;
@@ -26,6 +36,9 @@ public class StatisticService {
 
     /**
      * получить список урл c пагинацией и фильтрами
+     *
+     * @param pageable the pageable
+     * @return the page
      */
     @Transactional
     public Page<StatisticDTO> findAllStatistic(Pageable pageable) {
@@ -33,9 +46,12 @@ public class StatisticService {
     }
 
     /**
+     * Sets statistic by id url.
+     *
      * @param url {@link Url()}
+     * @return the statistic by id url
      */
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional
     public  Statistic setStatisticByIdUrl(Url url) {
         Statistic statistic = this.statisticRepository.findFirstByUrlId(url.getId()).orElse(new Statistic());
         if (statistic.getId() != null) {
@@ -50,6 +66,7 @@ public class StatisticService {
      * добавить данные в статистику по url
      *
      * @param url {@link Url}
+     * @return the statistic
      */
     @Transactional
     public Statistic addNewStatisticByUrl(Url url) {
