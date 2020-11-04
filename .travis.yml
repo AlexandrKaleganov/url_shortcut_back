@@ -1,18 +1,25 @@
-# используем язык java. Travis CI поддерживает другие языки тоже.
-language: java
-# используем режим обычного пользователя для сборки проекта.
-sudo: false
-
-# после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
-# Здесь используется сторонни сервис https://codecov.io/
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
-codecov:
-  token: 0ec6a1b7-1425-4121-b767-f1ec96070362
-# Отправлять уведомление на почту alexmur07@mail.ru (Изменить на свою) если сборка упала
-notifications:
-  email:
-    recipients:
-      - alexmur07@mail.ru
-    on_success: never # default: change
-    on_failure: always # default: always
+{
+  "codecov": {
+    "token": "0ec6a1b7-1425-4121-b767-f1ec96070362"
+  },
+  "language": "java",
+  "os": [
+      "linux"
+  ],
+  "dist": "xenial",
+  "sudo": false,
+  "after_success": [
+      "bash <(curl -s https://codecov.io/bash)"
+  ],
+  "notifications": {
+    "email": [
+      {
+        "recipients": [
+            "alexmur07@mail.ru"
+        ],
+        "on_success": "never",
+        "on_failure": "always"
+      }
+    ]
+  }
+}
