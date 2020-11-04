@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/AlexandrKaleganov/url_shortcut_back.svg?branch=master)](https://travis-ci.org/AlexandrKaleganov/url_shortcut_back)
+[![codecov](https://codecov.io/gh/AlexandrKaleganov/url_shortcut_back/branch/master/graph/badge.svg?token=L1PSKISZXZ)](https://codecov.io/gh/AlexandrKaleganov/url_shortcut_back)
 # url_shortcut
 Стек технологий:
 java 8,
@@ -5,20 +7,20 @@ SpringBoot
 
 Авторизация через  jwt
 
-СУБД MySQL
+СУБД MySQL/PostresSQL  - в зависимости от выбанного вами файла
 
 liquibase(для входа в приложение можно использовать admin/admin || user/user)
 
 Добавлено логирование с ипользованием Aspect
 
-Написаны junit  тесты на сервисы
+Написаны   тесты junit/mockito
 
 Angular
 
 #deploy: 
 1. Создайте локально базу url_shortcut
-2. В application.yml  укажите необходимый логин/пароль от бд
-3. В application.yml  укажите порт на котором будет запущено приложение , на данный момент  9000
+2. В application-postgres.yml  укажите необходимый логин/пароль от бд
+3. В application-postgres.yml  укажите порт на котором будет запущено приложение , на данный момент  9000
 4. mvn clean install
 
 приложение состоит из двух частей
