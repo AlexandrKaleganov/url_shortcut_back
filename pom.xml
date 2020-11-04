@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ru.akaleganov</groupId>
 	<artifactId>url_shortcut</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.4</version>
 	<packaging>jar</packaging>
 	<name>url_shortcut</name>
 	<description>Demo project for Spring Boot</description>
@@ -245,6 +245,10 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
 			<version>0.10.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto -->
 		<dependency>

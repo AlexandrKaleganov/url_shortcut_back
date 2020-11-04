@@ -12,7 +12,9 @@ import org.springframework.test.context.TestPropertySource;
 import ru.akaleganov.url_shortcut.domain.Statistic;
 import ru.akaleganov.url_shortcut.domain.Url;
 import ru.akaleganov.url_shortcut.repository.UrlRepository;
+import ru.akaleganov.url_shortcut.service.dto.UrlDTO;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -24,7 +26,9 @@ import java.util.concurrent.Executors;
 @SpringBootTest
 class StatisticServiceTest {
     @Autowired
-    private StatisticService statisticService;
+    StatisticService statisticService;
+    @Autowired
+    UrlService urlService;
     @Autowired
     private UrlRepository urlRepository;
     private final static Logger log = LoggerFactory.getLogger(StatisticServiceTest.class);
@@ -39,12 +43,14 @@ class StatisticServiceTest {
         url.setOrigin("https://sdsdsdsssss.ru");
         url.setShortCut("sdfsdfdsfdsfdfss");
         url = this.urlRepository.save(url);
-        Statistic statistic = this.statisticService.setStatisticByIdUrl(url);
-        MatcherAssert.assertThat(statistic.getCount(), Is.is(1L));
-        MatcherAssert.assertThat(this.statisticService.findById(statistic.getId()).getCount(), Is.is(1L));
-        Statistic statistic2 = this.statisticService.setStatisticByIdUrl(url);
-        MatcherAssert.assertThat(statistic2.getCount(), Is.is(2L));
-        MatcherAssert.assertThat(this.statisticService.findById(statistic.getId()).getCount(), Is.is(2L));
+        this.statisticService.createNewStatistic(url);
+        Statistic statistic = statisticService.findStatisticByUrlId(url.getId());
+        MatcherAssert.assertThat(statistic.getCount(), Is.is(0L));
+        MatcherAssert.assertThat(this.statisticService.findById(statistic.getId()).getCount(), Is.is(0L));
+        this.statisticService.setStatisticByIdUrl(url.getId());
+        Statistic statistic2 = statisticService.findStatisticByUrlId(url.getId());
+        MatcherAssert.assertThat(statistic2.getCount(), Is.is(1L));
+        MatcherAssert.assertThat(this.statisticService.findById(statistic2.getId()).getCount(), Is.is(1L));
     }
 
     /**
@@ -56,24 +62,27 @@ class StatisticServiceTest {
     @DisplayName("тестирование: Обновление статистики в многопоточке")
     void testSetStatisticByIdUrlMultiThread() throws CloneNotSupportedException {
         Url url = new Url();
-        url.setOrigin("https://sdsdksajdkjasdksdsssss.ru");
-        url.setShortCut("sdfsdfdssdsffdsfdfss");
+        url.setOrigin("https://sdsdassd888888dddddssfdksdsssss.ru");
+        url.setShortCut("sdfsdfdssdsffdssadafdfss");
         url = this.urlRepository.save(url);
-        Url finalUrl = url;
-        this.statisticService.setStatisticByIdUrl(finalUrl);
-        ExecutorService service = Executors.newFixedThreadPool(100);
-        for (int i = 0; i < 10_000; i++) {
-            Url erll = (Url) finalUrl.clone();
-            log.info(erll.toString());
-            service.execute(() -> this.statisticService.setStatisticByIdUrl(erll));
+        this.statisticService.createNewStatistic(url);
+        CountDownLatch countDownLatch = new CountDownLatch(10000);
+        Long urlId = url.getId();
+        log.error(urlId.toString());
+        ExecutorService service = Executors.newFixedThreadPool(10);
+        for (int i = 0; i < 10000; i++) {
+            service.execute(() -> {
+                this.statisticService.setStatisticByIdUrl(urlId);
+                countDownLatch.countDown();
+            });
         }
         try {
-            Thread.currentThread().join();
+            countDownLatch.await();
         } catch (InterruptedException e) {
             log.error(e.getMessage(), e);
         }
-        Statistic statistic = this.statisticService.setStatisticByIdUrl(url);
-        MatcherAssert.assertThat(statistic.getCount(), Is.is(10002L));
+        Statistic statistic = this.statisticService.findStatisticByUrlId(url.getId());
+        MatcherAssert.assertThat(statistic.getCount(), Is.is(10000L));
     }
 
 
@@ -89,12 +98,13 @@ class StatisticServiceTest {
         url.setOrigin("https://sdsdksajdkjassfsfdksdsssss.ru");
         url.setShortCut("sdfsdfdssdsffdssadafdfss");
         url = this.urlRepository.save(url);
-        Url finalUrl = url;
-        this.statisticService.setStatisticByIdUrl(finalUrl);
+        Long finalUrl = url.getId();
+        this.statisticService.createNewStatistic(url);
         for (int i = 0; i < 10_000; i++) {
-          this.statisticService.setStatisticByIdUrl(finalUrl);
+            this.statisticService.setStatisticByIdUrl(finalUrl);
         }
-        Statistic statistic = this.statisticService.setStatisticByIdUrl(url);
-        MatcherAssert.assertThat(statistic.getCount(), Is.is(10002L));
+        this.statisticService.setStatisticByIdUrl(finalUrl);
+        Statistic statistic = this.statisticService.findStatisticByUrlId(url.getId());
+        MatcherAssert.assertThat(statistic.getCount(), Is.is(10001L));
     }
 }

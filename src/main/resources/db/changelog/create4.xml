@@ -12,13 +12,14 @@
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="count" type="bigint">
+            <column name="count" type="bigint" defaultValueNumeric="1">
                 <constraints nullable="false"/>
             </column>
             <column name="url_id" type="bigint">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
         </createTable>
+
         <rollback>
             <dropTable tableName="statistic"/>
         </rollback>

@@ -117,7 +117,7 @@ class UserServiceTest {
         userService.createUsersByUrl("akaleganov.ru");
         UserDTO res2 = userService.createUsersByUrl("akaleganov.ru");
         assertThat(res2.getId() == null, Is.is(true));
-        assertThat(res2.getErrorMessage(), Is.is("url  " + "akaleganov.ru" + " уже занят"));
+        assertThat(res2.getErrorMessage(), Is.is("Домен  akaleganov.ru уже занят"));
     }
 
     /**

@@ -4,13 +4,24 @@ import javax.persistence.*;
 import java.util.Objects;
 
 /**
- * сбор и хранение статистики
+ * Class StatisticService
+ * pojo сбор и хранение статистики
+ *
+ * @author Kaleganov Alexander
+ * @see Statistic#count
+ * @see Statistic#url
+ * @since 04 нояб. 20
  */
 @Entity(name = "statistic")
 public class Statistic extends MappedSuperClass {
+    /**
+     * количество редиректов по данной ссылки
+     */
     @Column(name = "count")
-    private Long count;
-
+    private Long count = 0L;
+    /**
+     * ссылка на которую собирается статистика
+     */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "url_id", referencedColumnName = "id")
     private Url url;
@@ -62,10 +73,11 @@ public class Statistic extends MappedSuperClass {
     /**
      * Sets url.
      *
-     * @param user the user
+     * @param url the url
      */
-    public void setUrl(Url user) {
-        this.url = user;
+    public Statistic setUrl(Url url) {
+        this.url = url;
+        return this;
     }
 
     @Override

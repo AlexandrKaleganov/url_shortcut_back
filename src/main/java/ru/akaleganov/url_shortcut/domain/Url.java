@@ -120,7 +120,6 @@ public class Url extends MappedSuperClass {
         return "Url{" +
                 "origin='" + origin + '\'' +
                 ", newOrigin='" + shortCut + '\'' +
-                ", user=" + user +
                 '}';
     }
 }

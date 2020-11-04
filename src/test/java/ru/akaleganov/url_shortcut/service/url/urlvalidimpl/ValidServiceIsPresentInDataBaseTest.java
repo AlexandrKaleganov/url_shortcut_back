@@ -27,7 +27,7 @@ class ValidServiceIsPresentInDataBaseTest {
     @Test
     @DisplayName("проверка урл содержится ли уже данный урл в бд")
     public void setUrlValidServiceIsPresentInDataBase() {
-      when(urlRepository.findAllByOrigin("https://google.ru")).thenReturn(new ArrayList<>());
+      when(urlRepository.findAllByOrigin("https://google.ru/asd")).thenReturn(new ArrayList<>());
       when(urlRepository.findAllByOrigin("https://mail.ru"))
               .thenReturn(new ArrayList<>(Collections.singletonList(new Url())));
         User user = new User();

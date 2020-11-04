@@ -50,7 +50,7 @@ class UrlServiceTest {
         this.urlService.addUrl("https://alexmur08.ru/ddskr2", user.getLogin());
         UrlDTO urlDTO2 = this.urlService.addUrl("https://alexmur08.ru/ddskr2", user.getLogin());
         assertThat(urlDTO2.getId() != null, Is.is(false));
-        assertThat(urlDTO2.getErrorMessage(), Is.is("данный url  уже содержится в бд"));
+        assertThat(urlDTO2.getErrorMessage(), Is.is("Url уже содержится в бд"));
     }
 
     /**

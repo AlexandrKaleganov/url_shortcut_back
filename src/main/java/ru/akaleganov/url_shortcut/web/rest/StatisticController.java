@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.akaleganov.url_shortcut.domain.Statistic;
+import ru.akaleganov.url_shortcut.domain.Url;
 import ru.akaleganov.url_shortcut.service.StatisticService;
 import ru.akaleganov.url_shortcut.service.dto.StatisticDTO;
 
@@ -35,6 +37,9 @@ public class StatisticController {
     @GetMapping("/statistic")
     public ResponseEntity<Page<StatisticDTO>> findAllUrl(Pageable pageable) {
         return ResponseEntity.ok().body(this.statisticService.findAllStatistic(pageable));
+    }
+    public Statistic findByUrl(Url url) {
+        return statisticService.findStatisticByUrlId(url.getId());
     }
 }
 

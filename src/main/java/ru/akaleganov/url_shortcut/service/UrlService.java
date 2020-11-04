@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import ru.akaleganov.url_shortcut.domain.Statistic;
 import ru.akaleganov.url_shortcut.domain.Url;
 import ru.akaleganov.url_shortcut.repository.UrlRepository;
 import ru.akaleganov.url_shortcut.repository.UserRepository;
@@ -39,7 +40,9 @@ public class UrlService {
     public UrlDTO addUrl(String url, String userLogin) {
         UrlDTO urlDTO = this.prepareUrlServiceImpl.prepareToSave(url, userLogin);
         if (urlDTO.getErrorMessage() == null) {
-            return this.urlMapper.toDto(this.urlRepository.save(this.urlMapper.toEntity(urlDTO)));
+            Url res = this.urlRepository.save(this.urlMapper.toEntity(urlDTO));
+            this.statisticService.createNewStatistic(res);
+            return this.urlMapper.toDto(res);
         }
         return urlDTO;
     }
@@ -50,11 +53,11 @@ public class UrlService {
      * @param shortCut короткая ссылка
      * @return получить урл
      */
-    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+    @Transactional
     public UrlDTO findUrlByShortCut(String shortCut) {
         Url url = this.urlRepository.findFirstByShortCut(shortCut).orElse(new Url());
         if (url.getId() != null) {
-            this.statisticService.setStatisticByIdUrl(url);
+            this.statisticService.setStatisticByIdUrl(url.getId());
             return this.urlMapper.toDto(url);
         }
         return this.urlMapper.toDto(url).setErrorMessage(String.format("Короткая ссылка %s не зарегистрирована", shortCut));
@@ -89,5 +92,8 @@ public class UrlService {
     @Transactional
     public Page<UrlDTO> findAllURl(Pageable pageable, UrlFilter urlFilter) {
         return this.urlRepository.findAll(urlFilter.buildCriteria(), pageable).map(this.urlMapper::toDto);
+    }
+    public Statistic gtStat(Url url) {
+        return this.statisticService.findStatisticByUrlId(url.getId());
     }
 }

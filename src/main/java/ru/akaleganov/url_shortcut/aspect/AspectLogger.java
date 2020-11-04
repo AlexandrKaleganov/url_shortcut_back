@@ -9,6 +9,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -31,7 +32,7 @@ public class AspectLogger {
     private void beforeLog(JoinPoint joinPoint) {
         LOGGER.debug("Выполнился метод:" + joinPoint.getTarget().getClass().getSimpleName() + " "
                 + joinPoint.getSignature().getName());
-        String args = Arrays.stream(joinPoint.getArgs())
+        String args = Arrays.stream(joinPoint.getArgs()).filter(Objects::nonNull)
                 .map(Object::toString)
                 .collect(Collectors.joining(","));
         LOGGER.debug("Входящие параметры: " + joinPoint.toString() + ", args=[" + args + "]");
