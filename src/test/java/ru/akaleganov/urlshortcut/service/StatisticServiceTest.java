@@ -65,11 +65,11 @@ class StatisticServiceTest {
         url.setShortCut("sdfsdfdssdsffdssadafdfss");
         url = this.urlRepository.save(url);
         this.statisticService.createNewStatistic(url);
-        CountDownLatch countDownLatch = new CountDownLatch(10000);
+        CountDownLatch countDownLatch = new CountDownLatch(10);
         Long urlId = url.getId();
         log.error(urlId.toString());
         ExecutorService service = Executors.newFixedThreadPool(10);
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 10; i++) {
             service.execute(() -> {
                 this.statisticService.setStatisticByIdUrl(urlId);
                 countDownLatch.countDown();
@@ -81,7 +81,7 @@ class StatisticServiceTest {
             log.error(e.getMessage(), e);
         }
         Statistic statistic = this.statisticService.findStatisticByUrlId(url.getId());
-        MatcherAssert.assertThat(statistic.getCount(), Is.is(10000L));
+        MatcherAssert.assertThat(statistic.getCount(), Is.is(10L));
     }
 
 
@@ -99,11 +99,11 @@ class StatisticServiceTest {
         url = this.urlRepository.save(url);
         Long finalUrl = url.getId();
         this.statisticService.createNewStatistic(url);
-        for (int i = 0; i < 10_000; i++) {
+        for (int i = 0; i < 10; i++) {
             this.statisticService.setStatisticByIdUrl(finalUrl);
         }
         this.statisticService.setStatisticByIdUrl(finalUrl);
         Statistic statistic = this.statisticService.findStatisticByUrlId(url.getId());
-        MatcherAssert.assertThat(statistic.getCount(), Is.is(10001L));
+        MatcherAssert.assertThat(statistic.getCount(), Is.is(11L));
     }
 }
