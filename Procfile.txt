@@ -1,1 +1,2 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* url_shortcut
+web: java -jar target/url_shortcut*.jar --spring.config.location=heroku.properties
+
