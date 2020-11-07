@@ -71,7 +71,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"modal-header\">\r\n  <h4 class=\"modal-title\">Вход пользователя</h4>\r\n  <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\"\r\n          (click)=\"clear()\">&times;\r\n  </button>\r\n</div>\r\n<form name=\"loginForm\" role=\"form\" novalidate [formGroup]=\"loginForm\">\r\n  <div class=\"modal-body\">\r\n    <div class=\"form-group\">\r\n      <label class=\"form-control-label\" for=\"login\">Логин</label>\r\n      <input type=\"text\" class=\"form-control shadow-sm bg-white rounded\" name=\"login\" id=\"login\"\r\n             formControlName=\"login\" autocomplete=\"off\"/>\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <label class=\"form-control-label\" for=\"password\">Пароль</label>\r\n      <input type=\"text\" class=\"form-control shadow-sm bg-white rounded\" name=\"password\" id=\"password\"\r\n             formControlName=\"password\" autocomplete=\"off\"/>\r\n    </div>\r\n  </div>\r\n  <div class=\"modal-footer\">\r\n    <div class=\"btn-group float-right shadow rounded\">\r\n      <button type=\"button\" style=\"border-right-color: white\"\r\n              class=\"btn btn-secondary\" data-dismiss=\"modal\" (click)=\"clear()\">\r\n        <span >Назад</span>\r\n      </button>\r\n      <button id=\"jhi-confirm-update-transportation\" type=\"button\" (click)=\"login()\" style=\"border-left-color: white\" [disabled]=\"loginForm.invalid\"\r\n              class=\"btn btn-primary\">\r\n        <span >Вход</span>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</form>\r\n<app-error *ngIf=\"errorMessage\" [errorMessage]=\"errorMessage\" (closeAlert)=\"closeError()\"></app-error>\r\n";
+    __webpack_exports__["default"] = "<div class=\"modal-header\">\r\n  <h4 class=\"modal-title\">Вход пользователя</h4>\r\n  <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\"\r\n          (click)=\"clear()\">&times;\r\n  </button>\r\n</div>\r\n<form name=\"loginForm\" role=\"form\" novalidate [formGroup]=\"loginForm\">\r\n  <div class=\"modal-body\">\r\n    <div class=\"form-group\">\r\n      <label class=\"form-control-label\" for=\"login\">Логин</label>\r\n      <input type=\"text\" class=\"form-control shadow-sm bg-white rounded\" name=\"login\" id=\"login\"\r\n             formControlName=\"login\" />\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <label class=\"form-control-label\" for=\"password\">Пароль</label>\r\n      <input type=\"password\" class=\"form-control shadow-sm bg-white rounded\" name=\"password\" id=\"password\"\r\n             formControlName=\"password\" />\r\n    </div>\r\n  </div>\r\n  <div class=\"modal-footer\">\r\n    <div class=\"btn-group float-right shadow rounded\">\r\n      <button type=\"button\" style=\"border-right-color: white\"\r\n              class=\"btn btn-secondary\" data-dismiss=\"modal\" (click)=\"clear()\">\r\n        <span >Назад</span>\r\n      </button>\r\n      <button id=\"jhi-confirm-update-transportation\" type=\"button\" (click)=\"login()\" style=\"border-left-color: white\" [disabled]=\"loginForm.invalid\"\r\n              class=\"btn btn-primary\">\r\n        <span >Вход</span>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</form>\r\n<app-error *ngIf=\"errorMessage\" [errorMessage]=\"errorMessage\" (closeAlert)=\"closeError()\"></app-error>\r\n";
     /***/
   },
 
@@ -4544,10 +4544,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
     /*! tslib */
-    "./node_modules/tslib/tslib.es6.js"); // export const GLOBAL_URL = 'http://' + location.hostname + ':9000';
+    "./node_modules/tslib/tslib.es6.js");
 
+    var GLOBAL_URL = 'http://' + location.hostname + ':8080'; // export const GLOBAL_URL = 'http://' + location.hostname;
 
-    var GLOBAL_URL = 'https://' + location.hostname;
     /***/
   },
 
