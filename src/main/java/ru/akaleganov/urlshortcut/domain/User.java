@@ -27,6 +27,14 @@ public class User extends MappedSuperClass implements UserDetails {
     @Column(name = "domain")
     private String domain;
 
+    public User(Long id) {
+        this.setId(id);
+    }
+
+    public User() {
+
+    }
+
     /**
      * Gets domain.
      *
@@ -82,8 +90,9 @@ public class User extends MappedSuperClass implements UserDetails {
      *
      * @param login the login
      */
-    public void setLogin(String login) {
+    public User setLogin(String login) {
         this.login = login;
+        return this;
     }
 
     /**
@@ -100,8 +109,9 @@ public class User extends MappedSuperClass implements UserDetails {
      *
      * @param pwd the pwd
      */
-    public void setPwd(String pwd) {
+    public User setPwd(String pwd) {
         this.pwd = pwd;
+        return this;
     }
 
     /**

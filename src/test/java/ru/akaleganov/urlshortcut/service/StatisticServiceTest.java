@@ -27,7 +27,7 @@ class StatisticServiceTest {
     @Autowired
     StatisticService statisticService;
     @Autowired
-    UrlService urlService;
+    UrlServiceImpl urlServiceImpl;
     @Autowired
     private UrlRepository urlRepository;
     private final static Logger log = LoggerFactory.getLogger(StatisticServiceTest.class);

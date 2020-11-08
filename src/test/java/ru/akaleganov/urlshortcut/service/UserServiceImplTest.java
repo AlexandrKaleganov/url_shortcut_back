@@ -25,7 +25,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @DisplayName("тестирование: UsersService")
 @TestPropertySource(locations = "classpath:application-h2.properties")
 @SpringBootTest
-class UserServiceTest {
+class UserServiceImplTest {
     /**
      * The Random generator.
      */
@@ -35,7 +35,7 @@ class UserServiceTest {
      * The User service.
      */
     @Autowired
-    UserService userService;
+    UserServiceImpl userServiceImpl;
     /**
      * The Role repository.
      */
@@ -100,11 +100,11 @@ class UserServiceTest {
         Role role = new Role(2L, "USER");
         role = this.roleRepository.save(role);
         assertThat(role.getId() == 2, Is.is(true));
-        UserDTO res = userService.createUsersByUrl("akaleganov3.ru");
+        UserDTO res = userServiceImpl.createUsersByUrl("akaleganov3.ru");
         assertThat(this.roleRepository.findById(role.getId()).orElse(new Role()).getName(), Is.is("USER"));
         assertThat(res.getId() != null, Is.is(true));
-        UserDTO res2 = userService.createUsersByUrl("бла бла бла");
-        assertThat(res2.getErrorMessage(), Is.is("url не прошёл валидацию"));
+        UserDTO res2 = userServiceImpl.createUsersByUrl("бла бла бла");
+        assertThat(res2.getErrorMessage(), Is.is("Домен не прошёл валидацию"));
     }
 
     /**
@@ -114,8 +114,10 @@ class UserServiceTest {
     @DisplayName("тестирование: добавление пользователей по  Domain errorMessage")
     public void createUsersByUrlErrorOne() {
         this.roleRepository.save(new Role(2L, "USER"));
-        userService.createUsersByUrl("akaleganov.ru");
-        UserDTO res2 = userService.createUsersByUrl("akaleganov.ru");
+        UserDTO res1 = userServiceImpl.createUsersByUrl("akaleganov.ru");
+        System.out.println(res1);
+//        assertThat(res1.getErrorMessage(), Is.is(null));
+        UserDTO res2 = userServiceImpl.createUsersByUrl("akaleganov.ru");
         assertThat(res2.getId() == null, Is.is(true));
         assertThat(res2.getErrorMessage(), Is.is("Домен  akaleganov.ru уже занят"));
     }
@@ -133,7 +135,7 @@ class UserServiceTest {
         userDTO.setPwd("kjsfksdfkjdshf");
         userDTO.setDomain("asdasdasdas.com");
         userDTO.setRoles(Collections.singletonList(role));
-        assertThat(userService.create(userDTO).getId() != null,
+        assertThat(userServiceImpl.create(userDTO).getId() != null,
                 Is.is(true));
     }
 
@@ -150,10 +152,10 @@ class UserServiceTest {
         userDTO.setPwd("qdwqdwq");
         userDTO.setDomain("asdassdasxdadwqqdqsdas.com");
         userDTO.setRoles(Collections.singletonList(role));
-        UserDTO res = this.userService.create(userDTO);
+        UserDTO res = this.userServiceImpl.create(userDTO);
         res.setPwd(null);
         res.setLastName("Вася");
-        assertThat(this.userService.updateUser(res).getLastName(), Is.is("Вася"));
+        assertThat(this.userServiceImpl.updateUser(res).getLastName(), Is.is("Вася"));
         assertThat(this.userRepository.findById(res.getId()).orElse(new User()).getLastName(), Is.is("Вася"));
     }
 

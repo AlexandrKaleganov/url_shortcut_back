@@ -1,12 +1,13 @@
 package ru.akaleganov.urlshortcut.web.rest;
 
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.akaleganov.urlshortcut.service.url.UrlFilter;
 import ru.akaleganov.urlshortcut.service.UrlService;
 import ru.akaleganov.urlshortcut.service.dto.UrlDTO;
+import ru.akaleganov.urlshortcut.service.url.UrlFilter;
 
 import java.security.Principal;
 
@@ -15,17 +16,10 @@ import java.security.Principal;
  */
 @RestController
 @RequestMapping("/api")
+@AllArgsConstructor
 public class UrlController {
-private final UrlService urlService;
+    private final UrlService urlService;
 
-    /**
-     * Instantiates a new Url controller.
-     *
-     * @param urlService the url service
-     */
-    public UrlController(UrlService urlService) {
-        this.urlService = urlService;
-    }
 
     /**
      * добавить новый урл

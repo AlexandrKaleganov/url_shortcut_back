@@ -19,10 +19,10 @@ import static org.mockito.Mockito.when;
  * The type Url valid service test.
  */
 @DisplayName("тестирование: UrlValidServiceIsPresentByUserTest")
-class ValidServiceIsPresentInDataBaseTest {
+class ValidUrlServiceImplIsPresentInDataBaseTest {
     private final UrlRepository urlRepository = mock(UrlRepository.class);
-    private final ValidServiceIsPresentInDataBase urlValidServiceIsPresentInDataBase =
-            new ValidServiceIsPresentInDataBase(urlRepository);
+    private final ValidUrlServiceIsPresentInDataBase urlValidServiceIsPresentInDataBase =
+            new ValidUrlServiceIsPresentInDataBase(urlRepository);
 
     @Test
     @DisplayName("проверка урл содержится ли уже данный урл в бд")

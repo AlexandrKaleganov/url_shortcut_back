@@ -5,7 +5,7 @@ import org.apache.commons.validator.UrlValidator;
 import org.springframework.stereotype.Service;
 import ru.akaleganov.urlshortcut.domain.User;
 import ru.akaleganov.urlshortcut.service.dto.UrlDTO;
-import ru.akaleganov.urlshortcut.service.url.ValidService;
+import ru.akaleganov.urlshortcut.service.url.ValidUrlService;
 
 /**
  * Class UrlValidServiceIsValidDomain
@@ -16,7 +16,7 @@ import ru.akaleganov.urlshortcut.service.url.ValidService;
  */
 @Service
 @AllArgsConstructor
-public class UrlValidServiceByValidatorApache implements ValidService {
+public class ValidUrlServiceByValidatorApache implements ValidUrlService {
     private final UrlValidator urlValidator;
 
     /**

@@ -15,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * The type Url valid service test.
  */
 @DisplayName("тестирование: UrlValidServiceByUrlValidatorApache")
-class UrlValidServiceByValidatorApacheTest {
+class UrlValidUrlServiceImplByValidatorApacheTest {
 
-    private final UrlValidServiceByValidatorApache urlValidServiceByUrlValidatorApache =
-            new UrlValidServiceByValidatorApache(new UrlValidator());
+    private final ValidUrlServiceByValidatorApache urlValidServiceByUrlValidatorApache =
+            new ValidUrlServiceByValidatorApache(new UrlValidator());
 
     @Test
     @DisplayName("проверка урл через UrlValidator apache")

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.akaleganov.urlshortcut.domain.User;
 import ru.akaleganov.urlshortcut.repository.UrlRepository;
 import ru.akaleganov.urlshortcut.service.dto.UrlDTO;
-import ru.akaleganov.urlshortcut.service.url.ValidService;
+import ru.akaleganov.urlshortcut.service.url.ValidUrlService;
 
 /**
  * Class UrlValidServiceIsValidDomain
@@ -16,7 +16,7 @@ import ru.akaleganov.urlshortcut.service.url.ValidService;
  */
 @Service
 @AllArgsConstructor
-public class ValidServiceIsPresentInDataBase implements ValidService {
+public class ValidUrlServiceIsPresentInDataBase implements ValidUrlService {
     private final UrlRepository urlRepository;
 
     /**
@@ -24,11 +24,11 @@ public class ValidServiceIsPresentInDataBase implements ValidService {
      *
      * @param url  {@link ru.akaleganov.urlshortcut.domain.Url}
      * @param user {@link User}
-     * @return если нет то вернёт фальш
+     * @return {@link UrlDTO#getErrorMessage()} == null or {@link UrlDTO#getErrorMessage()} != null
      */
     public UrlDTO isValid(String url, User user) {
         return this.urlRepository.findAllByOrigin(url).size() > 0
                 ? new UrlDTO().setErrorMessage(
-                        "Url уже содержится в бд") : new UrlDTO();
+                "Url уже содержится в бд") : new UrlDTO();
     }
 }

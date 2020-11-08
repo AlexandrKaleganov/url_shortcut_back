@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.akaleganov.urlshortcut.service.UserService;
+import ru.akaleganov.urlshortcut.service.UserServiceImpl;
 import ru.akaleganov.urlshortcut.service.dto.UserDTO;
 import ru.akaleganov.urlshortcut.service.UserFilter;
 
@@ -14,15 +14,15 @@ import ru.akaleganov.urlshortcut.service.UserFilter;
 @RestController
 @RequestMapping("/api")
 public class UserController {
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
     /**
      * Instantiates a new User controller.
      *
-     * @param userService the user service
+     * @param userServiceImpl the user service
      */
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
     }
 
     /**
@@ -34,7 +34,7 @@ public class UserController {
      */
     @GetMapping(value = "/users")
     public ResponseEntity<Page<UserDTO>> getAllUsers(UserFilter criteria, Pageable pageable) {
-        return ResponseEntity.ok().body(this.userService.findAll(criteria, pageable));
+        return ResponseEntity.ok().body(this.userServiceImpl.findAll(criteria, pageable));
     }
 
     /**
@@ -45,7 +45,7 @@ public class UserController {
      */
     @GetMapping(value = "/users/{login}")
     public ResponseEntity<UserDTO> findUserByLogin(@PathVariable String login) {
-        return ResponseEntity.ok().body(this.userService.getUserByLogin(login));
+        return ResponseEntity.ok().body(this.userServiceImpl.getUserByLogin(login));
     }
 
     /**
@@ -56,7 +56,7 @@ public class UserController {
      */
     @PostMapping(value = "/users")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO user) {
-        return ResponseEntity.ok().body(this.userService.create(user));
+        return ResponseEntity.ok().body(this.userServiceImpl.create(user));
     }
 
     /**
@@ -67,6 +67,6 @@ public class UserController {
      */
     @PutMapping(value = "/users")
     public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO user) {
-        return ResponseEntity.ok().body(this.userService.updateUser(user));
+        return ResponseEntity.ok().body(this.userServiceImpl.updateUser(user));
     }
 }

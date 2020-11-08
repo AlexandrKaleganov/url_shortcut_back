@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.akaleganov.urlshortcut.domain.User;
 import ru.akaleganov.urlshortcut.service.dto.UrlDTO;
-import ru.akaleganov.urlshortcut.service.url.ValidService;
+import ru.akaleganov.urlshortcut.service.url.ValidUrlService;
 
 /**
  * Class UrlValidServiceIsValidDomain
@@ -15,16 +15,16 @@ import ru.akaleganov.urlshortcut.service.url.ValidService;
  */
 @Service
 @AllArgsConstructor
-public class ValidServiceByUser implements ValidService {
+public class ValidUrlServiceByUser implements ValidUrlService {
     /**
      * содержит ли урл домен пользователя
      *
      * @param url  {@link ru.akaleganov.urlshortcut.domain.Url}
      * @param user {@link User}
-     * @return если нет то вернёт фальш
+     * @return {@link UrlDTO#getErrorMessage()} == null or {@link UrlDTO#getErrorMessage()} != null
      */
     public UrlDTO isValid(String url, User user) {
-        return url.contains(new StringBuilder("https://").append(user.getDomain()))
+        return url.contains(user.getDomain())
                 ? new UrlDTO() : new UrlDTO().setErrorMessage(
                 "адрес не содержит домена пользователя");
     }

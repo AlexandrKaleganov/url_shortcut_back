@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * The type Url valid service test.
  */
 @DisplayName("тестирование: UrlValidServiceByUserTest")
-class ValidServiceByUserTest {
+class ValidUrlServiceImplByUserTest {
 
-    private final ValidServiceByUser urlValidServiceByUser =
-            new ValidServiceByUser();
+    private final ValidUrlServiceByUser urlValidServiceByUser =
+            new ValidUrlServiceByUser();
 
     @Test
     @DisplayName("проверка урл содержится ли в нём домен пользователя")

@@ -8,5 +8,7 @@
     <include file="db/changelog/create3.xml"/>
     <include file="db/changelog/create4.xml"/>
     <include file="db/changelog/create5.sql"/>
+    <include file="db/changelog/create6.sql"/>
+    <include file="db/changelog/create7.sql"/>
 <!--    <include file="db/changelog/create6.sql"/>-->
 </databaseChangeLog>

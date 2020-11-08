@@ -99,9 +99,11 @@ public class UserDTO implements Serializable {
      * Sets id.
      *
      * @param id the id
+     * @return this
      */
-    public void setId(Long id) {
+    public UserDTO setId(Long id) {
         this.id = id;
+        return this;
     }
 
     /**
@@ -118,8 +120,9 @@ public class UserDTO implements Serializable {
      *
      * @param login the login
      */
-    public void setLogin(String login) {
+    public UserDTO setLogin(String login) {
         this.login = login;
+        return this;
     }
 
     /**
@@ -190,8 +193,9 @@ public class UserDTO implements Serializable {
      *
      * @param pwd the pwd
      */
-    public void setPwd(String pwd) {
+    public UserDTO setPwd(String pwd) {
         this.pwd = pwd;
+        return this;
     }
 
     /**

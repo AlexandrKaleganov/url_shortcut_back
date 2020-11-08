@@ -20,10 +20,9 @@ import java.util.List;
  */
 @Service
 @AllArgsConstructor
-public class PrepareUrlServiceNew implements PrepareUrlService {
-    private final List<ValidService> validServices;
+public class PrepareUrlServiceImpl implements PrepareUrlService {
+    private final List<ValidUrlService> validUrlServices;
     private final UserRepository userRepository;
-    private final JdbcTemplate jdbcTemplate;
     private final RandomGenerator randomGenerator;
     private final UserMapper userMapper;
 
@@ -37,7 +36,7 @@ public class PrepareUrlServiceNew implements PrepareUrlService {
     @Override
     public UrlDTO prepareToSave(String url, String userLogin) {
         User user = this.userRepository.findByLogin(userLogin).orElse(new User());
-        return this.validServices.stream().map(e -> e.isValid(url, user))
+        return this.validUrlServices.stream().map(e -> e.isValid(url, user))
                 .filter(e -> e.getErrorMessage() != null).findFirst().orElse(new UrlDTO())
                 .setUser(this.userMapper.userToUserDTO(user)).setOrigin(url)
                 .setShortCut(randomGenerator.generateShortCut());

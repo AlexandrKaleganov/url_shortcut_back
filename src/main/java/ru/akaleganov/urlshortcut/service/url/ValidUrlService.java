@@ -10,6 +10,6 @@ import ru.akaleganov.urlshortcut.service.dto.UrlDTO;
  * @author Kaleganov Alexander
  * @since 31 окт. 20
  */
-public interface ValidService {
+public interface ValidUrlService {
     UrlDTO isValid(String url, User user);
 }

@@ -14,6 +14,7 @@ import ru.akaleganov.urlshortcut.config.security.jwt.JwtTokenUtil;
 import ru.akaleganov.urlshortcut.domain.Role;
 import ru.akaleganov.urlshortcut.domain.User;
 import ru.akaleganov.urlshortcut.service.UserService;
+import ru.akaleganov.urlshortcut.service.UserServiceImpl;
 import ru.akaleganov.urlshortcut.service.dto.AuthTokenResponseDTO;
 import ru.akaleganov.urlshortcut.service.dto.UserDTO;
 import ru.akaleganov.urlshortcut.service.mapper.AuthTokenResponseMapper;
@@ -45,7 +46,7 @@ public class AuthController {
      * @param authTokenResponseMapper the auth token response mapper
      * @param userService             the user service
      */
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, UserDetailServiceCustom userDetailServiceCustom, AuthTokenResponseMapper authTokenResponseMapper, UserService userService) {
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, UserDetailServiceCustom userDetailServiceCustom, AuthTokenResponseMapper authTokenResponseMapper, UserServiceImpl userService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userDetailServiceCustom = userDetailServiceCustom;
@@ -87,7 +88,7 @@ public class AuthController {
     }
 
     /**
-     * Save user response entity.
+     * Регистрация пользователя по урлу
      *
      * @param domain the domain
      * @return the response entity
