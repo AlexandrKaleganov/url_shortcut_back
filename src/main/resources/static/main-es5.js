@@ -4544,10 +4544,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
     /*! tslib */
-    "./node_modules/tslib/tslib.es6.js");
+    "./node_modules/tslib/tslib.es6.js"); // export const GLOBAL_URL = 'http://' + location.hostname + ':8080';
+    // export const GLOBAL_URL = 'http://' + location.hostname;
 
-    var GLOBAL_URL = 'http://' + location.hostname + ':8080'; // export const GLOBAL_URL = 'http://' + location.hostname;
 
+    var GLOBAL_URL = 'https://' + location.hostname;
     /***/
   },
 

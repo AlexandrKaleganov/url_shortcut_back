@@ -2558,8 +2558,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GLOBAL_URL", function() { return GLOBAL_URL; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 
-const GLOBAL_URL = 'http://' + location.hostname + ':8080';
+// export const GLOBAL_URL = 'http://' + location.hostname + ':8080';
 // export const GLOBAL_URL = 'http://' + location.hostname;
+const GLOBAL_URL = 'https://' + location.hostname;
 
 
 /***/ }),
