@@ -2,10 +2,8 @@ package ru.akaleganov.urlshortcut.aspect;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -28,19 +26,18 @@ public class AspectLogger {
     private void allLogRest() {
     }
 
-    @Before(value = "allLogService() || allLogRest()")
+    @Before(value = "allLogService() || allLogRest() ")
     private void beforeLog(JoinPoint joinPoint) {
-        LOGGER.debug("Выполнился метод:" + joinPoint.getTarget().getClass().getSimpleName() + " "
+        LOGGER.info("Выполнился метод:" + joinPoint.getTarget().getClass().getSimpleName() + " "
                 + joinPoint.getSignature().getName());
         String args = Arrays.stream(joinPoint.getArgs()).filter(Objects::nonNull)
                 .map(Object::toString)
                 .collect(Collectors.joining(","));
-        LOGGER.debug("Входящие параметры: " + joinPoint.toString() + ", args=[" + args + "]");
+        LOGGER.info("Входящие параметры: " + joinPoint.toString() + ", args=[" + args + "]");
     }
-
-    @AfterReturning(pointcut = "allLogService() || allLogRest()", returning = "ret")
+    @AfterReturning(value = "allLogService() || allLogRest()", returning = "ret")
     private void afterLog(Object ret) {
-        LOGGER.debug("Возвращаемое значение: " + ret);
+        LOGGER.info("Возвращаемое значение: " + ret);
     }
 
 }

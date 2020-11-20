@@ -57,8 +57,7 @@ public class UserServiceImpl implements UserService {
         userDTO = this.prepareUserServices.prepareUserToSave(userDTO);
         return userDTO.getErrorMessage() != null ? userDTO : this.save(userDTO).setPwd(generatePass);
     }
-
-    private UserDTO save(UserDTO userDTO) {
+    public UserDTO save(UserDTO userDTO) {
         User user = this.userMapper.userDTOToUser(userDTO);
         return userDTO.setId(this.userRepository.save(user).getId());
     }

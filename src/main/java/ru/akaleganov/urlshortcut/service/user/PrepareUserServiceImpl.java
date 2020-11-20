@@ -1,10 +1,7 @@
 package ru.akaleganov.urlshortcut.service.user;
 
 import lombok.AllArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.akaleganov.urlshortcut.domain.User;
-import ru.akaleganov.urlshortcut.repository.UserRepository;
 import ru.akaleganov.urlshortcut.service.dto.UserDTO;
 import ru.akaleganov.urlshortcut.service.mapper.UserMapper;
 
