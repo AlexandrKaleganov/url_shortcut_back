@@ -232,6 +232,7 @@ public class User extends MappedSuperClass implements UserDetails {
     public String toString() {
         return "Users{"
                 + "login='" + login + '\''
+                + "id='" + super.getId() + '\''
                 + ", lastName='" + lastName + '\''
                 + ", firstName='" + firstName + '\''
                 + ", middleName='" + middleName + '\''
