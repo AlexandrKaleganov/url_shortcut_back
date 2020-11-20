@@ -1,27 +1,33 @@
 jwt:
-    header: Authorization
-    secret: alexander1234rudnmabdmasbmdDjabcjhabajsnadka
-    sessionTime: 1200000000
+  header: Authorization
+  secret: alexander1234rudnmabdmasbmdDjabcjhabajsnadka
+  sessionTime: 1200000000
 server:
-    port: ${PORT:8080}
+  port: ${PORT:8080}
 spring:
-    datasource:
-        driver-class-name: org.postgresql.Driver
-        password: ${SPRING_DATASOURCE_PASSWORD:postgres}
-        username: ${SPRING_DATASOURCE_USERNAME:postgres}
-        platform: postgres
-        url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/url_shortcut}
-    jpa:
-        database: POSTGRESQL
-        database-platform: ${SPRING_JPA_DATABASE-PLATFORM:org.hibernate.dialect.PostgreSQLDialect}
-        generate-ddl: false
-        hibernate:
-            ddl-auto: ${SPRING_JPA_HIBERNATE_DDL-AUTO:none}
-        open-in-view: false
-        show-sql: true
-    main:
-        allow-bean-definition-overriding: true
-    servlet:
-        multipart:
-            max-file-size: 10000000
-            max-request-size: 10000000
+  datasource:
+    hikari:
+      minimumIdle: 5
+      maximumPoolSize: 20
+      connectionTimeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 1800000
+    driver-class-name: org.postgresql.Driver
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    platform: postgres
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/url_shortcut}
+  jpa:
+    database: POSTGRESQL
+    database-platform: ${SPRING_JPA_DATABASE-PLATFORM:org.hibernate.dialect.PostgreSQLDialect}
+    generate-ddl: false
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL-AUTO:none}
+    open-in-view: false
+    show-sql: true
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      max-file-size: 10000000
+      max-request-size: 10000000
