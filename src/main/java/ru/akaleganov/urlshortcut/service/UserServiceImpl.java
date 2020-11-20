@@ -1,6 +1,7 @@
 package ru.akaleganov.urlshortcut.service;
 
 import lombok.AllArgsConstructor;
+import org.apache.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,7 +23,7 @@ import java.util.Collections;
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-
+    private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserMapper userMapper;
@@ -59,6 +60,8 @@ public class UserServiceImpl implements UserService {
     }
     public UserDTO save(UserDTO userDTO) {
         User user = this.userMapper.userDTOToUser(userDTO);
+        LOGGER.info("сохраняем пользователя = ");
+        LOGGER.info(user.toString());
         return userDTO.setId(this.userRepository.save(user).getId());
     }
 

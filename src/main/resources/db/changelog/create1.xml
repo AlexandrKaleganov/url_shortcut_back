@@ -59,7 +59,10 @@
             <column name="lex_roles_id" type="bigint">
             </column>
         </createTable>
-
+                <addUniqueConstraint
+                        columnNames="lex_users_id, lex_roles_id"
+                        constraintName="constraintName_lex_users_lex_roles"
+                        tableName="lex_users_lex_roles"/>
         <rollback>
             <dropTable tableName="lex_users_lex_roles"/>
         </rollback>

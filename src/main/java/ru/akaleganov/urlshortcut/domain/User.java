@@ -1,5 +1,6 @@
 package ru.akaleganov.urlshortcut.domain;
 
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,6 +14,7 @@ import java.util.Objects;
  * The type User.
  */
 @Entity(name = "lex_users")
+@ToString
 public class User extends MappedSuperClass implements UserDetails {
     @Column(name = "login")
     private String login;
@@ -233,7 +235,6 @@ public class User extends MappedSuperClass implements UserDetails {
                 + ", lastName='" + lastName + '\''
                 + ", firstName='" + firstName + '\''
                 + ", middleName='" + middleName + '\''
-                + ", pwd='" + pwd + '\''
                 + ", url='" + domain + '\''
                 + '}';
     }
