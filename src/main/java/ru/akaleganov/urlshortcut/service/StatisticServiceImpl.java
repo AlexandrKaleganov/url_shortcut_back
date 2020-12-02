@@ -29,7 +29,7 @@ public class StatisticServiceImpl implements StatisticService {
      * @param pageable the pageable
      * @return the page
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Page<StatisticDTO> findAllStatistic(Pageable pageable) {
         return this.statisticRepository.findAll(pageable).map(this.statisticMapper::toDto);
     }
@@ -59,7 +59,7 @@ public class StatisticServiceImpl implements StatisticService {
      * @param url {@link Url}
      * @return the statistic
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Statistic addNewStatisticByUrl(Url url) {
         return this.statisticRepository.save(new Statistic(url, 1L));
     }

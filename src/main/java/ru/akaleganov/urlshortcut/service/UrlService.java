@@ -2,7 +2,6 @@ package ru.akaleganov.urlshortcut.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import ru.akaleganov.urlshortcut.domain.Statistic;
 import ru.akaleganov.urlshortcut.domain.Url;
 import ru.akaleganov.urlshortcut.service.dto.UrlDTO;

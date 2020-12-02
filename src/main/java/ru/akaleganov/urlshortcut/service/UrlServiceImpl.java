@@ -32,7 +32,7 @@ public class UrlServiceImpl implements UrlService {
      * @param userLogin логин пользователя
      * @return {@link UrlDTO}
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public UrlDTO addUrl(String url, String userLogin) {
         UrlDTO urlDTO = this.prepareUrlServiceImpl.prepareToSave(url, userLogin);
         if (urlDTO.getErrorMessage() == null) {
@@ -49,7 +49,7 @@ public class UrlServiceImpl implements UrlService {
      * @param shortCut короткая ссылка
      * @return получить урл
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public UrlDTO findUrlByShortCut(String shortCut) {
         Url url = this.urlRepository.findFirstByShortCut(shortCut).orElse(new Url());
         if (url.getId() != null) {
@@ -85,7 +85,7 @@ public class UrlServiceImpl implements UrlService {
      * @param urlFilter the url filter
      * @return the page
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Page<UrlDTO> findAllURl(Pageable pageable, UrlFilter urlFilter) {
         return this.urlRepository.findAll(urlFilter.buildCriteria(), pageable).map(this.urlMapper::toDto);
     }

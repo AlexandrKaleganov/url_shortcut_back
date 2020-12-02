@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
      * @param url ссылка на домен, каждый пользователь может дбавить только один домен
      * @return {@link UserDTO}
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public UserDTO createUsersByUrl(String url) {
         UserDTO userDTO = new UserDTO().setDomain(url);
         userDTO.setLogin(this.randomGenerator.generateLogin());
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
      * @param userDTO {@link UserDTO}
      * @return {@link UserDTO}
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public UserDTO create(UserDTO userDTO) {
         UserDTO result = this.prepareUserServices.prepareUserToSave(userDTO);
         return result.getErrorMessage() != null ? result : this.save(result);
