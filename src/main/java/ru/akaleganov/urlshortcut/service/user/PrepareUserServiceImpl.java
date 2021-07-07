@@ -3,7 +3,7 @@ package ru.akaleganov.urlshortcut.service.user;
 import java.util.List;
 import java.util.function.Supplier;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.akaleganov.urlshortcut.service.dto.UserDTO;
 import ru.akaleganov.urlshortcut.service.mapper.UserMapper;
@@ -12,7 +12,7 @@ import ru.akaleganov.urlshortcut.service.mapper.UserMapper;
  * сервис для рефакторинга и подготовки пользователя для сохранения
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PrepareUserServiceImpl {
 
     private final UserMapper userMapper;

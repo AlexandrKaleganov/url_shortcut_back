@@ -1,6 +1,6 @@
 package ru.akaleganov.urlshortcut.service;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,7 +16,7 @@ import ru.akaleganov.urlshortcut.service.mapper.StatisticMapper;
  * The type Statistic service.
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class StatisticServiceImpl implements StatisticService {
 
     private final StatisticRepository statisticRepository;

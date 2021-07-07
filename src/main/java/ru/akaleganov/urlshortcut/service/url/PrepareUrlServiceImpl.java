@@ -2,7 +2,7 @@ package ru.akaleganov.urlshortcut.service.url;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.akaleganov.urlshortcut.domain.User;
 import ru.akaleganov.urlshortcut.repository.UserRepository;
@@ -17,7 +17,7 @@ import ru.akaleganov.urlshortcut.service.util.RandomGenerator;
  * @since 31 окт. 20
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PrepareUrlServiceImpl implements PrepareUrlService {
 
     private final List<ValidUrlService> validUrlServices;

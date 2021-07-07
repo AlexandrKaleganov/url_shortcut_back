@@ -1,6 +1,6 @@
 package ru.akaleganov.urlshortcut.service.url.urlvalidimpl;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.akaleganov.urlshortcut.domain.User;
 import ru.akaleganov.urlshortcut.repository.UrlRepository;
@@ -14,7 +14,7 @@ import ru.akaleganov.urlshortcut.service.url.ValidUrlService;
  * @since 31 окт. 20
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ValidUrlServiceIsPresentInDataBase implements ValidUrlService {
 
     private final UrlRepository urlRepository;

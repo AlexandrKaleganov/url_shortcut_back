@@ -2,7 +2,7 @@ package ru.akaleganov.urlshortcut.service;
 
 import java.util.Collections;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +21,7 @@ import ru.akaleganov.urlshortcut.service.util.RandomGenerator;
  * The type User service.
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);

@@ -1,6 +1,6 @@
 package ru.akaleganov.urlshortcut.service.user.uservalibimpl;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.akaleganov.urlshortcut.domain.User;
@@ -15,7 +15,7 @@ import ru.akaleganov.urlshortcut.service.user.ValidUserService;
  * @since 08 нояб. 20
  */
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ValidUserServiceIsUsePassword implements ValidUserService {
 
     private final UserRepository userRepository;

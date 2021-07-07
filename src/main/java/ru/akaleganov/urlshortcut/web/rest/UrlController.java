@@ -2,7 +2,7 @@ package ru.akaleganov.urlshortcut.web.rest;
 
 import java.security.Principal;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ import ru.akaleganov.urlshortcut.service.url.UrlFilter;
  */
 @RestController
 @RequestMapping("/api")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UrlController {
 
     private final UrlService urlService;

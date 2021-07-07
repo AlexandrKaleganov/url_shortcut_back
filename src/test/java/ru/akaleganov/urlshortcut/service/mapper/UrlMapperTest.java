@@ -21,6 +21,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @TestPropertySource(locations = "classpath:application-h2.properties")
 @SpringBootTest
 class UrlMapperTest {
+
     @Autowired
     private UrlMapper urlMapper;
 

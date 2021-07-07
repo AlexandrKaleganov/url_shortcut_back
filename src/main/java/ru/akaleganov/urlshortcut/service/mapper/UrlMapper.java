@@ -3,6 +3,7 @@ package ru.akaleganov.urlshortcut.service.mapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.akaleganov.urlshortcut.domain.Url;
 import ru.akaleganov.urlshortcut.service.dto.UrlDTO;
@@ -11,19 +12,10 @@ import ru.akaleganov.urlshortcut.service.dto.UrlDTO;
  * The type Url mapper.
  */
 @Service
+@RequiredArgsConstructor
 public class UrlMapper implements Mapper<UrlDTO, Url> {
 
     private final UserMapper userMapper;
-
-    /**
-     * Instantiates a new Url mapper.
-     *
-     * @param userMapper
-     *         the user mapper
-     */
-    public UrlMapper(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
 
     @Override
     public UrlDTO toDto(Url url) {
