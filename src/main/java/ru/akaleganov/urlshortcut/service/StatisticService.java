@@ -7,17 +7,19 @@ import ru.akaleganov.urlshortcut.domain.Url;
 import ru.akaleganov.urlshortcut.service.dto.StatisticDTO;
 
 /**
- * Class StatisticService
- * управление сервисом статистики
+ * Class StatisticService управление сервисом статистики
  *
  * @author Kaleganov Alexander
  * @since 04 нояб. 20
  */
 public interface StatisticService {
+
     /**
      * получить список урл c пагинацией и фильтрами
      *
-     * @param pageable the pageable
+     * @param pageable
+     *         the pageable
+     *
      * @return the page
      */
     Page<StatisticDTO> findAllStatistic(Pageable pageable);
@@ -25,27 +27,47 @@ public interface StatisticService {
     /**
      * Sets statistic by id url.
      *
-     * @param urId {@link Url()}
+     * @param urId
+     *         {@link Url()}
      */
     void setStatisticByIdUrl(Long urId);
 
+    /**
+     * Find statistic by url id statistic.
+     *
+     * @param urlId
+     *         the url id
+     *
+     * @return the statistic
+     */
     Statistic findStatisticByUrlId(Long urlId);
 
     /**
      * добавить данные в статистику по url
      *
-     * @param url {@link Url}
+     * @param url
+     *         {@link Url}
+     *
      * @return the statistic
      */
     Statistic addNewStatisticByUrl(Url url);
 
+    /**
+     * Create new statistic.
+     *
+     * @param url
+     *         the url
+     */
     void createNewStatistic(Url url);
 
     /**
      * получить объект статистики по id
      *
-     * @param id {@link Statistic#getId()}
+     * @param id
+     *         {@link Statistic#getId()}
+     *
      * @return {@link Statistic}
      */
     Statistic findById(Long id);
+
 }

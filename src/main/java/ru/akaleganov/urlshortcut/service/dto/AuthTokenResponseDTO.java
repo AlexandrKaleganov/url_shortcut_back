@@ -1,22 +1,26 @@
 package ru.akaleganov.urlshortcut.service.dto;
 
-import ru.akaleganov.urlshortcut.domain.User;
-
 import java.util.List;
+
+import ru.akaleganov.urlshortcut.domain.User;
 
 /**
  * ответ когда пользователь авторизован
  */
 public class AuthTokenResponseDTO {
+
     /**
      * токен
      */
     private String jwtToken;
+
     /**
      * имя пользователя
      */
     private String username;
+
     private String domain;
+
     private List<String> roles;
 
     /**
@@ -37,7 +41,8 @@ public class AuthTokenResponseDTO {
     /**
      * Sets domain.
      *
-     * @param domain the domain
+     * @param domain
+     *         the domain
      */
     public void setDomain(String domain) {
         this.domain = domain;
@@ -55,7 +60,8 @@ public class AuthTokenResponseDTO {
     /**
      * Sets username.
      *
-     * @param username the username
+     * @param username
+     *         the username
      */
     public void setUsername(String username) {
         this.username = username;
@@ -73,7 +79,8 @@ public class AuthTokenResponseDTO {
     /**
      * Sets roles.
      *
-     * @param roles the roles
+     * @param roles
+     *         the roles
      */
     public void setRoles(List<String> roles) {
         this.roles = roles;
@@ -82,8 +89,10 @@ public class AuthTokenResponseDTO {
     /**
      * Instantiates a new Auth token response dto.
      *
-     * @param jwtToken the jwt token
-     * @param user     the user
+     * @param jwtToken
+     *         the jwt token
+     * @param user
+     *         the user
      */
     public AuthTokenResponseDTO(String jwtToken, User user) {
         this.jwtToken = jwtToken;
@@ -102,7 +111,8 @@ public class AuthTokenResponseDTO {
     /**
      * Sets jwt token.
      *
-     * @param jwtToken the jwt token
+     * @param jwtToken
+     *         the jwt token
      */
     public void setJwtToken(String jwtToken) {
         this.jwtToken = jwtToken;

@@ -9,12 +9,14 @@ import ru.akaleganov.urlshortcut.service.dto.UserDTO;
  */
 public interface UserService {
 
-
     /**
      * получить всех пользаков c пагинацией
      *
-     * @param criteria the criteria
-     * @param pageable пагинация
+     * @param criteria
+     *         the criteria
+     * @param pageable
+     *         пагинация
+     *
      * @return {@link UserDTO}
      */
     Page<UserDTO> findAll(UserFilter criteria, Pageable pageable);
@@ -22,7 +24,9 @@ public interface UserService {
     /**
      * добавление пользователя по url
      *
-     * @param url ссылка на домен, каждый пользователь может дбавить только один домен
+     * @param url
+     *         ссылка на домен, каждый пользователь может дбавить только один домен
+     *
      * @return {@link UserDTO}
      */
     UserDTO createUsersByUrl(String url);
@@ -30,7 +34,9 @@ public interface UserService {
     /**
      * создание пользователя через админку
      *
-     * @param userDTO {@link UserDTO}
+     * @param userDTO
+     *         {@link UserDTO}
+     *
      * @return {@link UserDTO}
      */
     UserDTO create(UserDTO userDTO);
@@ -38,7 +44,9 @@ public interface UserService {
     /**
      * получить пользователя по логину
      *
-     * @param login логин пользователя
+     * @param login
+     *         логин пользователя
+     *
      * @return {@link UserDTO}
      */
     UserDTO getUserByLogin(String login);
@@ -46,7 +54,9 @@ public interface UserService {
     /**
      * обновление данных текущего пользователя
      *
-     * @param userDTO {@link UserDTO}
+     * @param userDTO
+     *         {@link UserDTO}
+     *
      * @return {@link UserDTO}
      */
     UserDTO updateUser(UserDTO userDTO);

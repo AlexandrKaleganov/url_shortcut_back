@@ -1,5 +1,12 @@
 package ru.akaleganov.urlshortcut.config.security.jwt;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import org.slf4j.Logger;
@@ -14,32 +21,27 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import ru.akaleganov.urlshortcut.config.security.UserDetailServiceCustom;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
 /**
- * This class checks for the authorization header
- * and authenticates the JWT token and sets the authentication
- * in the context.Doing so will protect our APIs from those
- * requests which do not have any authorization token.
+ * This class checks for the authorization header and authenticates the JWT token and sets the authentication in the
+ * context.Doing so will protect our APIs from those requests which do not have any authorization token.
  */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
     private final Logger log = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
     @Autowired
     private UserDetailServiceCustom userDetailServiceCustom;
-
 
     @Value("${jwt.header}")
     private String headerString;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
         log.info("HEADER_STRING = " + headerString);
         log.info(request.getHeaderNames().nextElement());
         String header = request.getHeader(headerString);
@@ -67,7 +69,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             UserDetails userDetails = userDetailServiceCustom.loadUserByUsername(username);
             log.debug("Current userDetails {}", userDetails);
             if (!jwtTokenUtil.isTokenExpired(authToken)) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 log.info("authenticated user " + username + ", setting security context");
                 SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -75,4 +78,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         chain.doFilter(request, response);
     }
+
 }

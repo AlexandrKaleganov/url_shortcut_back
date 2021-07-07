@@ -1,7 +1,5 @@
 package ru.akaleganov.urlshortcut.service.user;
 
-import org.springframework.stereotype.Service;
-import ru.akaleganov.urlshortcut.domain.User;
 import ru.akaleganov.urlshortcut.service.dto.UserDTO;
 
 /**
@@ -12,8 +10,11 @@ public interface ValidUserService {
     /**
      * проверка пользователя перед созранением
      *
+     * @param userDTO
+     *         the user dto
+     *
      * @return true если валидный, false   если нет
      */
-     UserDTO isValid(UserDTO userDTO);
+    UserDTO isValid(UserDTO userDTO);
 
 }

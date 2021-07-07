@@ -1,24 +1,32 @@
 package ru.akaleganov.urlshortcut.service.dto;
 
-import ru.akaleganov.urlshortcut.domain.Role;
-import ru.akaleganov.urlshortcut.domain.User;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import ru.akaleganov.urlshortcut.domain.Role;
+import ru.akaleganov.urlshortcut.domain.User;
+
 /**
  * ДТО для ответа и для изменений данных пользователя
  */
 public class UserDTO implements Serializable {
+
     private Long id;
+
     private String login;
+
     private String lastName;
+
     private String firstName;
+
     private String middleName;
+
     private String pwd;
+
     private String domain;
+
     private String errorMessage;
 
     /**
@@ -33,7 +41,9 @@ public class UserDTO implements Serializable {
     /**
      * Sets error message.
      *
-     * @param errorMessage the error message
+     * @param errorMessage
+     *         the error message
+     *
      * @return the error message
      */
     public UserDTO setErrorMessage(String errorMessage) {
@@ -46,7 +56,8 @@ public class UserDTO implements Serializable {
     /**
      * Instantiates a new User dto.
      *
-     * @param user the user
+     * @param user
+     *         the user
      */
     public UserDTO(User user) {
         if (user != null) {
@@ -72,7 +83,9 @@ public class UserDTO implements Serializable {
     /**
      * Sets domain.
      *
-     * @param domain the domain
+     * @param domain
+     *         the domain
+     *
      * @return the domain
      */
     public UserDTO setDomain(String domain) {
@@ -98,8 +111,10 @@ public class UserDTO implements Serializable {
     /**
      * Sets id.
      *
-     * @param id the id
-     * @return this
+     * @param id
+     *         the id
+     *
+     * @return this id
      */
     public UserDTO setId(Long id) {
         this.id = id;
@@ -118,7 +133,10 @@ public class UserDTO implements Serializable {
     /**
      * Sets login.
      *
-     * @param login the login
+     * @param login
+     *         the login
+     *
+     * @return the login
      */
     public UserDTO setLogin(String login) {
         this.login = login;
@@ -137,7 +155,8 @@ public class UserDTO implements Serializable {
     /**
      * Sets last name.
      *
-     * @param lastName the last name
+     * @param lastName
+     *         the last name
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -155,7 +174,8 @@ public class UserDTO implements Serializable {
     /**
      * Sets first name.
      *
-     * @param firstName the first name
+     * @param firstName
+     *         the first name
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -173,7 +193,8 @@ public class UserDTO implements Serializable {
     /**
      * Sets middle name.
      *
-     * @param middleName the middle name
+     * @param middleName
+     *         the middle name
      */
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
@@ -191,7 +212,10 @@ public class UserDTO implements Serializable {
     /**
      * Sets pwd.
      *
-     * @param pwd the pwd
+     * @param pwd
+     *         the pwd
+     *
+     * @return the pwd
      */
     public UserDTO setPwd(String pwd) {
         this.pwd = pwd;
@@ -210,7 +234,8 @@ public class UserDTO implements Serializable {
     /**
      * Sets roles.
      *
-     * @param roles the roles
+     * @param roles
+     *         the roles
      */
     public void setRoles(List<Role> roles) {
         this.roles = roles;
@@ -253,4 +278,5 @@ public class UserDTO implements Serializable {
                 + ", roles=" + roles
                 + '}';
     }
+
 }

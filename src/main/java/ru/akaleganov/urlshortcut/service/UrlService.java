@@ -7,7 +7,6 @@ import ru.akaleganov.urlshortcut.domain.Url;
 import ru.akaleganov.urlshortcut.service.dto.UrlDTO;
 import ru.akaleganov.urlshortcut.service.url.UrlFilter;
 
-
 /**
  * The type Url service.
  */
@@ -16,8 +15,11 @@ public interface UrlService {
     /**
      * добалвение урл в бд
      *
-     * @param url       урл
-     * @param userLogin логин пользователя
+     * @param url
+     *         урл
+     * @param userLogin
+     *         логин пользователя
+     *
      * @return {@link UrlDTO}
      */
     UrlDTO addUrl(String url, String userLogin);
@@ -25,7 +27,9 @@ public interface UrlService {
     /**
      * Find url by short cut url dto.
      *
-     * @param shortCut короткая ссылка
+     * @param shortCut
+     *         короткая ссылка
+     *
      * @return получить урл
      */
     UrlDTO findUrlByShortCut(String shortCut);
@@ -33,7 +37,9 @@ public interface UrlService {
     /**
      * поиск урла по id
      *
-     * @param id {@link Url#getId()}
+     * @param id
+     *         {@link Url#getId()}
+     *
      * @return the url dto
      */
     UrlDTO findUrlById(Long id);
@@ -41,18 +47,31 @@ public interface UrlService {
     /**
      * удаление урла по id
      *
-     * @param id {@link Url#getId()}
+     * @param id
+     *         {@link Url#getId()}
      */
     void deleteUrlById(Long id);
 
     /**
      * получить список урл c пагинацией и фильтрами
      *
-     * @param pageable  the pageable
-     * @param urlFilter the url filter
+     * @param pageable
+     *         the pageable
+     * @param urlFilter
+     *         the url filter
+     *
      * @return the page
      */
     Page<UrlDTO> findAllURl(Pageable pageable, UrlFilter urlFilter);
 
+    /**
+     * Gt stat statistic.
+     *
+     * @param url
+     *         the url
+     *
+     * @return the statistic
+     */
     Statistic gtStat(Url url);
+
 }

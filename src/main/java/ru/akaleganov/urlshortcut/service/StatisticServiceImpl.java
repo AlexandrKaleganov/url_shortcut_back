@@ -18,15 +18,19 @@ import ru.akaleganov.urlshortcut.service.mapper.StatisticMapper;
 @Service
 @AllArgsConstructor
 public class StatisticServiceImpl implements StatisticService {
+
     private final StatisticRepository statisticRepository;
+
     private final StatisticMapper statisticMapper;
+
     private final JdbcTemplate jdbcTemplate;
-    private final Object lock = new Object();
 
     /**
      * получить список урл c пагинацией и фильтрами
      *
-     * @param pageable the pageable
+     * @param pageable
+     *         the pageable
+     *
      * @return the page
      */
     @Transactional(rollbackFor = Exception.class)
@@ -37,16 +41,20 @@ public class StatisticServiceImpl implements StatisticService {
     /**
      * Sets statistic by id url.
      *
-     * @param urId {@link Url()}
+     * @param urId
+     *         {@link Url()}
      */
     public void setStatisticByIdUrl(Long urId) {
         this.jdbcTemplate.update("update  statistic set count = count + 1"
-                + " where url_id = ?", urId);
+                                         + " where url_id = ?", urId);
     }
 
     /**
      * найти статистику по конкретному урлу
-     * @param urlId {@link Url#getId()}
+     *
+     * @param urlId
+     *         {@link Url#getId()}
+     *
      * @return {@link Statistic}
      */
     public Statistic findStatisticByUrlId(Long urlId) {
@@ -56,7 +64,9 @@ public class StatisticServiceImpl implements StatisticService {
     /**
      * добавить данные в статистику по url
      *
-     * @param url {@link Url}
+     * @param url
+     *         {@link Url}
+     *
      * @return the statistic
      */
     @Transactional(rollbackFor = Exception.class)
@@ -71,10 +81,13 @@ public class StatisticServiceImpl implements StatisticService {
     /**
      * получить объект статистики по id
      *
-     * @param id {@link Statistic#getId()}
+     * @param id
+     *         {@link Statistic#getId()}
+     *
      * @return {@link Statistic}
      */
     public Statistic findById(Long id) {
         return this.statisticRepository.findById(id).orElse(new Statistic());
     }
+
 }

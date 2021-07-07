@@ -1,15 +1,16 @@
 package ru.akaleganov.urlshortcut.service.url;
 
-import org.springframework.data.jpa.domain.Specification;
-import ru.akaleganov.urlshortcut.domain.Url;
-
 import java.io.Serializable;
 import java.util.Objects;
+
+import org.springframework.data.jpa.domain.Specification;
+import ru.akaleganov.urlshortcut.domain.Url;
 
 /**
  * The type Url filter.
  */
 public class UrlFilter implements Serializable {
+
     private String login;
 
     /**
@@ -37,7 +38,8 @@ public class UrlFilter implements Serializable {
     /**
      * Sets login.
      *
-     * @param login the login
+     * @param login
+     *         the login
      */
     public void setLogin(String login) {
         this.login = login;
@@ -46,7 +48,8 @@ public class UrlFilter implements Serializable {
     /**
      * Instantiates a new Url filter.
      *
-     * @param login the login
+     * @param login
+     *         the login
      */
     public UrlFilter(String login) {
         this.login = login;
@@ -74,4 +77,5 @@ public class UrlFilter implements Serializable {
     public int hashCode() {
         return Objects.hash(login);
     }
+
 }

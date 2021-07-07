@@ -1,5 +1,9 @@
 package ru.akaleganov.urlshortcut.config.security.jwt;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.function.Function;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -9,27 +13,26 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.function.Function;
-
 /**
  * Service for working with jwt tokken
  */
 @Service
 public class JwtTokenUtil implements Serializable {
+
     private final Logger log = LoggerFactory.getLogger(JwtTokenUtil.class);
+
     @Value("${jwt.secret}")
     private String secretKey;
 
     @Value("${jwt.sessionTime}")
     private long sessionTime;
 
-
     /**
      * Gets username from token.
      *
-     * @param token the token
+     * @param token
+     *         the token
+     *
      * @return the username from token
      */
     public String getUsernameFromToken(String token) {
@@ -39,7 +42,9 @@ public class JwtTokenUtil implements Serializable {
     /**
      * Is token expired boolean.
      *
-     * @param token the token
+     * @param token
+     *         the token
+     *
      * @return the boolean
      */
     public Boolean isTokenExpired(String token) {
@@ -60,27 +65,29 @@ public class JwtTokenUtil implements Serializable {
 
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(token)
-                .getBody();
+                   .setSigningKey(secretKey)
+                   .parseClaimsJws(token)
+                   .getBody();
     }
 
     /**
      * Do generate token string.
      *
-     * @param user the user
+     * @param user
+     *         the user
+     *
      * @return the string
      */
     public String doGenerateToken(UserDetails user) {
         Claims claims = Jwts.claims().setSubject(user.getUsername());
         claims.put("authorities", user.getAuthorities());
         return Jwts.builder()
-                .setClaims(claims)
-                .setIssuer("akaleganov")
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + sessionTime))
-                .signWith(SignatureAlgorithm.HS256, secretKey)
-                .compact();
+                   .setClaims(claims)
+                   .setIssuer("akaleganov")
+                   .setIssuedAt(new Date(System.currentTimeMillis()))
+                   .setExpiration(new Date(System.currentTimeMillis() + sessionTime))
+                   .signWith(SignatureAlgorithm.HS256, secretKey)
+                   .compact();
     }
 
 }

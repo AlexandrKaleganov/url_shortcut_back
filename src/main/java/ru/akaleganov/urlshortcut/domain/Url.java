@@ -1,6 +1,11 @@
 package ru.akaleganov.urlshortcut.domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import java.util.Objects;
 
 /**
@@ -8,8 +13,10 @@ import java.util.Objects;
  */
 @Entity(name = "url")
 public class Url extends MappedSuperClass {
+
     @Column(name = "origin")
     private String origin;
+
     @Column(name = "short_cut")
     private String shortCut;
 
@@ -36,9 +43,12 @@ public class Url extends MappedSuperClass {
     /**
      * Instantiates a new Url.
      *
-     * @param origin   the origin
-     * @param shortCut the short cut
-     * @param user     the user
+     * @param origin
+     *         the origin
+     * @param shortCut
+     *         the short cut
+     * @param user
+     *         the user
      */
     public Url(String origin, String shortCut, User user) {
         this.origin = origin;
@@ -58,7 +68,8 @@ public class Url extends MappedSuperClass {
     /**
      * Sets origin.
      *
-     * @param origin the origin
+     * @param origin
+     *         the origin
      */
     public void setOrigin(String origin) {
         this.origin = origin;
@@ -76,7 +87,8 @@ public class Url extends MappedSuperClass {
     /**
      * Sets short cut.
      *
-     * @param shortCut the short cut
+     * @param shortCut
+     *         the short cut
      */
     public void setShortCut(String shortCut) {
         this.shortCut = shortCut;
@@ -94,7 +106,8 @@ public class Url extends MappedSuperClass {
     /**
      * Sets user.
      *
-     * @param user the user
+     * @param user
+     *         the user
      */
     public void setUser(User user) {
         this.user = user;
@@ -126,4 +139,5 @@ public class Url extends MappedSuperClass {
                 + ", newOrigin='" + shortCut + '\''
                 + '}';
     }
+
 }

@@ -1,11 +1,11 @@
 package ru.akaleganov.urlshortcut.service.mapper;
 
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import ru.akaleganov.urlshortcut.domain.Role;
 import ru.akaleganov.urlshortcut.domain.User;
 import ru.akaleganov.urlshortcut.service.dto.AuthTokenResponseDTO;
-
-import java.util.stream.Collectors;
 
 /**
  * The type Auth token response mapper.
@@ -16,8 +16,11 @@ public class AuthTokenResponseMapper {
     /**
      * To dto auth token response dto.
      *
-     * @param jwtToken the jwt token
-     * @param users    the users
+     * @param jwtToken
+     *         the jwt token
+     * @param users
+     *         the users
+     *
      * @return the auth token response dto
      */
     public AuthTokenResponseDTO toDTO(String jwtToken, User users) {
@@ -28,4 +31,5 @@ public class AuthTokenResponseMapper {
         authTokenResponseDTO.setDomain(users.getDomain());
         return authTokenResponseDTO;
     }
+
 }

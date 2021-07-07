@@ -10,6 +10,7 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public class MappedSuperClass {
+
     /**
      * идентификатор объекта в бд
      */
@@ -29,7 +30,8 @@ public class MappedSuperClass {
     /**
      * Sets id.
      *
-     * @param id the id
+     * @param id
+     *         the id
      */
     public void setId(Long id) {
         this.id = id;
@@ -40,5 +42,6 @@ public class MappedSuperClass {
      */
     public MappedSuperClass() {
     }
+
 }
 

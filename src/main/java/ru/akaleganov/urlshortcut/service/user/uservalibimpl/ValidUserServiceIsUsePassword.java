@@ -9,8 +9,7 @@ import ru.akaleganov.urlshortcut.service.dto.UserDTO;
 import ru.akaleganov.urlshortcut.service.user.ValidUserService;
 
 /**
- * Class ValidUserServiceIsUserByLogininData
- * валидация и хеширование пароля
+ * Class ValidUserServiceIsUserByLogininData валидация и хеширование пароля
  *
  * @author Kaleganov Alexander
  * @since 08 нояб. 20
@@ -18,15 +17,18 @@ import ru.akaleganov.urlshortcut.service.user.ValidUserService;
 @Component
 @AllArgsConstructor
 public class ValidUserServiceIsUsePassword implements ValidUserService {
+
     private final UserRepository userRepository;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
-     * проверяет есть ли у ходящего пользователя пароль
-     * если есть то хеширует его, если нет то срабатывает логика: обновление ползователя
-     * сначит необходимо получить пользователя из бд по логину и вставить его пароль в текущего
+     * проверяет есть ли у ходящего пользователя пароль если есть то хеширует его, если нет то срабатывает логика:
+     * обновление ползователя сначит необходимо получить пользователя из бд по логину и вставить его пароль в текущего
      *
-     * @param userDTO {@link UserDTO}
+     * @param userDTO
+     *         {@link UserDTO}
+     *
      * @return {@link UserDTO#getErrorMessage()} == null or {@link UserDTO#getErrorMessage()} !=null
      */
     @Override
@@ -45,4 +47,5 @@ public class ValidUserServiceIsUsePassword implements ValidUserService {
         }
         return userDTO;
     }
+
 }

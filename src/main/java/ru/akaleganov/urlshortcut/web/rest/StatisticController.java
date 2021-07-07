@@ -17,12 +17,14 @@ import ru.akaleganov.urlshortcut.service.dto.StatisticDTO;
 @RestController
 @RequestMapping("/api")
 public class StatisticController {
+
     private final StatisticService statisticService;
 
     /**
      * Instantiates a new Statistic controller.
      *
-     * @param statisticService the statistic service
+     * @param statisticService
+     *         the statistic service
      */
     public StatisticController(StatisticService statisticService) {
         this.statisticService = statisticService;
@@ -31,16 +33,28 @@ public class StatisticController {
     /**
      * Find all url response entity.
      *
-     * @param pageable the pageable
+     * @param pageable
+     *         the pageable
+     *
      * @return the response entity
      */
     @GetMapping("/statistic")
     public ResponseEntity<Page<StatisticDTO>> findAllUrl(Pageable pageable) {
         return ResponseEntity.ok().body(this.statisticService.findAllStatistic(pageable));
     }
+
+    /**
+     * Find by url statistic.
+     *
+     * @param url
+     *         the url
+     *
+     * @return the statistic
+     */
     public Statistic findByUrl(Url url) {
         return statisticService.findStatisticByUrlId(url.getId());
     }
+
 }
 
 

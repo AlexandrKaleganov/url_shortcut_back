@@ -5,29 +5,34 @@ import java.util.Objects;
 /**
  * дто для получения урла
  *
- * @see UrlDTO#id
- * @see UrlDTO#origin
- * @see UrlDTO#shortCut
- * @see UrlDTO#errorMessage
- * @see UrlDTO#user
+ * @see UrlDTO#id UrlDTO#id
+ * @see UrlDTO#origin UrlDTO#origin
+ * @see UrlDTO#shortCut UrlDTO#shortCut
+ * @see UrlDTO#errorMessage UrlDTO#errorMessage
+ * @see UrlDTO#user UrlDTO#user
  */
 public class UrlDTO {
+
     /**
      * идентификатор
      */
     private Long id;
+
     /**
      * урл оригинальный
      */
     private String origin;
+
     /**
      * урл сокращённый
      */
     private String shortCut;
+
     /**
      * сообщение об ошибке
      */
     private String errorMessage;
+
     /**
      * пользователь , которому принадлежит урл
      */
@@ -45,7 +50,8 @@ public class UrlDTO {
     /**
      * Sets id.
      *
-     * @param id the id
+     * @param id
+     *         the id
      */
     public void setId(Long id) {
         this.id = id;
@@ -63,7 +69,10 @@ public class UrlDTO {
     /**
      * Sets origin.
      *
-     * @param origin the origin
+     * @param origin
+     *         the origin
+     *
+     * @return the origin
      */
     public UrlDTO setOrigin(String origin) {
         this.origin = origin;
@@ -82,7 +91,10 @@ public class UrlDTO {
     /**
      * Sets short cut.
      *
-     * @param shortCut the short cut
+     * @param shortCut
+     *         the short cut
+     *
+     * @return the short cut
      */
     public UrlDTO setShortCut(String shortCut) {
         this.shortCut = shortCut;
@@ -101,7 +113,9 @@ public class UrlDTO {
     /**
      * Sets error message.
      *
-     * @param errorMessage the error message
+     * @param errorMessage
+     *         the error message
+     *
      * @return the error message
      */
     public UrlDTO setErrorMessage(String errorMessage) {
@@ -121,7 +135,10 @@ public class UrlDTO {
     /**
      * Sets user.
      *
-     * @param user the user
+     * @param user
+     *         the user
+     *
+     * @return the user
      */
     public UrlDTO setUser(UserDTO user) {
         this.user = user;
@@ -159,4 +176,5 @@ public class UrlDTO {
                 + ", user=" + user
                 + '}';
     }
+
 }

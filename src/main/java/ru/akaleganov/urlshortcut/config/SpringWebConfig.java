@@ -1,12 +1,17 @@
 package ru.akaleganov.urlshortcut.config;
 
+import java.io.IOException;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
-
-import java.io.IOException;
 
 /**
  * прописываем настройки mvc они аналогичны настройкам, которые мы прописывали в xml
@@ -16,11 +21,11 @@ import java.io.IOException;
 public class SpringWebConfig implements WebMvcConfigurer {
 
     /**
-     * регистрируем путь к ресурсам
-     * это не те ресурсы, которые лежат в ресурсах, это ресурсы, которые лежат в папке
+     * регистрируем путь к ресурсам это не те ресурсы, которые лежат в ресурсах, это ресурсы, которые лежат в папке
      * webapp
      *
-     * @param registry регистрация ресурсов
+     * @param registry
+     *         регистрация ресурсов
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -34,7 +39,8 @@ public class SpringWebConfig implements WebMvcConfigurer {
                     protected Resource getResource(String resourcePath, Resource location) throws IOException {
                         Resource requestedResource = location.createRelative(resourcePath);
                         return requestedResource.exists() && requestedResource.isReadable() ? requestedResource
-                                : new ClassPathResource("/static/index.html");
+                                                                                            : new ClassPathResource(
+                                                                                                    "/static/index.html");
                     }
                 });
 
@@ -49,13 +55,14 @@ public class SpringWebConfig implements WebMvcConfigurer {
     }
 
     @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+    public void configureDefaultServletHandling(
+            DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-     registry.addRedirectViewController("/", "/index.html");
+        registry.addRedirectViewController("/", "/index.html");
     }
 
 }

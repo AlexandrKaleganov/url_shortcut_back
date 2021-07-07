@@ -1,14 +1,21 @@
 package ru.akaleganov.urlshortcut.domain;
 
-import lombok.ToString;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+
+import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * The type User.
@@ -16,23 +23,38 @@ import java.util.Objects;
 @Entity(name = "lex_users")
 @ToString
 public class User extends MappedSuperClass implements UserDetails {
+
     @Column(name = "login")
     private String login;
+
     @Column(name = "last_name")
     private String lastName;
+
     @Column(name = "first_name")
     private String firstName;
+
     @Column(name = "middle_name")
     private String middleName;
+
     @Column(name = "pwd")
     private String pwd;
+
     @Column(name = "domain")
     private String domain;
 
+    /**
+     * Instantiates a new User.
+     *
+     * @param id
+     *         the id
+     */
     public User(Long id) {
         this.setId(id);
     }
 
+    /**
+     * Instantiates a new User.
+     */
     public User() {
 
     }
@@ -49,7 +71,8 @@ public class User extends MappedSuperClass implements UserDetails {
     /**
      * Sets domain.
      *
-     * @param url the url
+     * @param url
+     *         the url
      */
     public void setDomain(String url) {
         this.domain = url;
@@ -57,7 +80,7 @@ public class User extends MappedSuperClass implements UserDetails {
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "lex_users_lex_roles", joinColumns = @JoinColumn(name = "lex_users_id"),
-            inverseJoinColumns = @JoinColumn(name = "lex_roles_id"))
+               inverseJoinColumns = @JoinColumn(name = "lex_roles_id"))
     private List<Role> roles;
 
     /**
@@ -81,7 +104,8 @@ public class User extends MappedSuperClass implements UserDetails {
     /**
      * Sets roles.
      *
-     * @param roles the roles
+     * @param roles
+     *         the roles
      */
     public void setRoles(List<Role> roles) {
         this.roles = roles;
@@ -90,7 +114,10 @@ public class User extends MappedSuperClass implements UserDetails {
     /**
      * Sets login.
      *
-     * @param login the login
+     * @param login
+     *         the login
+     *
+     * @return the login
      */
     public User setLogin(String login) {
         this.login = login;
@@ -109,7 +136,10 @@ public class User extends MappedSuperClass implements UserDetails {
     /**
      * Sets pwd.
      *
-     * @param pwd the pwd
+     * @param pwd
+     *         the pwd
+     *
+     * @return the pwd
      */
     public User setPwd(String pwd) {
         this.pwd = pwd;
@@ -128,7 +158,8 @@ public class User extends MappedSuperClass implements UserDetails {
     /**
      * Sets last name.
      *
-     * @param lastName the last name
+     * @param lastName
+     *         the last name
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -146,7 +177,8 @@ public class User extends MappedSuperClass implements UserDetails {
     /**
      * Sets first name.
      *
-     * @param firstName the first name
+     * @param firstName
+     *         the first name
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -164,12 +196,12 @@ public class User extends MappedSuperClass implements UserDetails {
     /**
      * Sets middle name.
      *
-     * @param middleName the middle name
+     * @param middleName
+     *         the middle name
      */
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
     }
-
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
@@ -239,4 +271,5 @@ public class User extends MappedSuperClass implements UserDetails {
                 + ", url='" + domain + '\''
                 + '}';
     }
+
 }

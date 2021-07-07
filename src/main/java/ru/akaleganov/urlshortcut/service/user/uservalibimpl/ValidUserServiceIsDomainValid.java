@@ -19,7 +19,8 @@ public class ValidUserServiceIsDomainValid implements ValidUserService {
      */
     public UserDTO isValid(UserDTO userDTO) {
         return userDTO.getDomain() != null
-                && userDTO.getDomain().matches("^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}$")
-                ? userDTO : userDTO.setErrorMessage("Домен не прошёл валидацию");
+                       && userDTO.getDomain().matches("^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}$")
+               ? userDTO : userDTO.setErrorMessage("Домен не прошёл валидацию");
     }
+
 }

@@ -13,23 +13,29 @@ import ru.akaleganov.urlshortcut.service.mapper.UrlMapper;
 import ru.akaleganov.urlshortcut.service.url.PrepareUrlService;
 import ru.akaleganov.urlshortcut.service.url.UrlFilter;
 
-
 /**
  * The type Url service.
  */
 @Service
 @AllArgsConstructor
 public class UrlServiceImpl implements UrlService {
+
     private final PrepareUrlService prepareUrlServiceImpl;
+
     private final UrlRepository urlRepository;
+
     private final UrlMapper urlMapper;
+
     private final StatisticService statisticService;
 
     /**
      * добалвение урл в бд
      *
-     * @param url       урл
-     * @param userLogin логин пользователя
+     * @param url
+     *         урл
+     * @param userLogin
+     *         логин пользователя
+     *
      * @return {@link UrlDTO}
      */
     @Transactional(rollbackFor = Exception.class)
@@ -46,7 +52,9 @@ public class UrlServiceImpl implements UrlService {
     /**
      * Find url by short cut url dto.
      *
-     * @param shortCut короткая ссылка
+     * @param shortCut
+     *         короткая ссылка
+     *
      * @return получить урл
      */
     @Transactional(rollbackFor = Exception.class)
@@ -56,13 +64,16 @@ public class UrlServiceImpl implements UrlService {
             this.statisticService.setStatisticByIdUrl(url.getId());
             return this.urlMapper.toDto(url);
         }
-        return this.urlMapper.toDto(url).setErrorMessage(String.format("Короткая ссылка %s не зарегистрирована", shortCut));
+        return this.urlMapper.toDto(url)
+                             .setErrorMessage(String.format("Короткая ссылка %s не зарегистрирована", shortCut));
     }
 
     /**
      * поиск урла по id
      *
-     * @param id {@link Url#getId()}
+     * @param id
+     *         {@link Url#getId()}
+     *
      * @return the url dto
      */
     public UrlDTO findUrlById(Long id) {
@@ -72,7 +83,8 @@ public class UrlServiceImpl implements UrlService {
     /**
      * удаление урла по id
      *
-     * @param id {@link Url#getId()}
+     * @param id
+     *         {@link Url#getId()}
      */
     public void deleteUrlById(Long id) {
         this.urlRepository.deleteById(id);
@@ -81,15 +93,20 @@ public class UrlServiceImpl implements UrlService {
     /**
      * получить список урл c пагинацией и фильтрами
      *
-     * @param pageable  the pageable
-     * @param urlFilter the url filter
+     * @param pageable
+     *         the pageable
+     * @param urlFilter
+     *         the url filter
+     *
      * @return the page
      */
     @Transactional(rollbackFor = Exception.class)
     public Page<UrlDTO> findAllURl(Pageable pageable, UrlFilter urlFilter) {
         return this.urlRepository.findAll(urlFilter.buildCriteria(), pageable).map(this.urlMapper::toDto);
     }
+
     public Statistic gtStat(Url url) {
         return this.statisticService.findStatisticByUrlId(url.getId());
     }
+
 }

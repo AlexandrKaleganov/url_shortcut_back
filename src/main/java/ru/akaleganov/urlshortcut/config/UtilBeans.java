@@ -5,9 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Class UtilBeans
- * конфигурационный класс для разичных утилитарных бинов
- *
+ * Class UtilBeans конфигурационный класс для разичных утилитарных бинов
  *
  * @author Kaleganov Alexander
  * @since 31 окт. 20
@@ -15,8 +13,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class UtilBeans {
 
+    /**
+     * Gets url validator.
+     *
+     * @return the url validator
+     */
     @Bean
     public UrlValidator getUrlValidator() {
         return new UrlValidator();
     }
+
 }

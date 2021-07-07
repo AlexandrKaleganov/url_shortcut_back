@@ -1,24 +1,26 @@
 package ru.akaleganov.urlshortcut.config;
 
+import javax.sql.DataSource;
+
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
-
 /**
- * Class MigrationConfig
- * настрокая ликвидбейса
+ * Class MigrationConfig настрокая ликвидбейса
  *
  * @author Kaleganov Alexander
  * @since 29 окт. 20
  */
 @Configuration
 public class MigrationConfig {
+
     /**
      * Liquibase spring liquibase.
      *
-     * @param dataSource the data source
+     * @param dataSource
+     *         the data source
+     *
      * @return the spring liquibase
      */
     @Bean
@@ -30,4 +32,5 @@ public class MigrationConfig {
         liquibase.setShouldRun(true);
         return liquibase;
     }
+
 }

@@ -1,12 +1,12 @@
 package ru.akaleganov.urlshortcut.service.mapper;
 
-import org.springframework.stereotype.Service;
-import ru.akaleganov.urlshortcut.domain.User;
-import ru.akaleganov.urlshortcut.service.dto.UserDTO;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+import ru.akaleganov.urlshortcut.domain.User;
+import ru.akaleganov.urlshortcut.service.dto.UserDTO;
 
 /**
  * маппер для пользователей
@@ -17,20 +17,24 @@ public class UserMapper {
     /**
      * Users to users dt os list.
      *
-     * @param users the users
+     * @param users
+     *         the users
+     *
      * @return the list
      */
     public List<UserDTO> usersToUsersDTOs(List<User> users) {
         return users.stream()
-                .filter(Objects::nonNull)
-                .map(this::userToUserDTO)
-                .collect(Collectors.toList());
+                    .filter(Objects::nonNull)
+                    .map(this::userToUserDTO)
+                    .collect(Collectors.toList());
     }
 
     /**
      * User to user dto user dto.
      *
-     * @param user the user
+     * @param user
+     *         the user
+     *
      * @return the user dto
      */
     public UserDTO userToUserDTO(User user) {
@@ -40,20 +44,24 @@ public class UserMapper {
     /**
      * Users dt os to users list.
      *
-     * @param userDTOS the users dt os
+     * @param userDTOS
+     *         the users dt os
+     *
      * @return the list
      */
     public List<User> usersDTOsToUsers(List<UserDTO> userDTOS) {
         return userDTOS.stream()
-                .filter(Objects::nonNull)
-                .map(this::userDTOToUser)
-                .collect(Collectors.toList());
+                       .filter(Objects::nonNull)
+                       .map(this::userDTOToUser)
+                       .collect(Collectors.toList());
     }
 
     /**
      * User dto to user user.
      *
-     * @param userDTO the user dto
+     * @param userDTO
+     *         the user dto
+     *
      * @return the user
      */
     public User userDTOToUser(UserDTO userDTO) {
@@ -72,4 +80,5 @@ public class UserMapper {
             return user;
         }
     }
+
 }

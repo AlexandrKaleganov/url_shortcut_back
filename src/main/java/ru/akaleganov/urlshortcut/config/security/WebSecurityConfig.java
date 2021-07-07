@@ -36,7 +36,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * Authentication token filter bean jwt authentication filter.
      *
      * @return the jwt authentication filter
-     * @throws Exception the exception
+     *
+     * @throws Exception
+     *         the exception
      */
     @Bean
     public JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
@@ -52,8 +54,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * Configure global.
      *
-     * @param auth the auth
-     * @throws Exception the exception
+     * @param auth
+     *         the auth
+     *
+     * @throws Exception
+     *         the exception
      */
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -70,21 +75,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors();
         http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/*").permitAll()
-                .antMatchers(HttpMethod.GET, "/index.html").permitAll()
-                .antMatchers("/api/auth").permitAll()
-                .antMatchers("/api/auth/registry","/api/auth/registry*","/api/auth/registry/*").permitAll()
-                .antMatchers("/api/auth/roles/").authenticated()
-                .antMatchers("/api/roles").authenticated()
-                .antMatchers("/api/getUrlByShortCut/**").permitAll()
-                .antMatchers("/api/**").authenticated()
-                .antMatchers("/api/users/**").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/api/url/**").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/api/url").hasAnyAuthority("ADMIN", "USER")
-                .and()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            .authorizeRequests()
+            .antMatchers(HttpMethod.GET, "/*").permitAll()
+            .antMatchers(HttpMethod.GET, "/index.html").permitAll()
+            .antMatchers("/api/auth").permitAll()
+            .antMatchers("/api/auth/registry", "/api/auth/registry*", "/api/auth/registry/*").permitAll()
+            .antMatchers("/api/auth/roles/").authenticated()
+            .antMatchers("/api/roles").authenticated()
+            .antMatchers("/api/getUrlByShortCut/**").permitAll()
+            .antMatchers("/api/**").authenticated()
+            .antMatchers("/api/users/**").hasAnyAuthority("ADMIN", "USER")
+            .antMatchers("/api/url/**").hasAnyAuthority("ADMIN", "USER")
+            .antMatchers("/api/url").hasAnyAuthority("ADMIN", "USER")
+            .and()
+            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
     }
 

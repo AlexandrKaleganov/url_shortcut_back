@@ -5,14 +5,19 @@ import java.util.List;
 /**
  * The interface Mapper.
  *
- * @param <Dto>    the type parameter
- * @param <Entity> the type parameter
+ * @param <Dto>
+ *         the type parameter
+ * @param <Entity>
+ *         the type parameter
  */
 public interface Mapper<Dto, Entity> {
+
     /**
      * To dto dto.
      *
-     * @param entity the entity
+     * @param entity
+     *         the entity
+     *
      * @return the dto
      */
     Dto toDto(Entity entity);
@@ -20,7 +25,9 @@ public interface Mapper<Dto, Entity> {
     /**
      * To dto list.
      *
-     * @param entityList the entity list
+     * @param entityList
+     *         the entity list
+     *
      * @return the list
      */
     List<Dto> toDto(List<Entity> entityList);
@@ -28,7 +35,9 @@ public interface Mapper<Dto, Entity> {
     /**
      * To entity entity.
      *
-     * @param dto the dto
+     * @param dto
+     *         the dto
+     *
      * @return the entity
      */
     Entity toEntity(Dto dto);
@@ -36,8 +45,11 @@ public interface Mapper<Dto, Entity> {
     /**
      * To entity list.
      *
-     * @param dtoList the dto list
+     * @param dtoList
+     *         the dto list
+     *
      * @return the list
      */
     List<Entity> toEntity(List<Dto> dtoList);
+
 }

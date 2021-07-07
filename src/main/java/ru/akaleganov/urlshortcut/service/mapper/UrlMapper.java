@@ -1,23 +1,25 @@
 package ru.akaleganov.urlshortcut.service.mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import ru.akaleganov.urlshortcut.domain.Url;
 import ru.akaleganov.urlshortcut.service.dto.UrlDTO;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * The type Url mapper.
  */
 @Service
 public class UrlMapper implements Mapper<UrlDTO, Url> {
+
     private final UserMapper userMapper;
 
     /**
      * Instantiates a new Url mapper.
      *
-     * @param userMapper the user mapper
+     * @param userMapper
+     *         the user mapper
      */
     public UrlMapper(UserMapper userMapper) {
         this.userMapper = userMapper;
@@ -36,7 +38,9 @@ public class UrlMapper implements Mapper<UrlDTO, Url> {
     /**
      * To dto non user url dto.
      *
-     * @param url the url
+     * @param url
+     *         the url
+     *
      * @return the url dto
      */
     public UrlDTO toDtoNonUser(Url url) {
@@ -50,7 +54,9 @@ public class UrlMapper implements Mapper<UrlDTO, Url> {
     /**
      * To dt non usero list.
      *
-     * @param urls the urls
+     * @param urls
+     *         the urls
+     *
      * @return the list
      */
     public List<UrlDTO> toDtNonUsero(List<Url> urls) {
@@ -75,4 +81,5 @@ public class UrlMapper implements Mapper<UrlDTO, Url> {
     public List<Url> toEntity(List<UrlDTO> urlDTOS) {
         return urlDTOS.stream().map(this::toEntity).collect(Collectors.toList());
     }
+
 }

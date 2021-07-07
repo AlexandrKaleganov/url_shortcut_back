@@ -1,5 +1,8 @@
 package ru.akaleganov.urlshortcut.web.rest;
 
+import java.security.Principal;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -7,7 +10,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.akaleganov.urlshortcut.aspect.AspectLogger;
 import ru.akaleganov.urlshortcut.config.security.UserDetailServiceCustom;
 import ru.akaleganov.urlshortcut.config.security.jwt.JwtTokenUtil;
@@ -19,34 +26,44 @@ import ru.akaleganov.urlshortcut.service.dto.AuthTokenResponseDTO;
 import ru.akaleganov.urlshortcut.service.dto.UserDTO;
 import ru.akaleganov.urlshortcut.service.mapper.AuthTokenResponseMapper;
 
-import java.security.Principal;
-import java.util.List;
-
 /**
  * The type Auth controller.
  */
 @RestController
 @RequestMapping("/api")
 public class AuthController {
+
     private static final Logger LOGGER = Logger.getLogger(AspectLogger.class);
 
     private final AuthenticationManager authenticationManager;
 
     private final JwtTokenUtil jwtTokenUtil;
+
     private final UserDetailServiceCustom userDetailServiceCustom;
+
     private final AuthTokenResponseMapper authTokenResponseMapper;
+
     private final UserService userService;
 
     /**
      * Instantiates a new Auth controller.
      *
-     * @param authenticationManager   the authentication manager
-     * @param jwtTokenUtil            the jwt token util
-     * @param userDetailServiceCustom the user detail service custom
-     * @param authTokenResponseMapper the auth token response mapper
-     * @param userService             the user service
+     * @param authenticationManager
+     *         the authentication manager
+     * @param jwtTokenUtil
+     *         the jwt token util
+     * @param userDetailServiceCustom
+     *         the user detail service custom
+     * @param authTokenResponseMapper
+     *         the auth token response mapper
+     * @param userService
+     *         the user service
      */
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, UserDetailServiceCustom userDetailServiceCustom, AuthTokenResponseMapper authTokenResponseMapper, UserServiceImpl userService) {
+    public AuthController(AuthenticationManager authenticationManager,
+                          JwtTokenUtil jwtTokenUtil,
+                          UserDetailServiceCustom userDetailServiceCustom,
+                          AuthTokenResponseMapper authTokenResponseMapper,
+                          UserServiceImpl userService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userDetailServiceCustom = userDetailServiceCustom;
@@ -57,7 +74,9 @@ public class AuthController {
     /**
      * Register response entity.
      *
-     * @param loginUser the login user
+     * @param loginUser
+     *         the login user
+     *
      * @return the response entity
      */
     @PostMapping("/auth")
@@ -72,14 +91,17 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final UserDetails user = userDetailServiceCustom.loadUserByUsername(loginUser.getLogin());
         final String token = jwtTokenUtil.doGenerateToken(user);
-        return ResponseEntity.ok(this.authTokenResponseMapper.toDTO(token,
+        return ResponseEntity.ok(this.authTokenResponseMapper.toDTO(
+                token,
                 this.userDetailServiceCustom.loadUserByUsername(loginUser.getLogin())));
     }
 
     /**
      * Gets roles this user.
      *
-     * @param principal the principal
+     * @param principal
+     *         the principal
+     *
      * @return the roles this user
      */
     @GetMapping(value = "/auth/roles")
@@ -90,11 +112,14 @@ public class AuthController {
     /**
      * Регистрация пользователя по урлу
      *
-     * @param domain the domain
+     * @param domain
+     *         the domain
+     *
      * @return the response entity
      */
     @PostMapping("/auth/registry")
     public ResponseEntity<UserDTO> saveUser(@RequestBody String domain) {
         return ResponseEntity.ok(this.userService.createUsersByUrl(domain));
     }
+
 }

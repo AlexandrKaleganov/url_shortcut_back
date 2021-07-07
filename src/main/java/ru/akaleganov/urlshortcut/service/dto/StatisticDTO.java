@@ -6,14 +6,17 @@ import java.util.Objects;
  * дто для получения урла
  */
 public class StatisticDTO {
+
     /**
      * id
      */
     private Long id;
+
     /**
      * урл оригинальный
      */
     private UrlDTO urlDTO;
+
     /**
      * урл сокращённый
      */
@@ -31,7 +34,8 @@ public class StatisticDTO {
     /**
      * Sets id.
      *
-     * @param id the id
+     * @param id
+     *         the id
      */
     public void setId(Long id) {
         this.id = id;
@@ -49,7 +53,8 @@ public class StatisticDTO {
     /**
      * Sets url dto.
      *
-     * @param urlDTO the url dto
+     * @param urlDTO
+     *         the url dto
      */
     public void setUrlDTO(UrlDTO urlDTO) {
         this.urlDTO = urlDTO;
@@ -67,7 +72,8 @@ public class StatisticDTO {
     /**
      * Sets count.
      *
-     * @param count the count
+     * @param count
+     *         the count
      */
     public void setCount(Long count) {
         this.count = count;
@@ -98,4 +104,5 @@ public class StatisticDTO {
                 + ", count=" + count
                 + '}';
     }
+
 }

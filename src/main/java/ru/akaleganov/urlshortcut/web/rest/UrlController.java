@@ -1,15 +1,20 @@
 package ru.akaleganov.urlshortcut.web.rest;
 
+import java.security.Principal;
+
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.akaleganov.urlshortcut.service.UrlService;
 import ru.akaleganov.urlshortcut.service.dto.UrlDTO;
 import ru.akaleganov.urlshortcut.service.url.UrlFilter;
-
-import java.security.Principal;
 
 /**
  * The type Url controller.
@@ -18,14 +23,17 @@ import java.security.Principal;
 @RequestMapping("/api")
 @AllArgsConstructor
 public class UrlController {
-    private final UrlService urlService;
 
+    private final UrlService urlService;
 
     /**
      * добавить новый урл
      *
-     * @param url       the url
-     * @param principal the principal
+     * @param url
+     *         the url
+     * @param principal
+     *         the principal
+     *
      * @return получить назад урл
      */
     @PostMapping("/url")
@@ -36,8 +44,11 @@ public class UrlController {
     /**
      * добавить новый урл
      *
-     * @param pageable  the pageable
-     * @param urlFilter the url filter
+     * @param pageable
+     *         the pageable
+     * @param urlFilter
+     *         the url filter
+     *
      * @return получить назад урл
      */
     @GetMapping("/url")
@@ -48,7 +59,9 @@ public class UrlController {
     /**
      * добавить новый урл
      *
-     * @param shortCut the short cut
+     * @param shortCut
+     *         the short cut
+     *
      * @return получить назад урл
      */
     @GetMapping("/getUrlByShortCut/{shortCut}")

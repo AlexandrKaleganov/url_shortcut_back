@@ -12,10 +12,11 @@ public class Job4jUrlShortcutApplication {
     /**
      * The entry point of application.
      *
-     * @param args the input arguments
+     * @param args
+     *         the input arguments
      */
     public static void main(String[] args) {
-		SpringApplication.run(Job4jUrlShortcutApplication.class, args);
-	}
+        SpringApplication.run(Job4jUrlShortcutApplication.class, args);
+    }
 
 }

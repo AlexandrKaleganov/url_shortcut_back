@@ -1,5 +1,7 @@
 package ru.akaleganov.urlshortcut.service;
 
+import java.util.Collections;
+
 import lombok.AllArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.data.domain.Page;
@@ -15,27 +17,33 @@ import ru.akaleganov.urlshortcut.service.mapper.UserMapper;
 import ru.akaleganov.urlshortcut.service.user.PrepareUserServiceImpl;
 import ru.akaleganov.urlshortcut.service.util.RandomGenerator;
 
-import java.util.Collections;
-
 /**
  * The type User service.
  */
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final UserMapper userMapper;
-    private final RandomGenerator randomGenerator;
-    private final PrepareUserServiceImpl prepareUserServices;
 
+    private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
+
+    private final UserRepository userRepository;
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private final UserMapper userMapper;
+
+    private final RandomGenerator randomGenerator;
+
+    private final PrepareUserServiceImpl prepareUserServices;
 
     /**
      * получить всех пользаков c пагинацией
      *
-     * @param criteria the criteria
-     * @param pageable пагинация
+     * @param criteria
+     *         the criteria
+     * @param pageable
+     *         пагинация
+     *
      * @return {@link UserDTO}
      */
     public Page<UserDTO> findAll(UserFilter criteria, Pageable pageable) {
@@ -43,9 +51,11 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * добавление пользователя по url
-     * сгенерируем пользователя и при возврате засетаем туда пароль сгенерированный
-     * @param url ссылка на домен, каждый пользователь может дбавить только один домен
+     * добавление пользователя по url сгенерируем пользователя и при возврате засетаем туда пароль сгенерированный
+     *
+     * @param url
+     *         ссылка на домен, каждый пользователь может дбавить только один домен
+     *
      * @return {@link UserDTO}
      */
     @Transactional(rollbackFor = Exception.class)
@@ -58,6 +68,15 @@ public class UserServiceImpl implements UserService {
         userDTO = this.prepareUserServices.prepareUserToSave(userDTO);
         return userDTO.getErrorMessage() != null ? userDTO : this.save(userDTO).setPwd(generatePass);
     }
+
+    /**
+     * Save user dto.
+     *
+     * @param userDTO
+     *         the user dto
+     *
+     * @return the user dto
+     */
     public UserDTO save(UserDTO userDTO) {
         User user = this.userMapper.userDTOToUser(userDTO);
         LOGGER.info("сохраняем пользователя = ");
@@ -65,11 +84,12 @@ public class UserServiceImpl implements UserService {
         return userDTO.setId(this.userRepository.save(user).getId());
     }
 
-
     /**
      * создание пользователя через админку
      *
-     * @param userDTO {@link UserDTO}
+     * @param userDTO
+     *         {@link UserDTO}
+     *
      * @return {@link UserDTO}
      */
     @Transactional(rollbackFor = Exception.class)
@@ -81,7 +101,9 @@ public class UserServiceImpl implements UserService {
     /**
      * получить пользователя по логину
      *
-     * @param login логин пользователя
+     * @param login
+     *         логин пользователя
+     *
      * @return {@link UserDTO}
      */
     public UserDTO getUserByLogin(String login) {
@@ -91,7 +113,9 @@ public class UserServiceImpl implements UserService {
     /**
      * обновление данных текущего пользователя
      *
-     * @param userDTO {@link UserDTO}
+     * @param userDTO
+     *         {@link UserDTO}
+     *
      * @return {@link UserDTO}
      */
     public UserDTO updateUser(UserDTO userDTO) {

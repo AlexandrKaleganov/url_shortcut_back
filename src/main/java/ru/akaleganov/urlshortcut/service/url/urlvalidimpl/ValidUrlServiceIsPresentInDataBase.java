@@ -8,8 +8,7 @@ import ru.akaleganov.urlshortcut.service.dto.UrlDTO;
 import ru.akaleganov.urlshortcut.service.url.ValidUrlService;
 
 /**
- * Class UrlValidServiceIsValidDomain
- * реализация для проверки содержится ли урл в бд
+ * Class UrlValidServiceIsValidDomain реализация для проверки содержится ли урл в бд
  *
  * @author Kaleganov Alexander
  * @since 31 окт. 20
@@ -17,18 +16,23 @@ import ru.akaleganov.urlshortcut.service.url.ValidUrlService;
 @Service
 @AllArgsConstructor
 public class ValidUrlServiceIsPresentInDataBase implements ValidUrlService {
+
     private final UrlRepository urlRepository;
 
     /**
      * содержит ли урл в бд
      *
-     * @param url  {@link ru.akaleganov.urlshortcut.domain.Url}
-     * @param user {@link User}
+     * @param url
+     *         {@link ru.akaleganov.urlshortcut.domain.Url}
+     * @param user
+     *         {@link User}
+     *
      * @return {@link UrlDTO#getErrorMessage()} == null or {@link UrlDTO#getErrorMessage()} != null
      */
     public UrlDTO isValid(String url, User user) {
         return this.urlRepository.findAllByOrigin(url).size() > 0
-                ? new UrlDTO().setErrorMessage(
+               ? new UrlDTO().setErrorMessage(
                 "Url уже содержится в бд") : new UrlDTO();
     }
+
 }

@@ -1,13 +1,13 @@
 package ru.akaleganov.urlshortcut.config;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 /**
  * The type Jackson configuration.
@@ -18,7 +18,9 @@ public class JacksonConfiguration {
     /**
      * Object mapper object mapper.
      *
-     * @param builder the builder
+     * @param builder
+     *         the builder
+     *
      * @return the object mapper
      */
     @Bean

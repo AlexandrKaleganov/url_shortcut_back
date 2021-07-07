@@ -8,8 +8,7 @@ import ru.akaleganov.urlshortcut.service.dto.UrlDTO;
 import ru.akaleganov.urlshortcut.service.url.ValidUrlService;
 
 /**
- * Class UrlValidServiceIsValidDomain
- * реализация для проверки валидности домена
+ * Class UrlValidServiceIsValidDomain реализация для проверки валидности домена
  *
  * @author Kaleganov Alexander
  * @since 31 окт. 20
@@ -17,17 +16,23 @@ import ru.akaleganov.urlshortcut.service.url.ValidUrlService;
 @Service
 @AllArgsConstructor
 public class ValidUrlServiceByValidatorApache implements ValidUrlService {
+
     private final UrlValidator urlValidator;
 
     /**
      * проверка валидности урл
      *
-     * @param url  {@link ru.akaleganov.urlshortcut.domain.Url}
-     * @param user {@link User}
+     * @param url
+     *         {@link ru.akaleganov.urlshortcut.domain.Url}
+     * @param user
+     *         {@link User}
+     *
      * @return тру если валидна
      */
     public UrlDTO isValid(String url, User user) {
         return urlValidator.isValid(url) ? new UrlDTO()
-                : new UrlDTO().setErrorMessage("url не прошёл валидацию сервисом UrlValidator");
+                                         : new UrlDTO().setErrorMessage(
+                                                 "url не прошёл валидацию сервисом UrlValidator");
     }
+
 }

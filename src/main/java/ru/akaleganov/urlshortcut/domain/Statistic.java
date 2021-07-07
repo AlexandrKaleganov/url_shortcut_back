@@ -1,24 +1,30 @@
 package ru.akaleganov.urlshortcut.domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import java.util.Objects;
 
 /**
- * Class StatisticService
- * pojo сбор и хранение статистики
+ * Class StatisticService pojo сбор и хранение статистики
  *
  * @author Kaleganov Alexander
- * @see Statistic#count
- * @see Statistic#url
+ * @see Statistic#count Statistic#count
+ * @see Statistic#url Statistic#url
  * @since 04 нояб. 20
  */
 @Entity(name = "statistic")
 public class Statistic extends MappedSuperClass {
+
     /**
      * количество редиректов по данной ссылки
      */
     @Column(name = "count")
     private Long count = 0L;
+
     /**
      * ссылка на которую собирается статистика
      */
@@ -35,8 +41,10 @@ public class Statistic extends MappedSuperClass {
     /**
      * Instantiates a new Statistic.
      *
-     * @param url   the url
-     * @param count the count
+     * @param url
+     *         the url
+     * @param count
+     *         the count
      */
     public Statistic(Url url, Long count) {
         this.url = url;
@@ -55,7 +63,8 @@ public class Statistic extends MappedSuperClass {
     /**
      * Sets count.
      *
-     * @param origin the origin
+     * @param origin
+     *         the origin
      */
     public void setCount(Long origin) {
         this.count = origin;
@@ -73,7 +82,10 @@ public class Statistic extends MappedSuperClass {
     /**
      * Sets url.
      *
-     * @param url the url
+     * @param url
+     *         the url
+     *
+     * @return the url
      */
     public Statistic setUrl(Url url) {
         this.url = url;
@@ -105,4 +117,5 @@ public class Statistic extends MappedSuperClass {
                 + ", url=" + url
                 + '}';
     }
+
 }
